@@ -1,5 +1,19 @@
-body nav {
-  color: red;
+@charset "UTF-8";
+/* 
+	Fichier	:	style.scss
+
+	Auteurs	:	Hendrick Samuel
+				Khamana B. Benedict 
+
+	But 	:	Défini le style des différentes pages	
+*/
+/* Page d'acceuil : index.html */
+body {
+  background-color: #dfe7f2;
+  font-family: "Roboto", sans-serif;
+  font-weight: 500;
 }
 
-/*# sourceMappingURL=test.css.map */
+/* Page de création du programme : horaire.html */
+
+/*# sourceMappingURL=style.css.map */
