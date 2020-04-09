@@ -1,5 +1,35 @@
+/* 
+	Fichier	:	style.scss
+
+	Auteurs	:	Hendrick Samuel
+				Khamana B. Benedict 
+	
+	But 	:	Défini le style des différentes pages	
+*/
+
+
+/* Page d'acceuil : index.html */
+
+// Variables
+$police-principale: 'Roboto', sans-serif;
+$taille-police-principale: 500;
+$police-secondaire: 'Lato', sans-serif; 
+$couleur-accent: #bf0724;
+$couleur-menu: #505b6a;
+$couleur-focus: #bec3cc;
+$couleur-fond: #dfe7f2;
+
+
+
+
+// Design Page
 body{
-  nav {
-    color : red;
-  }
+	background-color: $couleur-fond;
+	font-family: $police-principale;
+	font-weight: $taille-police-principale;
 }
+
+
+/* Page de création du programme : horaire.html */
+
+
