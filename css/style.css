@@ -4,16 +4,97 @@
 
 	Auteurs	:	Hendrick Samuel
 				Khamana B. Benedict 
-
+	
 	But 	:	Défini le style des différentes pages	
 */
-/* Page d'acceuil : index.html */
 body {
   background-color: #dfe7f2;
-  font-family: "Roboto", sans-serif;
+  font-family: "Lato", sans-serif;
   font-weight: 500;
 }
 
-/* Page de création du programme : horaire.html */
+#menu {
+  background-color: #505b6a;
+}
 
+#logo {
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-position: center;
+  margin-left: 5px;
+  margin-right: 21px;
+}
+
+#logo img {
+  width: 70px;
+  height: 30px;
+}
+
+/*---------------------------------------------------------------------*/
+/* Page d'acceuil : index.php */
+/*---------------------------------------------------------------------*/
+.plages-horaire {
+  background-color: #dfe7f2;
+  min-height: 50vh;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  width: 100%;
+}
+
+#jour-plage-horaire {
+  height: 10vh;
+  background-color: #bec3cc;
+  width: 100%;
+}
+
+.zone-cours-dispo {
+  border: 1px solid #ae0000;
+}
+
+.zone-cours-choisi {
+  border: 1px solid #085937;
+}
+
+.carte-cours {
+  position: relative;
+  border: 1.5px solid #505b6a;
+  border-radius: .7em;
+  width: 100%;
+  min-width: 200px;
+  max-width: 300px;
+  min-height: 135px;
+  margin-top: 10px;
+  margin-bottom: 5px;
+  margin-left: 5px;
+}
+
+.carte-cours .nb-place-dispo {
+  position: absolute;
+  width: 35px;
+  top: -13px;
+  left: -11px;
+  z-index: 10;
+}
+
+.carte-cours .nb-place-dispo :nth-child(1) {
+  padding: 20%;
+  margin-top: 5px;
+}
+
+.carte-cours .info-cours {
+  position: static;
+}
+
+.carte-cours .info-cours .titre {
+  text-align: left;
+  padding-top: 15.5px;
+  margin-left: 5px;
+  font-size: 8px;
+}
+
+.carte-cours .info-cours .description {
+  margin-left: 5px;
+  margin-right: 5px;
+  font-size: 11px;
+}
 /*# sourceMappingURL=style.css.map */

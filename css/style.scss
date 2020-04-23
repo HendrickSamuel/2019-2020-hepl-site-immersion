@@ -7,26 +7,130 @@
 	But 	:	Défini le style des différentes pages	
 */
 
-
-/* Page d'acceuil : index.html */
-
+//#region Css général
 // Variables
-$police-principale: 'Roboto', sans-serif;
+$police-principale: 'Lato', sans-serif;  
 $taille-police-principale: 500;
-$police-secondaire: 'Lato', sans-serif; 
+$police-secondaire: 'Roboto', sans-serif;
 $couleur-accent: #bf0724;
 $couleur-menu: #505b6a;
 $couleur-focus: #bec3cc;
-$couleur-fond: #dfe7f2;
+$couleur-fond: #dfe7f2; 
 
-// Design Page
+// Design Page 
 body{
 	background-color: $couleur-fond;
 	font-family: $police-principale;
 	font-weight: $taille-police-principale;
 }
 
+#menu {
+	background-color: $couleur-menu;
+}
+// Logo de la nav bar
+#logo {
+	background-repeat: no-repeat;
+	background-size: contain;
+	background-position: center;
+	margin-left: 5px;
+	margin-right: 21px;
+	img {
+		width: 70px;
+		height: 30px;
+	}
+}
 
-/* Page de création du programme : horaire.html */
+//#endregion 
+/*---------------------------------------------------------------------*/
+//#region Css spécifique à la page index.php
+
+/* Page d'acceuil : index.php */
+
+//#endregion 
+/*---------------------------------------------------------------------*/
+//#region Css spécifique à la page creationHoraire.php
+
+// #region 2 types de sections sur la page(jour-plage-horaire 
+
+// Format d'un plage horaire 
+// coté gauche = cours choisi par l'utilisateur pour une plage horaire
+// coté droit = liste des cours disponibles pour une plage horaire
+.plages-horaire {
+	background-color: $couleur-fond;
+	min-height: 50vh;
+	padding-top: 10px;
+	padding-bottom: 10px;
+	width: 100%;
+}
+
+// section qui gére le choix d'un jour ou plusieurs jours d'immersion
+#jour-plage-horaire {
+	height: 10vh;
+	background-color: $couleur-focus;
+	width: 100%;
+}
+// #endregion
+
+// #region Simples grilles(bordures de couleur différentes) pour me réperer 
+.zone-cours-dispo {
+	border: 1px solid rgb(174,0,0);
+}
+
+.zone-cours-choisi {
+	border: 1px solid rgb(8,89,55);
+}
+//#endregion
+
+// #region Carte d'un cours disponible 
+// Format V1 d'une carte pour un cours disponible et non du cours choisi
+.carte-cours {
+	position: relative;
+	border: 1.5px solid $couleur-menu;
+	border-radius: .7em;
+	width: 100%;
+	min-width: 200px;
+	max-width: 300px;
+	min-height: 135px;
+	margin-top: 10px;
+	margin-bottom: 5px;
+	margin-left: 5px;
+		//Badge qui affiche le nombre de la place disponible pour un cours 
+		.nb-place-dispo{
+		position: absolute;
+		width: 35px;
+		top: -13px;
+		left: -11px;
+		z-index: 10;
+		:nth-child(1){
+			padding: 20%;
+			margin-top: 5px;
+			}
+		}
+		//Informations sur le cours dans la carte (titre, description, etc)
+		.info-cours{
+			position: static;
+				.titre{
+				text-align: left;
+				padding-top: 15.5px;
+				margin-left: 5px;
+				font-size: 8px;
+				}
+				.description{
+				margin-left: 5px;
+				margin-right: 5px;
+				font-size: 11px;
+				}
+		}
+}
+
+// #endregion
+
+//#endregion 
+
+
+
+
+
+
 
 
