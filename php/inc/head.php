@@ -11,5 +11,6 @@
     
     <!-- Librairies Javascript  -->
     <script src="/js/lib/jquery-3.4.1.js"></script>
+    <script src="/js/lib/popper.js"></script>
     <script src="/js/lib/bootstrap.min.js"></script>
 
