@@ -26,7 +26,7 @@
                     Professeurs
                 </a>
                 <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                    <a class="dropdown-item" href="/Backend/FormulaireAjoutProfesseur.php">Ajouter</a>
+                    <a class="dropdown-item" href="/Backend/GestionProfesseur.php">Ajouter</a>
                     <a class="dropdown-item" href="#">Modifier</a>
                     <a class="dropdown-item" href="#">Supprimer</a>
                 </div>
