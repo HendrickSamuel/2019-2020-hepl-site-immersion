@@ -1,4 +1,4 @@
-import {PROFESSEURS} from '/js/ajax/requetesajax';
+import {COURS} from '/js/ajax/requetesajax';
 import * as toast from '/js/toaster/toaster';
 import * as tables from '/js/tables/createTables';
 
@@ -6,28 +6,32 @@ document.addEventListener('DOMContentLoaded', function () {
 
     let selectedID = 0;
 
-    PROFESSEURS.select(initProfesseurs,toast.toastrerreur);
+    COURS.select(initCours,toast.toastrerreur);
 
-    function initProfesseurs(val)
+    function initCours(val)
     {
-        console.log(val);
         if(val.result == true)
         {
             if(val.action == "SELECT")
             {
                 for(let i = 0; i < val.returnval.length; i++ )
                 {
-                    createTeacherTr(val.returnval[i]);
+                    CreateGestionCourse(val.returnval[i]);
                 }
-                $("#TeacherTable").tablesorter({ sortList: [[0,0]] });
+                $("#CourseTable").tablesorter({ sortList: [[0,0]] });
+
             }
         }
+        else
+            toast.toastrerreur(val.message);
     }
 
-    function createTeacherTr(data){
-        let td;
+    function CreateGestionCourse(data)
+    {
         let action;
-        let tr = tables.createTeacherTr(data);
+        let td;
+
+        let tr = tables.createCourseTr(data);
 
         td = document.createElement("td")
         action = document.createElement("button");
@@ -52,27 +56,27 @@ document.addEventListener('DOMContentLoaded', function () {
         td.appendChild(action);
         tr.appendChild(td);
 
-        document.getElementById("tablebody").appendChild(tr);
+        document.getElementById('tablebody').appendChild(tr);
     }
 
-    //afficher modal
+    //affiche le modal de modification
     function AfficherModifier()
     {
         let par = this.closest("tr");
         selectedID = par.id;
-        //alert("modification de " + par.id);
         let input = document.getElementById('updateinputnom').value = document.getElementById(selectedID).children[1].innerHTML;
         $('#updateModal').modal('show');
     }
 
-    //action modifier
+    //click sur validation de mofification
     document.getElementById('updateForm').addEventListener('submit', function(e){
         e.preventDefault();
         let input = document.getElementById('updateinputnom');
-        PROFESSEURS.modifier(selectedID,input.value,callbackupdate,toast.toastrerreur);
+        COURS.modifier(selectedID,input.value,callbackupdate,toast.toastrerreur);
         $('#updateModal').modal('hide');
     })
 
+    // retour de la mise a jour
     function callbackupdate(data) {
         if(data.result == true)
         {
@@ -87,56 +91,52 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     }
 
-
+    //affiche le modal supression
     function AfficherSupprimer() {
         let par = this.closest("tr");
         selectedID = par.id;
+        //todo: mettre le nom et prevenir du nombre de cours qui vont etres supprimes ?
         $('#deleteModal').modal('show');
     }
 
+    //action de supression
     document.getElementById('deletebutton').addEventListener('click', function(){
-        //alert("delete");
         if(selectedID != 0)
         {
-            PROFESSEURS.supprimer(selectedID,'',callbackteacherdelete,toast.toastrerreur);
+            COURS.supprimer(selectedID,'',callbackdelete,toast.toastrerreur); //todo: mettre l'intitule pour double verification ?
             $('#deleteModal').modal('hide');
-            selectedID = 0;
         }
     });
 
-    function callbackteacherdelete(data)
+    function callbackdelete(data)
     {
-        if(data.result == true)
-        {
-            document.getElementById(data.returnval.first().ID).remove();
-            toast.toastrsucces("supression: " + data.returnval[0].Nom + " réussi");
-        }
-        else
-        {
-            toast.toastrerreur(data.message);
-        }
+        let item = document.getElementById(selectedID);
+        toast.toastrsucces(item.children[1].textContent + " a été supprimé");
+        item.remove();
+        selectedID = 0;
     }
 
+    //montrer le modal ajout
     document.getElementById('addButton').addEventListener('click',function () {
         $('#addModal').modal('show');
     })
 
+    //action ajout
     document.getElementById('addForm').addEventListener('submit', function(e){
         e.preventDefault();
         let input = document.getElementById('addinputnom');
-        actionprofs('',input.value,'INSERT',callbackteacheradd);
+        COURS.ajouter(input.value,callbackajout, toast.toastrerreur);
         $('#addModal').modal('hide');
         input.value = '';
-
     })
 
-    function callbackteacheradd(data)
+    function callbackajout(data)
     {
         console.log(data);
         if(data.result == true)
         {
-            createTeacherTr(data.returnval.first());
-            toast.toastrsucces("ajout: " + data.returnval.first().Nom + " réussi");
+            createCourseTr(data.returnval[0]);
+            toast.toastrsucces("ajout: " + data.returnval[0].Intitule + " réussi");
         }
         else
         {

@@ -5,7 +5,7 @@
     <?php
         require(__DIR__."/../php/inc/head.php");
     ?>
-    <script src="/js/Backend/tests.js"></script>
+    <script type="module" src="/js/Backend/DashBoard.js"></script>
     <link rel="stylesheet" href="/css/dashboard.css">
 
     <title>Inpres Immersion</title>

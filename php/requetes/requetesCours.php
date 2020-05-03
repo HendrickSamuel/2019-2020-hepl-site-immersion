@@ -2,7 +2,7 @@
 require_once("./../includes.php");
 header("Content-Type:application/json");
 
-$nom = $_POST['Nom'];
+$intitule = $_POST['Intitule'];
 $ID = $_POST['ID'];
 $action = $_POST['action'];
 
@@ -14,7 +14,7 @@ if (isset($action) && !empty($action)) {
     switch ($action) {
         case "SELECT":
             try {
-                $stm = $db->connection->query("SELECT * FROM profs");
+                $stm = $db->connection->query("SELECT * FROM cours");
                 $result["returnval"] = $stm->fetchAll(PDO::FETCH_ASSOC);
             } catch (PDOException $e) {
                 $result["result"] = false;
@@ -23,23 +23,31 @@ if (isset($action) && !empty($action)) {
             break;
 
         case "INSERT":
-            if (isset($nom) && !empty($nom)) {
+            if (isset($intitule) && !empty($intitule)) {
                 try {
-                    $sql = "INSERT INTO profs (Nom) VALUES (?)";
+                    $sql = "INSERT INTO cours (Intitule) VALUES (?);";
                     $stm = $db->connection->prepare($sql);
-                    $stm->execute([$nom]);
+                    $res = $stm->execute([$intitule]);
 
-                    $sql = "SELECT * FROM profs WHERE ID = (SELECT max(ID) FROM profs WHERE nom = ?)";
-                    $stm = $db->connection->prepare($sql);
-                    $stm->execute([$nom]);
-                    $result["returnval"] = $stm->fetchAll(PDO::FETCH_ASSOC);
+                    if(!$res)
+                    {
+                        $result["message"] = $stm->errorInfo();
+                        $result["result"] = false;
+                    }
+                    else
+                    {
+                        $sql = "SELECT * FROM cours WHERE ID = ?;";
+                        $stm = $db->connection->prepare($sql);
+                        $stm->execute([$db->connection->lastInsertId()]);
+                        $result["returnval"] = $stm->fetchAll(PDO::FETCH_ASSOC);
+                    }
                 } catch (PDOException $e) {
                     $result["result"] = false;
                     $result["message"] = $e->getMessage();
                 }
             } else {
                 $result["result"] = false;
-                $result["message"] = "missing name for insert";
+                $result["message"] = "missing course name for insert";
             }
 
             break;
@@ -47,14 +55,19 @@ if (isset($action) && !empty($action)) {
         case "DELETE":
             if (isset($ID) && !empty($ID)) {
                 try {
-                    $sql = "SELECT * FROM profs WHERE ID = ?";
+                    $sql = "SELECT * FROM cours WHERE ID = ?";
                     $stm = $db->connection->prepare($sql);
                     $stm->execute([$ID]);
                     $result["returnval"] = $stm->fetchAll(PDO::FETCH_ASSOC);
 
-                    $sql = "DELETE FROM profs WHERE ID = ?"; // verifier sur nom et ID pour etre sur ?
+                    $sql = "DELETE FROM cours WHERE ID = ?"; // verifier sur nom et ID pour etre sur ?
                     $stm = $db->connection->prepare($sql);
-                    $stm->execute([$ID]);
+                    $res = $stm->execute([$ID]);
+                    if(!$res)
+                    {
+                        $result["message"] = $stm->errorInfo();
+                        $result["result"] = false;
+                    }
                 } catch (PDOException $e) {
                     $result["result"] = false;
                     $result["message"] = $e->getMessage();
@@ -66,23 +79,28 @@ if (isset($action) && !empty($action)) {
             break;
 
         case "UPDATE":
-            if (isset($ID, $nom) && !empty($ID) && !empty($nom)) {
+            if (isset($ID, $intitule) && !empty($ID) && !empty($intitule)) {
                 try {
-                    $sql = "SELECT * FROM profs WHERE ID = ?";
+                    $sql = "SELECT * FROM cours WHERE ID = ?";
                     $stm = $db->connection->prepare($sql);
                     $stm->execute([$ID]);
                     $result["returnval"] = $stm->fetchAll(PDO::FETCH_ASSOC);
 
-                    $sql = "UPDATE profs set Nom=?  WHERE ID = ?";
+                    $sql = "UPDATE cours set Intitule=?  WHERE ID = ?";
                     $stm = $db->connection->prepare($sql);
-                    $stm->execute([$nom, $ID]);
+                    $res = $stm->execute([$intitule, $ID]);
+                    if(!$res)
+                    {
+                        $result["message"] = $stm->errorInfo();
+                        $result["result"] = false;
+                    }
                 } catch (PDOException $e) {
                     $result["result"] = false;
                     $result["message"] = $e->getMessage();
                 }
             } else {
                 $result["result"] = false;
-                $result["message"] = "missing id and name for update";
+                $result["message"] = "missing id and course name for update";
             }
             break;
         default:

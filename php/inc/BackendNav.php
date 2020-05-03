@@ -17,19 +17,14 @@
                     Cours
                 </a>
                 <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                    <a class="dropdown-item" href="#">Gestion des cours</a>
-                    <a class="dropdown-item" href="#">Gestion des immersions</a>
+                    <a class="dropdown-item" href="/Backend/GestionCours.php">Gestion des cours</a>
+                    <a class="dropdown-item" href="/Backend/GestionImmersion.php">Gestion des immersions</a>
                 </div>
             </li>
             <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    Professeurs
-                </a>
-                <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                    <a class="dropdown-item" href="/Backend/GestionProfesseur.php">Ajouter</a>
-                    <a class="dropdown-item" href="#">Modifier</a>
-                    <a class="dropdown-item" href="#">Supprimer</a>
-                </div>
+
+            <li class="nav-item">
+                <a class="nav-link" href="/Backend/GestionProfesseur.php">Professeurs</a>
             </li>
         </ul>
     </div>
