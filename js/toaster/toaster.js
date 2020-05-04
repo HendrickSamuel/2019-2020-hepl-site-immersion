@@ -25,3 +25,7 @@ export function toastrsucces(message) {
     toastr.success(message, 'Succes!', toastroption);
 }
 
+export  function toastrwarning(message) {
+    toastr.warning(message,"Warning!", toastroption);
+}
+

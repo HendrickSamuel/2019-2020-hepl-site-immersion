@@ -26,6 +26,16 @@
             <li class="nav-item">
                 <a class="nav-link" href="/Backend/GestionProfesseur.php">Professeurs</a>
             </li>
+
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Inscriptions
+                </a>
+                <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                    <a class="dropdown-item" href="/Backend/GestionInscritsGlobal.php">Liste des inscrits</a>
+                    <a class="dropdown-item" href="#">Programmes individuels</a>
+                </div>
+            </li>
         </ul>
     </div>
 </nav>

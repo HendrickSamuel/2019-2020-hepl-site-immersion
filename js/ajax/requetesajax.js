@@ -5,8 +5,8 @@ export var PROFESSEURS = {
         actionprofs('', '','SELECT',callBack,failCallBack);
     },
 
-    ajouter: function(id,nom, CallBack, failCallBack){
-        actionprofs(id,nom,"INSERT", CallBack, failCallBack);
+    ajouter: function(nom, CallBack, failCallBack){
+        actionprofs('',nom,"INSERT", CallBack, failCallBack);
     },
 
     modifier: function(id,nom,CallBack,failCallBack){
@@ -111,6 +111,32 @@ function actionimmersion(idCours, idProfesseur, date, plageHoraire,places, heure
             HeureFin: heureFin,
             Bloc: bloc,
             Type: type,
+            Action: action,
+        },
+        dataType: "json",
+        success: function (data) {
+            if(CallBack != null)
+                CallBack(data);
+        },
+        error: function () {
+            console.log("request failed");
+            if(failCallBack != null)
+                failCallBack("request failed");
+        }
+    })
+}
+
+export var INSCRITS = {
+    select: function (callBack,failCallBack) {
+        actioninscrits('SELECT',callBack,failCallBack);
+    }
+}
+
+function actioninscrits(action, CallBack, failCallBack)
+{
+    $.ajax("/php/requetes/requetesInscritsCours.php", {
+        type: "POST",
+        data: {
             Action: action,
         },
         dataType: "json",

@@ -33,7 +33,7 @@ export function CreateCoursDisponibleTr(champ)
     return tr;
 }
 
-export function createTeacherTr(champ){
+export function CreateTeacherTr(champ){
     let td;
     let tr = document.createElement("tr");
     tr.id = champ.ID;
@@ -49,7 +49,7 @@ export function createTeacherTr(champ){
     return tr;
 }
 
-export function createCourseTr(champ){
+export function CreateCourseTr(champ){
     let td;
     let action;
 

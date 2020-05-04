@@ -27,7 +27,7 @@ document.addEventListener('DOMContentLoaded', function () {
     function createTeacherTr(data){
         let td;
         let action;
-        let tr = tables.createTeacherTr(data);
+        let tr = tables.CreateTeacherTr(data);
 
         td = document.createElement("td")
         action = document.createElement("button");
@@ -108,7 +108,7 @@ document.addEventListener('DOMContentLoaded', function () {
     {
         if(data.result == true)
         {
-            document.getElementById(data.returnval.first().ID).remove();
+            document.getElementById(data.returnval[0].ID).remove();
             toast.toastrsucces("supression: " + data.returnval[0].Nom + " réussi");
         }
         else
@@ -124,7 +124,7 @@ document.addEventListener('DOMContentLoaded', function () {
     document.getElementById('addForm').addEventListener('submit', function(e){
         e.preventDefault();
         let input = document.getElementById('addinputnom');
-        actionprofs('',input.value,'INSERT',callbackteacheradd);
+        PROFESSEURS.ajouter(input.value,callbackteacheradd,toast.toastrerreur);
         $('#addModal').modal('hide');
         input.value = '';
 
@@ -135,8 +135,8 @@ document.addEventListener('DOMContentLoaded', function () {
         console.log(data);
         if(data.result == true)
         {
-            createTeacherTr(data.returnval.first());
-            toast.toastrsucces("ajout: " + data.returnval.first().Nom + " réussi");
+            createTeacherTr(data.returnval[0]);
+            toast.toastrsucces("ajout: " + data.returnval[0].Nom + " réussi");
         }
         else
         {

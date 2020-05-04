@@ -31,7 +31,7 @@ document.addEventListener('DOMContentLoaded', function () {
         let action;
         let td;
 
-        let tr = tables.createCourseTr(data);
+        let tr = tables.CreateCourseTr(data);
 
         td = document.createElement("td")
         action = document.createElement("button");
@@ -135,7 +135,7 @@ document.addEventListener('DOMContentLoaded', function () {
         console.log(data);
         if(data.result == true)
         {
-            createCourseTr(data.returnval[0]);
+            CreateGestionCourse(data.returnval[0]);
             toast.toastrsucces("ajout: " + data.returnval[0].Intitule + " réussi");
         }
         else
