@@ -1,0 +1,11 @@
+{
+  "datedebut": "01/02/2000",
+  "datefin": "05/02/2000",
+  "force": true,
+
+  "laboratoire": 10,
+  "theorie": 10,
+  "TFE": 2,
+
+  "plages": [8,10,12,15,18]
+}
