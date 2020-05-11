@@ -1,7 +1,8 @@
 export function CreateTr(champ,liste)
 {
     let tr = document.createElement("tr");
-    tr.id = champ.ID;
+    tr.id = champ.IDPrincipal;
+    console.log(champ);
 
     let td;
 

@@ -55,7 +55,7 @@ if (isset($action) && !empty($action)) {
         case "DELETE":
             if (isset($ID) && !empty($ID)) {
                 try {
-                    $sql = "SELECT * FROM cours WHERE ID = ?";
+                    $sql = "SELECT * , ID as 'IDPrincipal' FROM cours WHERE ID = ?";
                     $stm = $db->connection->prepare($sql);
                     $stm->execute([$ID]);
                     $result["returnval"] = $stm->fetchAll(PDO::FETCH_ASSOC);

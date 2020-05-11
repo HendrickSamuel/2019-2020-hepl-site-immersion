@@ -25,6 +25,18 @@ if (isset($action) && !empty($action)) {
             }
             break;
 
+        case "SELECTALL":
+            try {
+                $stm = $db->connection->query("SELECT * FROM inscritscours
+                                              INNER JOIN eleves ON (Etudiant = eleves.ID)
+                                              INNER JOIN coursimmersion ON (Horaire = coursimmersion.ID);");
+                $result["returnval"] = $stm->fetchAll(PDO::FETCH_ASSOC);
+            } catch (PDOException $e) {
+                $result["result"] = false;
+                $result["message"] = $e->getMessage();
+            }
+            break;
+
         /*case "INSERT":
             if (verificateur($vars,$insertParam,$result)) {
                 try {

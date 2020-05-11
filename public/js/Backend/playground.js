@@ -5,8 +5,10 @@ import * as validation from '../formvalidation/regexValidator';
 
 $(document).ready(function(){
    let plages = [];
+   let options = [];
    actionconfig('','GET',function (data) {
       plages = data['plages'];
+      options = data;
    }, toast.toastrerreur)
 
    $("#inputdebut").on("focusout",function () {
@@ -49,7 +51,6 @@ $(document).ready(function(){
       e.preventDefault();
       let test = document.getElementById("id_form").elements;
 
-      console.log(test);
       let data = {};
 
       for(let i = 0; i < test.length; i++)
@@ -58,12 +59,11 @@ $(document).ready(function(){
          else
             data[test[i].id] = test[i].value; // (test[i].id,test[i].value);
 
-      console.log(data);
+      data['places'] = options[data['types']];
 
-      //todo: determiner places
 
       IMMERSION.ajouter(data['inputvisible'] ,data['inputcours'],data['inputprofesseur'],data['inputjour'],
-          data['inputplage'],10,data['inputdebut'],data['inputfin'],data['inputbloc'],data['types'],data['inputgroupe'],data['inputlocal'],
+          data['inputplage'],data['places'],data['inputdebut'],data['inputfin'],data['inputbloc'],data['types'],data['inputgroupe'],data['inputlocal'],
           data['inputgestion'] ,data['inputindus'] ,data['inputreseaux'] ,console.log,console.log);
 
    })

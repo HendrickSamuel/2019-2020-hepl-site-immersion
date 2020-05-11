@@ -7,7 +7,7 @@ $insertParam = array("Visible"=>"can-empty","IDCours"=>"cant-empty",
         "IDProfesseur"=>"cant-empty","Date"=>"cant-empty","PlageHoraire"=>"cant-empty","Places"=>"cant-empty",
         "HeureDebut"=>"cant-empty","HeureFin"=>"cant-empty","Bloc"=>"cant-empty","Type"=>"cant-empty",
         "Groupe"=>"cant-empty","Local"=>"cant-empty","Gestion"=>"can-empty","Indus"=>"can-empty","Reseau"=>"can-empty");
-$deleteParam = array("IDCours","IDProfesseur","Date","PlageHoraire");
+$deleteParam = array("ID"=>"cant-empty");
 
 $vars = $_POST;
 $action = $_POST["Action"];
@@ -22,9 +22,9 @@ if (isset($action) && !empty($action)) {
     switch ($action) {
         case "SELECT":
             try {
-                $stm = $db->connection->query("SELECT * FROM coursimmersion
-                                                INNER JOIN profs ON (Professeur = profs.ID)
-                                                INNER JOIN cours ON (Cours = cours.ID);");
+                $stm = $db->connection->query("SELECT *,coursimmersion.ID as 'IDPrincipal' FROM coursimmersion
+                                              INNER JOIN profs ON (Professeur = profs.ID)
+                                              INNER JOIN cours ON (Cours = cours.ID);");
                 $result["returnval"] = $stm->fetchAll(PDO::FETCH_ASSOC);
             } catch (PDOException $e) {
                 $result["result"] = false;
@@ -72,9 +72,9 @@ if (isset($action) && !empty($action)) {
             $retour = verificateur($vars,$deleteParam);
             if ($retour['value'] == true) {
                 try {
-                    $sql = "DELETE FROM coursimmersion WHERE Cours = ? AND Professeur = ? AND Date = ? AND PlageHoraire = ?"; // verifier sur nom et ID pour etre sur ?
+                    $sql = "DELETE FROM coursimmersion WHERE ID = ?"; // verifier sur nom et ID pour etre sur ?
                     $stm = $db->connection->prepare($sql);
-                    $res = $stm->execute([$vars["IDCours"],$vars["IDProfesseur"],$vars["Date"],$vars["PlageHoraire"]]);
+                    $res = $stm->execute([$vars["ID"]]);
                     if(!$res)
                     {
                         $result["message"] = $stm->errorInfo();

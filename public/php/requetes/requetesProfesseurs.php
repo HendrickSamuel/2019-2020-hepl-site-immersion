@@ -14,7 +14,7 @@ if (isset($action) && !empty($action)) {
     switch ($action) {
         case "SELECT":
             try {
-                $stm = $db->connection->query("SELECT * FROM profs");
+                $stm = $db->connection->query("SELECT *, ID as 'IDPrincipal' FROM profs");
                 $result["returnval"] = $stm->fetchAll(PDO::FETCH_ASSOC);
             } catch (PDOException $e) {
                 $result["result"] = false;

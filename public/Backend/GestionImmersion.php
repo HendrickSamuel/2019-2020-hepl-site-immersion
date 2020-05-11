@@ -33,7 +33,7 @@
                 <th data-champ="Indus">Indus</th>
                 <th data-champ="bloc">bloc</th>
                 <th data-champ="type">type</th>
-                <th data-champ="visible">visible</th>
+                <th data-champ="none">visible</th>
                 <th data-champ="none" colspan="2">Action</th>
             </tr>
             </thead>
@@ -42,6 +42,26 @@
             </tbody>
         </table>
         <button class="btn btn-success centre m-2" id="addButton">Ajouter</button>
+    </div>
+</div>
+
+<div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLongTitle">Supression</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                etes vous sur de vouloir supprimmer ... ?
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Annuler</button>
+                <button type="button" class="btn btn-success" id="deletebutton">Valider</button>
+            </div>
+        </div>
     </div>
 </div>
 </body>

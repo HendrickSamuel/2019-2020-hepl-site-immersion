@@ -83,25 +83,27 @@ function actioncours(id, intitule, action, CallBack, failCallBack)
 }
 
 export var IMMERSION = {
+
     select: function (callBack,failCallBack) {
-        actionimmersion('','', '', '', '','', '', '', '', '' ,'', '','','','','SELECT',callBack,failCallBack);
+        actionimmersion('','','', '', '', '','', '', '', '', '' ,'', '','','','','SELECT',callBack,failCallBack);
     },
 
     ajouter: function(visible,idCours, idProfesseur, date, plageHoraire,places, heureDebut, heureFin, bloc, type, groupe,local ,gestion ,indus, reseau , CallBack, failCallBack){
-        actionimmersion(visible,idCours, idProfesseur, date, plageHoraire,places, heureDebut, heureFin, bloc, type, groupe,local ,gestion ,indus, reseau ,"INSERT", CallBack, failCallBack)
+        actionimmersion('',visible,idCours, idProfesseur, date, plageHoraire,places, heureDebut, heureFin, bloc, type, groupe,local ,gestion ,indus, reseau ,"INSERT", CallBack, failCallBack)
     },
 
-    supprimer: function (visible,idCours, idProfesseur, date, plageHoraire, CallBack, failCallBack) {
-        actionimmersion(0,idCours, idProfesseur, date, plageHoraire,0, 0, 0, 0, 0 ,'', '','','','',"DELETE", CallBack, failCallBack)
+    supprimer: function (ID, CallBack, failCallBack) {
+        actionimmersion(ID,0,'', '', '', '',0, 0, 0, 0, 0 ,'', '','','','',"DELETE", CallBack, failCallBack)
     }
 }
 
-function actionimmersion(visible,idCours, idProfesseur, date, plageHoraire,places, heureDebut, heureFin, bloc, type, groupe,local ,gestion ,indus, reseau ,action, CallBack, failCallBack)
+function actionimmersion(ID,visible,idCours, idProfesseur, date, plageHoraire,places, heureDebut, heureFin, bloc, type, groupe,local ,gestion ,indus, reseau ,action, CallBack, failCallBack)
 {
 
     $.ajax("/php/requetes/requetesImmersion.php", {
         type: "POST",
         data: {
+            ID: ID,
             Visible: visible,
             IDCours: idCours,
             IDProfesseur: idProfesseur,
@@ -133,6 +135,11 @@ function actionimmersion(visible,idCours, idProfesseur, date, plageHoraire,place
 }
 
 export var INSCRITS = {
+
+    selectAll: function (callBack,failCallBack) {
+        actioninscrits('SELECTALL',callBack,failCallBack);
+    },
+
     select: function (callBack,failCallBack) {
         actioninscrits('SELECT',callBack,failCallBack);
     }

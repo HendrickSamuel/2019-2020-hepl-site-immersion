@@ -23,7 +23,7 @@
 
         <label for="types">type de cours</label>
         <select id="types" name="typecours">
-            <option value="labo">laboratoire</option>
+            <option value="laboratoire">laboratoire</option>
             <option value="theorie">théorie</option>
             <option value="tfe">TFE</option>
         </select>
@@ -65,8 +65,6 @@
         <input type="checkbox" id="inputvisible" checked>
 
         <input type="submit">
-
-
     </form>
 </div>
 </body>
