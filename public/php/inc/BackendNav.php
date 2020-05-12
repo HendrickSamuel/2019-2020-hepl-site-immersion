@@ -34,6 +34,7 @@
                 <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
                     <a class="dropdown-item" href="/Backend/GestionInscritsGlobal.php">Liste des inscrits</a>
                     <a class="dropdown-item" href="#">Programmes individuels</a>
+                    <a class="dropdown-item" href="/Backend/GestionPDF.php">Attestations</a>
                 </div>
             </li>
         </ul>

@@ -1,5 +1,5 @@
 <?php
-require_once("./../includes.php");
+    require_once("./../includes.php");
 header("Content-Type:application/json");
 
 $nom = $_POST['Nom'];

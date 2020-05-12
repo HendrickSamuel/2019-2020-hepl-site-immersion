@@ -3,6 +3,7 @@
 <head>
     <script type="module" src="https://unpkg.com/ionicons@5.0.0/dist/ionicons/ionicons.esm.js"></script>
     <script type="module" src="/js/Backend/Immersion.js"></script>
+
     <?php
     require(__DIR__ . "/../php/inc/head.php");
     ?>
@@ -41,7 +42,7 @@
 
             </tbody>
         </table>
-        <button class="btn btn-success centre m-2" id="addButton">Ajouter</button>
+        <a class="btn btn-success centre m-2" id="addButton" href="playground.php">Ajouter</a>
     </div>
 </div>
 

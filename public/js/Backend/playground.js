@@ -1,15 +1,54 @@
 import {actionconfig} from "../ajax/requetesconfig";
 import * as toast from '../toaster/toaster';
-import {IMMERSION} from '../ajax/requetesajax';
+import {IMMERSION, COURS, PROFESSEURS} from '../ajax/requetesajax';
 import * as validation from '../formvalidation/regexValidator';
 
 $(document).ready(function(){
    let plages = [];
    let options = [];
+
    actionconfig('','GET',function (data) {
       plages = data['plages'];
       options = data;
    }, toast.toastrerreur)
+
+   COURS.select(InitCours, toast.toastrerreur);
+   function InitCours(data)
+   {
+      console.log(data);
+      if(data.result == true)
+      {
+         let select = document.querySelector("#inputcours")
+         for(let cours of data.returnval)
+         {
+            let option = document.createElement('option');
+            option.value = cours.ID;
+            option.innerHTML = cours.Intitule;
+            select.appendChild(option);
+         }
+      }
+      else
+         toast.toastrerreur(data["message"]);
+   }
+
+   PROFESSEURS.select(InitProfs, toast.toastrerreur);
+   function InitProfs(data)
+   {
+      console.log(data);
+      if(data.result == true)
+      {
+         let select = document.querySelector("#inputprofesseur")
+         for(let cours of data.returnval)
+         {
+            let option = document.createElement('option');
+            option.value = cours.ID;
+            option.innerHTML = cours.Nom;
+            select.appendChild(option);
+         }
+      }
+      else
+         toast.toastrerreur(data["message"]);
+   }
 
    $("#inputdebut").on("focusout",function () {
       let result = validation.verifregex(this.value,this.getAttribute('data-regex'));
@@ -49,6 +88,7 @@ $(document).ready(function(){
 
    $("#id_form").on("submit", function(e){
       e.preventDefault();
+      console.log('click');
       let test = document.getElementById("id_form").elements;
 
       let data = {};
@@ -61,11 +101,25 @@ $(document).ready(function(){
 
       data['places'] = options[data['types']];
 
-
       IMMERSION.ajouter(data['inputvisible'] ,data['inputcours'],data['inputprofesseur'],data['inputjour'],
           data['inputplage'],data['places'],data['inputdebut'],data['inputfin'],data['inputbloc'],data['types'],data['inputgroupe'],data['inputlocal'],
-          data['inputgestion'] ,data['inputindus'] ,data['inputreseaux'] ,console.log,console.log);
+          data['inputgestion'] ,data['inputindus'] ,data['inputreseaux'] ,EncodageOK,toast.toastrerreur);
 
    })
+
+   function EncodageOK(data)
+   {
+      if(data.result == true)
+      {
+         toast.toastrsucces("le cours a bien été ajouté, prochain cours en preparation");
+         window.setTimeout(function() {
+            location.href = "/Backend/playground.php";
+         }, 2000);
+      }
+      else
+      {
+         toast.toastrerreur(data.message);
+      }
+   }
 
 });
