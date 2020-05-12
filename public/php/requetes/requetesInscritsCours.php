@@ -28,8 +28,10 @@ if (isset($action) && !empty($action)) {
         case "SELECTALL":
             try {
                 $stm = $db->connection->query("SELECT * FROM inscritscours
-                                              INNER JOIN eleves ON (Etudiant = eleves.ID)
-                                              INNER JOIN coursimmersion ON (Horaire = coursimmersion.ID);");
+                                              INNER JOIN coursimmersion ON (Horaire = coursimmersion.ID)
+                                              INNER JOIN cours ON (Cours = cours.ID)
+                                              INNER JOIN profs On (Professeur = profs.ID)                                              
+                                              ORDER BY Etudiant,Date,PlageHoraire;");
                 $result["returnval"] = $stm->fetchAll(PDO::FETCH_ASSOC);
             } catch (PDOException $e) {
                 $result["result"] = false;

@@ -12,15 +12,12 @@
 </head>
 <body>
 <?php require(__DIR__ . "/../php/inc/BackendNav.php") ?>
-<div class="page">
+<div>
 
     <div class="pagecontent">
-        <div class="card col-md-10 centre">
-            <div class="card-body">
+        <div class="card col-md-11 centre">
+            <div class="card-body liste">
                 <h5 class="card-title">Liste des inscrits</h5>
-
-                <p id="a">a</p>
-                <hr/>
 
 
 
@@ -33,33 +30,10 @@
 <template id="templateTable">
     <table class="table" style="display: inline">
         <thead>
-        <th colspan="4"> Jour 1</th>
+        <th colspan="4" class="data-date"> Jour 1</th>
         </thead>
-        <tbody>
-        <tr>
-            <td>plages</td>
-            <td>cours</td>
-            <td>heures ?</td>
-            <td>prof</td>
-        </tr>
-        <tr>
-            <td>plage</td>
-            <td>cours</td>
-            <td>heures ?</td>
-            <td>prof</td>
-        </tr>
-        <tr>
-            <td>plage</td>
-            <td>cours</td>
-            <td>heures ?</td>
-            <td>prof</td>
-        </tr>
-        <tr>
-            <td>plage</td>
-            <td>cours</td>
-            <td>heures ?</td>
-            <td>prof</td>
-        </tr>
+        <tbody class="data-tbody">
+
         </tbody>
     </table>
 </template>

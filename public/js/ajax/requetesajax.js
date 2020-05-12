@@ -165,4 +165,34 @@ function actioninscrits(action, CallBack, failCallBack)
     })
 }
 
+export var ELEVES = {
+
+    select: function (callBack,failCallBack) {
+        actioneleves('','SELECT',callBack,failCallBack);
+    },
+}
+
+function actioneleves(id, action, CallBack, failCallBack)
+{
+
+    $.ajax("/php/requetes/requetesEleves.php", {
+        type: "POST",
+        data: {
+            ID: id,
+            action: action
+        },
+        dataType: "json",
+        success: function (data) {
+            if(CallBack != null)
+                CallBack(data);
+        },
+        error: function () {
+            console.log("request failed");
+            if(failCallBack != null)
+                failCallBack("request failed");
+        }
+    })
+}
+
+
 
