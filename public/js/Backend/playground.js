@@ -101,9 +101,7 @@ $(document).ready(function(){
 
       data['places'] = options[data['types']];
 
-      IMMERSION.ajouter(data['inputvisible'] ,data['inputcours'],data['inputprofesseur'],data['inputjour'],
-          data['inputplage'],data['places'],data['inputdebut'],data['inputfin'],data['inputbloc'],data['types'],data['inputgroupe'],data['inputlocal'],
-          data['inputgestion'] ,data['inputindus'] ,data['inputreseaux'] ,EncodageOK,toast.toastrerreur);
+      IMMERSION.ajouter(data ,EncodageOK,toast.toastrerreur);
 
    })
 

@@ -37,14 +37,11 @@ if (isset($action) && !empty($action)) {
         case "INSERT":
             if (isset($nom) && !empty($nom)) {
                 try {
-                    $sql = "INSERT INTO profs (Nom) VALUES (?)";
+                    $sql = "INSERT INTO Eleves (Nom) VALUES (?)";
                     $stm = $db->connection->prepare($sql);
                     $stm->execute([$nom]);
 
-                    $sql = "SELECT * FROM profs WHERE ID = (SELECT max(ID) FROM profs WHERE nom = ?)";
-                    $stm = $db->connection->prepare($sql);
-                    $stm->execute([$nom]);
-                    $result["returnval"] = $stm->fetchAll(PDO::FETCH_ASSOC);
+
                 } catch (PDOException $e) {
                     $result["result"] = false;
                     $result["message"] = $e->getMessage();
@@ -59,14 +56,21 @@ if (isset($action) && !empty($action)) {
         case "DELETE":
             if (isset($ID) && !empty($ID)) {
                 try {
-                    $sql = "SELECT * FROM profs WHERE ID = ?";
+                    $sql = "SELECT * FROM Eleves WHERE ID = ?";
                     $stm = $db->connection->prepare($sql);
                     $stm->execute([$ID]);
                     $result["returnval"] = $stm->fetchAll(PDO::FETCH_ASSOC);
 
-                    $sql = "DELETE FROM profs WHERE ID = ?"; // verifier sur nom et ID pour etre sur ?
+                    $sql = "DELETE FROM Eleves WHERE ID = ?"; // verifier sur nom et ID pour etre sur ?
                     $stm = $db->connection->prepare($sql);
-                    $stm->execute([$ID]);
+                    $res = $stm->execute([$ID]);
+
+                    $res = true;
+                    if(!$res)
+                    {
+                        $result["message"] = $stm->errorInfo();
+                        $result["result"] = false;
+                    }
                 } catch (PDOException $e) {
                     $result["result"] = false;
                     $result["message"] = $e->getMessage();

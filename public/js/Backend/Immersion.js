@@ -4,6 +4,8 @@ import * as tables from '../tables/createTables';
 
 document.addEventListener('DOMContentLoaded', function () {
     let selectedID= -1;
+    let toID = -1;
+    let count = 0;
 
     let champs = [];
 
@@ -15,14 +17,11 @@ document.addEventListener('DOMContentLoaded', function () {
             champs.push(valeur);
     }
 
-    //IMMERSION.ajouter(2,1,'2000/01/01',1,10,'08h30','10h30',1,'labo',callback,console.log);
-
     IMMERSION.select(callback,console.log);
 
     function callback(data) {
         if(data.result == true)
         {
-            console.log(data);
             for (let i = 0; i < data.returnval.length; i++)
                 CreateGestionImmers(data.returnval[i]);
         }
@@ -34,20 +33,15 @@ document.addEventListener('DOMContentLoaded', function () {
 
     function CreateGestionImmers(data)
     {
+        console.log(data);
         let td;
         let action;
         let tr = tables.CreateTr(data,champs);
 
-        td = document.createElement("td");
-        action = document.createElement("input");
-        action.type = "checkbox";
-        action.addEventListener('change', ModificationVisibilité)
-        if(data.visible == true)
-            action.checked = true;
-        else
-            action.checked = false;
-        // add event listener
-        td.appendChild(action);
+        td = document.createElement("td"); // continuer
+
+        let vis = CreateSwitch(data.IDPrincipal, data.visible);
+        td.appendChild(vis);
         tr.appendChild(td);
 
         td = document.createElement("td")
@@ -74,6 +68,43 @@ document.addEventListener('DOMContentLoaded', function () {
         tr.appendChild(td);
 
         document.getElementById("tablebody").appendChild(tr);
+    }
+
+    function CreateSwitch(id, visible)
+    {
+        let div = document.createElement("div");
+        div.classList.add('onoffswitch');
+
+        let input = document.createElement("input");
+        input.type = "checkbox";
+        input.name = "onoffswitch"
+        input.id = 'switch'+id;
+
+        input.classList.add('onoffswitch-checkbox');
+        input.addEventListener('change', ModificationVisibilité)
+
+        if(visible == true)
+            input.checked = true;
+        else
+            input.checked = false;
+
+        div.appendChild(input);
+
+        let label = document.createElement('label');
+        label.classList.add('onoffswitch-label');
+        label.htmlFor = 'switch'+id;
+
+        let spanon = document.createElement('span');
+        spanon.classList.add('onoffswitch-inner');
+        let spanoff = document.createElement('span');
+        spanoff.classList.add('onoffswitch-switch');
+
+        label.appendChild(spanon);
+        label.appendChild(spanoff);
+
+        div.appendChild(label);
+
+        return div;
     }
     
     function ModificationVisibilité() {
@@ -118,7 +149,85 @@ document.addEventListener('DOMContentLoaded', function () {
 
     function AfficherRediriger()
     {
-
+        let id = this.closest('tr').id;
+        selectedID = id;
+        IMMERSION.selectSimilaires(id, loadRediriger, toast.toastrerreur);
     }
+    
+    function loadRediriger(data) {
+        if(data.result == true)
+        {
+            if(data.returnval.length > 0) {
+                $('#redirectModal').modal('show');
+                console.log(data);
+                let modal = document.querySelector('#redirectModal');
+                let input = modal.querySelector('#inputCours');
+                $(input).empty();
+
+                for (let dat of data.returnval) {
+                    let option = document.createElement('option');
+                    option.value = dat.IDPrincipal;
+                    option.innerHTML = dat.Nom + " " + dat.Intitule;
+                    input.appendChild(option);
+                }
+            }
+            else
+            {
+                $('#redirectModal').modal('hide');
+                toast.toastrwarning('Pas de cours correspondant aux criteres de redirection');
+            }
+        }
+        else
+        {
+            $('#redirectModal').modal('hide');
+            toast.toastrerreur(data.message);
+        }
+    }
+
+    document.getElementById('redirectForm').addEventListener('submit', Rediriger);
+    function Rediriger(e)
+    {
+        console.log('click');
+        e.preventDefault();
+        let id = selectedID;
+        let to = document.querySelector('#inputCours').value;
+        toID = to;
+        $('#redirectModal').modal('hide');
+        IMMERSION.move(selectedID, to, CallBackRedirection, toast.toastrerreur);
+    }
+
+    function CallBackRedirection(data) {
+        console.log('-- REDIRECTION --');
+        console.log(data);
+        if(data.result == true)
+        {
+            count = data.returnval.length;
+            let liste = document.querySelector('#afterRedirectUL');
+            $(liste).empty();
+            for(let dat of data.returnval)
+            {
+                let ul = document.createElement('ul');
+                ul.innerHTML = dat.Nom + " " + dat.Prenom;
+                liste.appendChild(ul);
+            }
+            $('#afterRedirectModal').modal('show');
+
+            let indexdispo = champs.findIndex((element) => element === 'PlacesDisponibles');
+            let compte;
+
+            let ancien = document.getElementById(selectedID);
+            compte = ancien.children[indexdispo].innerHTML;
+            ancien.children[indexdispo].innerHTML = parseInt(compte) + parseInt(count);
+
+            let nouveau = document.getElementById(toID);
+            compte = nouveau.children[indexdispo].innerHTML;
+            nouveau.children[indexdispo].innerHTML = parseInt(compte) - parseInt(count);
+
+            selectedID = -1;
+            toID = -1;
+            count = 0;
+        }
+    }
+
 
 });

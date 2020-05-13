@@ -1,24 +1,16 @@
 import {INSCRITS} from '../ajax/requetesajax';
 import * as toast from '../toaster/toaster';
-import {Eleve} from "./VueEleve";
+//import {Eleve} from "./VueEleve";
+import * as test from './ClassEleve';
 import * as tables from '../tables/createTables';
 
 document.addEventListener('DOMContentLoaded', function () {
     INSCRITS.selectAll(callback,console.log);
 
-    let eleves = [];
+    let eleves = {};
     let tableau = {};
 
     initAlphabet();
-
-    /*
-    let jour = document.querySelector("#templateTable");
-
-    let clone = document.importNode(template.content, true);
-    let jourclone = document.importNode(jour.content, true);
-
-    clone.querySelector(".card-content").appendChild(jourclone);
-    document.querySelector("#a").appendChild(clone);*/
 
     function callback(data) {
         if(data.result == true)
@@ -38,14 +30,14 @@ document.addEventListener('DOMContentLoaded', function () {
                 }
                 tableau[e.Etudiant][e.Date].push(e);
             }
-            console.log(tableau);
 
             for(let [key, eleve] of Object.entries(tableau))
             {
-                let el = new Eleve(key,eleve);
-                //el.Render();
-                eleves.push(el);
-                console.log(el);
+                let el = new test.Eleve(key, eleve, deleteEleve);
+                if(!('eleve'+key in eleves))
+                    eleves['eleve'+key] = el;
+                else
+                    alert('doublon eleve');
             }
         }
         else
@@ -53,6 +45,12 @@ document.addEventListener('DOMContentLoaded', function () {
             toast.toastrerreur(data.message[2]);
         }
 
+    }
+    
+    function deleteEleve() {
+        let obj = this.closest('.card');
+        let eleve = eleves[obj.id];
+        eleve.Delete();
     }
 
     function initAlphabet()

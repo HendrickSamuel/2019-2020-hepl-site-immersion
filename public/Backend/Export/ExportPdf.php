@@ -5,39 +5,42 @@ require_once("./../../../mpdf-6.1.3/mpdf.php");
 $res = [];
 
 $dateparam = $_GET['date'];
+$etudiantparam = $_GET['etudiant'];
 
 try {
     $db = new DataBase();
-    $sql = "";
-        if(isset($dateparam) && !empty($dateparam))
-        {
-            $sql = "SELECT Nom, Prenom, DATE_FORMAT(Date, '%W %d %b %Y', 'fr_FR') as 'Date'
-                                FROM inscritscours
-                                INNER JOIN eleves ON (Etudiant = eleves.ID)
-                                INNER JOIN coursimmersion ON (Horaire = coursimmersion.ID)
-                                WHERE Date = STR_TO_DATE(?,'%d/%m/%Y')
-                                GROUP BY Etudiant, Date
-                                ORDER BY Nom, Prenom;";
-        }
+    $condition = "";
+    if(isset($dateparam) && !empty($dateparam))
+    {
+        if(isset($etudiantparam) && !empty($etudiantparam))
+            $condition = "WHERE Etudiant = $etudiantparam AND Date = STR_TO_DATE('$dateparam','%d/%m/%Y')";
         else
-        {
-            $sql = "SELECT Nom, Prenom, DATE_FORMAT(Date, '%W %d %b %Y', 'fr_FR') as 'Date'
-                                FROM inscritscours
-                                INNER JOIN eleves ON (Etudiant = eleves.ID)
-                                INNER JOIN coursimmersion ON (Horaire = coursimmersion.ID)
-                                GROUP BY Etudiant, Date
-                                ORDER BY Date DESC, Nom, Prenom;";
-        }
+            $condition = "WHERE Date = STR_TO_DATE('$dateparam','%d/%m/%Y')";
+    }
+    else
+    {
+        if(isset($etudiantparam) && !empty($etudiantparam))
+            $condition = "WHERE Etudiant = $etudiantparam";
+        else
+            $condition = "";
+    }
+
+    $sql = "SELECT Nom, Prenom, DATE_FORMAT(Date, '%W %d %b %Y', 'fr_FR') as 'Date'
+                        FROM inscritscours
+                        INNER JOIN eleves ON (Etudiant = eleves.ID)
+                        INNER JOIN coursimmersion ON (Horaire = coursimmersion.ID)
+                        ".$condition."
+                        GROUP BY Etudiant, Date
+                        ORDER BY Date DESC, Nom, Prenom;";
 
         $stm = $db->connection->prepare($sql);
-        $stm->execute(array($dateparam));
+        $stm->execute(array(':etudiant' => $etudiantparam, ':date' => $dateparam));
         $res = $stm->fetchAll(PDO::FETCH_ASSOC);
 } catch (PDOException $e) {
     die($e->getMessage());
 }
 
 $mpdf = new Mpdf();
-
 ob_start();
 $i = 0;
         foreach ($res as $val)

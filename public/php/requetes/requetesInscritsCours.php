@@ -27,7 +27,7 @@ if (isset($action) && !empty($action)) {
 
         case "SELECTALL":
             try {
-                $stm = $db->connection->query("SELECT * FROM inscritscours
+                $stm = $db->connection->query("SELECT *, DATE_FORMAT(Date, '%d/%m/%Y', 'fr_FR') as 'Date' FROM inscritscours
                                               INNER JOIN coursimmersion ON (Horaire = coursimmersion.ID)
                                               INNER JOIN cours ON (Cours = cours.ID)
                                               INNER JOIN profs On (Professeur = profs.ID)                                              
@@ -38,59 +38,6 @@ if (isset($action) && !empty($action)) {
                 $result["message"] = $e->getMessage();
             }
             break;
-
-        /*case "INSERT":
-            if (verificateur($vars,$insertParam,$result)) {
-                try {
-                    $sql = "INSERT INTO coursimmersion 
-                            (Cours,Professeur,Date,PlageHoraire,PlacesDisponibles,PlacesTotal,HeureDebut,HeureFin,bloc,type) 
-                            VALUES (?,?,?,?,?,?,?,?,?,?)";
-                    $stm = $db->connection->prepare($sql);
-                    $res = $stm->execute([$vars["IDCours"],$vars["IDProfesseur"],$vars["Date"],$vars["PlageHoraire"],
-                        $vars["Places"],$vars["Places"],$vars["HeureDebut"],$vars["HeureFin"],$vars["Bloc"],$vars["Type"]]);
-
-                    if(!$res)
-                    {
-                        $result["message"] = $stm->errorInfo();
-                        $result["result"] = false;
-                    }
-                    else
-                    {
-                        $result["id"] = $db->connection->lastInsertId();
-                        /*$sql = "SELECT * FROM cours WHERE ID = (SELECT max(ID) FROM cours WHERE intitule = ?)";
-                        $stm = $db->connection->prepare($sql);
-                        $stm->execute([$intitule]);
-                        $result["returnval"] = $stm->fetchAll(PDO::FETCH_ASSOC);
-                    }
-
-                } catch (PDOException $e) {
-                    $result["result"] = false;
-                    $result["message"] = $e->getMessage();
-                }
-            } else {
-                $result["result"] = false;
-            }
-
-            break;
-        case "DELETE":
-            if (verificateur($vars,$deleteParam,$result)) {
-                try {
-                    $sql = "DELETE FROM coursimmersion WHERE Cours = ? AND Professeur = ? AND Date = ? AND PlageHoraire = ?"; // verifier sur nom et ID pour etre sur ?
-                    $stm = $db->connection->prepare($sql);
-                    $res = $stm->execute([$vars["IDCours"],$vars["IDProfesseur"],$vars["Date"],$vars["PlageHoraire"]]);
-                    if(!$res)
-                    {
-                        $result["message"] = $stm->errorInfo();
-                        $result["result"] = false;
-                    }
-                } catch (PDOException $e) {
-                    $result["result"] = false;
-                    $result["message"] = $e->getMessage();
-                }
-            } else {
-                $result["result"] = false;
-            }
-            break;*/
         default:
             $result["result"] = false;
             $result["message"] = "wrong action";

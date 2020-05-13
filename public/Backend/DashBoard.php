@@ -40,27 +40,7 @@
         </div>
 
         <div class="pagecontent">
-            <div class="card col-md-10 centre">
-                <div class="card-body">
-                    <h5 class="card-title">OverView</h5>
-                    <table id="horaires">
-                        <thead>
-                            <tr id="entete">
-                                <th data-champ="Intitule">Cours</th>
-                                <th data-champ="Nom">Professeur</th>
-                                <th data-champ="Date">Date</th>
-                                <th data-champ="HeureDebut">HeureDebut</th>
-                                <th data-champ="HeureFin">HeureFin</th>
-                                <th data-champ="PlacesDisponibles">Nombre Disponibles</th>
-                                <th data-champ="PlacesTotal">Places totales</th>
-                            </tr>
-                        </thead>
-                        <tbody id="horairesCorps">
 
-                        </tbody>
-                    </table>
-                </div>
-            </div>
         </div>
     </div>
 </body>

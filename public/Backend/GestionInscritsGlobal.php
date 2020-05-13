@@ -28,14 +28,17 @@
 </body>
 
 <template id="templateTable">
-    <table class="table" style="display: inline">
-        <thead>
-        <th colspan="4" class="data-date"> Jour 1</th>
-        </thead>
-        <tbody class="data-tbody">
+        <table class="table" style="display: inline">
+            <thead>
+            <th colspan="4" class="data-date"> Jour 1</th>
+            </thead>
+            <tbody class="data-tbody">
 
-        </tbody>
-    </table>
+            </tbody>
+            <tfoot>
+                <td colspan = '100%'><a target="_blank" href="" class="btn btn-outline-primary data-attestationjour">attestation de la journée</a> </td>
+            </tfoot>
+        </table>
 </template>
 
 <template id="templateEleve">
@@ -46,8 +49,8 @@
 
             </div>
             <div class="card-footer">
-                <a href="#" class="card-link">Supprimer</a>
-                <a href="#" class="card-link">QQCH</a>
+                <button class="card-link btn btn-danger data-delete" >Supprimer</button>
+                <a target="_blank" class="btn btn-outline-primary data-attestationEtudiant" href="">Attestation de l'etudiant</a>
             </div>
         </div>
     </div>
