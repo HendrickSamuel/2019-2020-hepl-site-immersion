@@ -1,3 +1,8 @@
+<?php
+    require_once(__DIR__."/../fichiers/UserLog.php");
+?>
+
+<link href="/css/Backend.css">
 <nav class="navbar py-2 navbar-light navbar-expand-md">
     <!-- logo -->
     <a href="#" class="navbar-brand text-uppercase text-vert font-italic">
@@ -33,10 +38,16 @@
                 </a>
                 <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
                     <a class="dropdown-item" href="/Backend/GestionInscritsGlobal.php">Liste des inscrits</a>
-                    <a class="dropdown-item" href="#">Programmes individuels</a>
+                    <a class="dropdown-item" href="/Backend/Export/ExportCSV.php">Telechargement du CSV</a>
                     <a class="dropdown-item" href="/Backend/GestionPDF.php">Attestations</a>
                 </div>
             </li>
+
+            <li class="nav-item">
+                <a class="nav-link" href="/php/fichiers/UserLogout.php">Logout</a>
+            </li>
+
         </ul>
     </div>
 </nav>
+

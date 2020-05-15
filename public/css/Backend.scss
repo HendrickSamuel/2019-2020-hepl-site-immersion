@@ -14,3 +14,27 @@ form{
     float: right;
   }
 }
+
+.content{
+  table{
+    width: 100%;
+    thead{
+      border-bottom: 2px solid black;
+      tr{
+        th{
+          padding-left: 10px;
+        }
+      }
+    }
+
+    tbody{
+      tr{
+        border-bottom: 1px solid black;
+        td{
+          font-size: 0.8em;
+          padding-left: 10px;
+        }
+      }
+    }
+  }
+}

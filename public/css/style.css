@@ -11,7 +11,7 @@
 body {
   background-color: #dfe7f2;
   font-family: "Roboto", sans-serif;
-  font-weight: 500;
+  font-weight: 1.2em;
 }
 
 /* Page de création du programme : horaire.html */
@@ -21,6 +21,20 @@ body {
 
 .centre {
   margin: 0 auto;
+}
+
+.btn-perso {
+  background-color: #bf0724;
+  color: #dfe7f2;
+}
+.btn-perso:hover {
+  filter: brightness(120%);
+}
+
+nav {
+  background-color: #505b6a;
+  color: black;
+  font-size: 1.2em;
 }
 
 /*# sourceMappingURL=style.css.map */

@@ -6,7 +6,7 @@ header("Content-Type:application/json");
 $insertParam = array("inputvisible"=>"can-empty","inputcours"=>"cant-empty",
         "inputprofesseur"=>"cant-empty","inputjour"=>"cant-empty","inputplage"=>"cant-empty","places"=>"cant-empty",
         "inputdebut"=>"cant-empty","inputfin"=>"cant-empty","inputbloc"=>"cant-empty","types"=>"cant-empty",
-        "inputgroupe"=>"cant-empty","inputlocal"=>"cant-empty","inputgestion"=>"can-empty","inputindus"=>"can-empty","inputreseaux"=>"can-empty");
+        "inputgroupe"=>"cant-empty","inputlocal"=>"cant-empty","inputgestion"=>"can-empty","inputindus"=>"can-empty","inputreseaux"=>"can-empty", "places"=>"cant-empty");
 $deleteParam = array("ID"=>"cant-empty");
 $getPlacesParam = array("ID"=>"cant-empty");
 $moveParam = array("ID"=>"cant-empty", "IDTo"=>"cant-empty");
@@ -62,7 +62,7 @@ if (isset($action) && !empty($action)) {
                             VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
                     $stm = $db->connection->prepare($sql);
                     $res = $stm->execute([$vars["inputvisible"],$vars["inputcours"],$vars["inputprofesseur"],$vars["inputjour"],$vars["inputplage"],
-                        $vars["inputplage"],$vars["inputplage"],$vars["inputdebut"],$vars["inputfin"],$vars["inputbloc"],$vars["types"],$vars["inputgroupe"],
+                        $vars["places"],$vars["places"],$vars["inputdebut"],$vars["inputfin"],$vars["inputbloc"],$vars["types"],$vars["inputgroupe"],
                         $vars["inputlocal"],$vars["inputgestion"],$vars["inputindus"],$vars["inputreseaux"]]);
 
                     if(!$res)

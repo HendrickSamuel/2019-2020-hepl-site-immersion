@@ -36,7 +36,6 @@
                     </label>
                 </div>
             </div>
-
         </div>
 
         <div class="pagecontent">

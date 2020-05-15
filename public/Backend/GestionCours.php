@@ -13,26 +13,23 @@
 <body>
 <?php require(__DIR__ . "/../php/inc/BackendNav.php") ?>
 <div id="test"></div>
-<div class="page">
+<div class="corps">
+    <div class="card col-md-10 centre">
+        <div class="card-body">
+            <h3 class="card-title">Liste des cours</h3>
+            <table class="table table-responsive-sm" id="CourseTable">
+                <thead class="thead-light">
+                <tr id="entete">
+                    <th data-champ="ID">ID</th>
+                    <th data-champ="Intitule">Cours</th>
+                    <th data-champ="none" colspan="2">Action</th>
+                </tr>
+                </thead>
+                <tbody id="tablebody">
 
-    <div class="pagecontent">
-        <div class="card col-md-10 centre">
-            <div class="card-body">
-                <h5 class="card-title">Liste des cours</h5>
-                <table class="tg" id="CourseTable">
-                    <thead>
-                    <tr id="entete">
-                        <th data-champ="ID">ID</th>
-                        <th data-champ="Intitule">Cours</th>
-                        <th data-champ="none" colspan="2">Action</th>
-                    </tr>
-                    </thead>
-                    <tbody id="tablebody">
-
-                    </tbody>
-                </table>
-                <button class="btn btn-success centre m-2" id="addButton">Ajouter</button>
-            </div>
+                </tbody>
+            </table>
+            <button class="btn btn-success centre m-2" id="addButton">Ajouter</button>
         </div>
     </div>
 </div>

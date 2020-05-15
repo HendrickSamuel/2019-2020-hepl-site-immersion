@@ -12,15 +12,12 @@
 </head>
 <body>
 <?php require(__DIR__ . "/../php/inc/BackendNav.php") ?>
-<div id="test"></div>
-<div class="page">
-
-    <div class="pagecontent">
+<div class="content">
         <div class="card col-md-10 centre">
             <div class="card-body">
-                <h5 class="card-title">Liste des professeurs</h5>
-                <table class="tg" id="TeacherTable">
-                    <thead>
+                <h3 class="card-title">Liste des professeurs</h3>
+                <table class="table table-responsive-sm" id="TeacherTable">
+                    <thead class="thead-light">
                         <tr id="entete">
                             <th data-champ="ID">ID</th>
                             <th data-champ="Nom">Professeur</th>
@@ -34,7 +31,6 @@
                 <button class="btn btn-success centre m-2" id="addButton">Ajouter</button>
             </div>
         </div>
-    </div>
 </div>
 
 <!-- Modal -->

@@ -1,8 +1,14 @@
 import {COURS} from '../ajax/requetesajax';
 import * as toast from '../toaster/toaster';
 import * as tables from '../tables/createTables';
+import {Spinner} from '../spinner.js'
 
 document.addEventListener('DOMContentLoaded', function () {
+    let spin = new Spinner();
+
+    let selectedID = 0;
+
+    /* ------------------ recupération des colonnes à remplir -------------------- */
     let champs = [];
     let entete = document.getElementById('entete');
     for(let i = 0; i < entete.children.length; i++)
@@ -12,7 +18,8 @@ document.addEventListener('DOMContentLoaded', function () {
             champs.push(valeur);
     }
 
-    let selectedID = 0;
+    /* ---------------- REQUETE ajax pour init table --------------------*/
+    spin.Show();
     COURS.select(initCours,toast.toastrerreur);
 
     function initCours(val)
@@ -26,11 +33,14 @@ document.addEventListener('DOMContentLoaded', function () {
                     CreateGestionCourse(val.returnval[i]);
                 }
                 $("#CourseTable").tablesorter({ sortList: [[0,0]] });
-
+                spin.Hide();
             }
         }
         else
+        {
+            spin.Hide();
             toast.toastrerreur(val.message);
+        }
     }
 
     function CreateGestionCourse(data)
@@ -78,6 +88,7 @@ document.addEventListener('DOMContentLoaded', function () {
     //click sur validation de mofification
     document.getElementById('updateForm').addEventListener('submit', function(e){
         e.preventDefault();
+        spin.Show();
         let input = document.getElementById('updateinputnom');
         COURS.modifier(selectedID,input.value,callbackupdate,toast.toastrerreur);
         $('#updateModal').modal('hide');
@@ -85,6 +96,8 @@ document.addEventListener('DOMContentLoaded', function () {
 
     // retour de la mise a jour
     function callbackupdate(data) {
+        spin.Hide();
+
         if(data.result == true)
         {
             let input = document.getElementById('updateinputnom');

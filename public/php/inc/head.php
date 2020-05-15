@@ -6,6 +6,7 @@
     <!-- CSS perso -->
     <link rel="stylesheet" href="/css/style.css">
     <link rel="stylesheet" href="/css/toastr.min.css">
+    <link rel="stylesheet" href="/css/TopSpinner.css">
 
     <!-- Polices -->
     <!-- <link href="https://fonts.googleapis.com/css2?family=Lato&family=Roboto:wght@500&display=swap" rel="stylesheet"> -->

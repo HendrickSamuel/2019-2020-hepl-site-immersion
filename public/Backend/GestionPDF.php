@@ -26,16 +26,22 @@ try {
 } catch (PDOException $e) {
     die($e->getMessage());
 }
-
-foreach ($res as $jour)
-{?>
-    <a target="_blank" href="/Backend/Export/ExportPdf.php?date=<?php echo($jour['Date'])?>" class="btn"><?php echo($jour['Date']) ?></a>
-    
-<?php
-}
-
 ?>
-<a target="_blank" href="/Backend/Export/ExportPdf.php" class="btn">Toutes les attestations</a>
 
+<div class="card col-md-10 centre mt-5">
+    <div class="card-body">
+        <h2 class="card-title">Liste des jours d'immersion</h2>
+        <ul>
+            <?php foreach ($res as $jour){?>
+                <li>
+                    <a class="btn btn-perso m-2" target="_blank" href="/Backend/Export/ExportPdf.php?date=<?php echo($jour['Date'])?>" class="btn"><?php echo($jour['Date']) ?></a>
+                </li>
+            <?php }?>
+            <li>
+                <a class="btn btn-perso m-2" target="_blank" href="/Backend/Export/ExportPdf.php" class="btn">Toutes les attestations</a>
+            </li>
+        </ul>
+    </div>
+</div>
 </body>
 </html>

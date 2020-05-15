@@ -12,7 +12,7 @@
 
 // Variables
 $police-principale: 'Roboto', sans-serif;
-$taille-police-principale: 500;
+$taille-police-principale: 1.2em;
 $police-secondaire: 'Lato', sans-serif; 
 $couleur-accent: #bf0724;
 $couleur-menu: #505b6a;
@@ -35,6 +35,21 @@ body{
 
 .centre{
 	margin: 0 auto;
+}
+
+.btn-perso{
+	background-color: $couleur-accent;
+	color: $couleur-fond;
+
+	&:hover{
+			filter: brightness(120%);
+		}
+}
+
+nav{
+	background-color: $couleur-menu;
+	color: black;
+	font-size: $taille-police-principale;
 }
 
 

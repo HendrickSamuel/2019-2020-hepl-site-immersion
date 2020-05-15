@@ -1,12 +1,16 @@
 import {COURS, IMMERSION} from '../ajax/requetesajax';
 import * as toast from '../toaster/toaster';
 import * as tables from '../tables/createTables';
+import {Spinner} from '../spinner.js'
 
 document.addEventListener('DOMContentLoaded', function () {
+    let spinner = new Spinner();
+
     let selectedID= -1;
     let toID = -1;
     let count = 0;
 
+    /* ----------- recuperation des entetes pour les colonnes --------------*/
     let champs = [];
 
     let entete = document.getElementById('entete');
@@ -17,6 +21,8 @@ document.addEventListener('DOMContentLoaded', function () {
             champs.push(valeur);
     }
 
+    /* -------------- initialisation des la table avec ajax --------------------*/
+    spinner.Show();
     IMMERSION.select(callback,console.log);
 
     function callback(data) {
@@ -24,10 +30,12 @@ document.addEventListener('DOMContentLoaded', function () {
         {
             for (let i = 0; i < data.returnval.length; i++)
                 CreateGestionImmers(data.returnval[i]);
+            spinner.Hide();
         }
         else
         {
             toast.toastrerreur(data.message[2]);
+            spinner.Hide();
         }
     }
 
@@ -128,6 +136,7 @@ document.addEventListener('DOMContentLoaded', function () {
     document.getElementById('deletebutton').addEventListener('click', function(){
         if(selectedID != -1)
         {
+            spinner.Show();
             IMMERSION.supprimer(selectedID,callbackdelete,toast.toastrerreur);
             //COURS.supprimer(selectedID,'',callbackdelete,toast.toastrerreur); //todo: mettre l'intitule pour double verification ?
             $('#deleteModal').modal('hide');
@@ -136,7 +145,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
     function callbackdelete(data)
     {
-        console.log(data);
+        spinner.Hide();
         if(data.result == true){
             let item = document.getElementById(selectedID);
             toast.toastrsucces(item.children[1].textContent + " a été supprimé");
@@ -147,14 +156,21 @@ document.addEventListener('DOMContentLoaded', function () {
             toast.toastrerreur(data.message);
     }
 
+    /* -------------- REDIRECTION DES ETUDIANTS ----------------*/
+
+    /* -- ajax pour voir si redirection ? -- */
     function AfficherRediriger()
     {
         let id = this.closest('tr').id;
         selectedID = id;
+        spinner.Show();
         IMMERSION.selectSimilaires(id, loadRediriger, toast.toastrerreur);
     }
-    
+
+
+    /* -- affiche le modal et rempli avec les cours similaires ou empeche -- */
     function loadRediriger(data) {
+        spinner.Hide();
         if(data.result == true)
         {
             if(data.returnval.length > 0) {
@@ -184,11 +200,12 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     }
 
+    /* -- validation de la redirection -- */
     document.getElementById('redirectForm').addEventListener('submit', Rediriger);
     function Rediriger(e)
     {
-        console.log('click');
         e.preventDefault();
+        spinner.Show();
         let id = selectedID;
         let to = document.querySelector('#inputCours').value;
         toID = to;
@@ -196,9 +213,10 @@ document.addEventListener('DOMContentLoaded', function () {
         IMMERSION.move(selectedID, to, CallBackRedirection, toast.toastrerreur);
     }
 
+
+    /* -- after redirect -- */
     function CallBackRedirection(data) {
-        console.log('-- REDIRECTION --');
-        console.log(data);
+        spinner.Hide();
         if(data.result == true)
         {
             count = data.returnval.length;
@@ -228,6 +246,8 @@ document.addEventListener('DOMContentLoaded', function () {
             count = 0;
         }
     }
+
+    /* ------------------- FIN ------------------------------*/
 
 
 });

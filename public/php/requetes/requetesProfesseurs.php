@@ -54,7 +54,13 @@ if (isset($action) && !empty($action)) {
 
                     $sql = "DELETE FROM profs WHERE ID = ?"; // verifier sur nom et ID pour etre sur ?
                     $stm = $db->connection->prepare($sql);
-                    $stm->execute([$ID]);
+                    $res = $stm->execute([$ID]);
+                    if(!$res)
+                    {
+                        $result["result"] = false;
+                        $result["message"] = $result["message"] = $stm->errorInfo();
+                    }
+
                 } catch (PDOException $e) {
                     $result["result"] = false;
                     $result["message"] = $e->getMessage();
