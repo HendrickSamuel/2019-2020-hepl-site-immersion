@@ -1,7 +1,7 @@
 import {INSCRITS} from '../ajax/requetesajax';
 import * as toast from '../toaster/toaster';
 //import {Eleve} from "./VueEleve";
-import * as test from './ClassEleve';
+import * as Eleves from './ClassEleve';
 import * as tables from '../tables/createTables';
 
 document.addEventListener('DOMContentLoaded', function () {
@@ -33,7 +33,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
             for(let [key, eleve] of Object.entries(tableau))
             {
-                let el = new test.Eleve(key, eleve, deleteEleve);
+                let el = new Eleves.Eleve(key, eleve, deleteEleve, showConfirm, Canceldelete);
                 if(!('eleve'+key in eleves))
                     eleves['eleve'+key] = el;
                 else
@@ -44,13 +44,24 @@ document.addEventListener('DOMContentLoaded', function () {
         {
             toast.toastrerreur(data.message[2]);
         }
-
     }
     
     function deleteEleve() {
         let obj = this.closest('.card');
         let eleve = eleves[obj.id];
         eleve.Delete();
+    }
+    
+    function showConfirm() {
+        let obj = this.closest('.card');
+        let eleve = eleves[obj.id];
+        eleve.ShowDelete();
+    }
+    
+    function Canceldelete() {
+        let obj = this.closest('.card');
+        let eleve = eleves[obj.id];
+        eleve.CancelDelete();
     }
 
     function initAlphabet()
@@ -68,7 +79,5 @@ document.addEventListener('DOMContentLoaded', function () {
             document.querySelector('.liste').appendChild(div);
         }
     }
-
-
 
 });

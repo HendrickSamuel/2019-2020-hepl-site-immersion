@@ -20,18 +20,7 @@
                     Autoriser les inscriptions
                     <br>
                     <label class="switch">
-                        <input type="checkbox">
-                        <span></span>
-                    </label>
-                </div>
-            </div>
-
-            <div class="card">
-                <div class="card-body">
-                    Autre parametre
-                    <br>
-                    <label class="switch">
-                        <input type="checkbox">
+                        <input type="checkbox" id="enableForce">
                         <span></span>
                     </label>
                 </div>
@@ -39,7 +28,24 @@
         </div>
 
         <div class="pagecontent">
-
+            <div class="my-3 p-3 bg-white rounded box-shadow">
+                <h6 class="border-bottom border-gray pb-2 mb-0">Informations</h6>
+                <div class="media text-muted pt-3">
+                    <p class="media-body pb-3 mb-0 small lh-125 border-bottom border-gray">
+                        <strong class="d-block text-gray-dark">Dates inscriptions</strong>
+                        <strong>début:</strong> <text id="horaire-debut"></text> <strong class="ml-4">fin :</strong><text id="horaire-fin"></text>
+                    </p>
+                </div>
+                <div class="media text-muted pt-3">
+                    <p class="media-body pb-3 mb-0 small lh-125 border-bottom border-gray">
+                        <strong class="d-block text-gray-dark">Inscriptions</strong>
+                        <text id="ouverture"></text>
+                    </p>
+                </div>
+                <small class="d-block text-right mt-3">
+                    <a href="#">All updates</a>
+                </small>
+            </div>
         </div>
     </div>
 </body>

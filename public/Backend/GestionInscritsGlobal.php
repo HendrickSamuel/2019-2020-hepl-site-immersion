@@ -50,6 +50,11 @@
             </div>
             <div class="card-footer">
                 <button class="card-link btn btn-danger data-delete" >Supprimer</button>
+
+                <div class="data-confirm-delete" style="display: inline">
+                    <button class="card-link btn btn-success data-canceldelete" >Annuler supression</button>
+                    <button class="card-link btn btn-danger data-redelete" >Valider supression</button>
+                </div>
                 <a target="_blank" class="btn btn-outline-primary data-attestationEtudiant" href="">Attestation de l'etudiant</a>
             </div>
         </div>

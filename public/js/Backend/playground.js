@@ -89,15 +89,15 @@ $(document).ready(function(){
    $("#id_form").on("submit", function(e){
       e.preventDefault();
       console.log('click');
-      let test = document.getElementById("id_form").elements;
+      let elems = document.getElementById("id_form").elements;
 
       let data = {};
 
-      for(let i = 0; i < test.length; i++)
-         if(test[i].type == 'checkbox')
-            data[test[i].id] = test[i].checked? 1:0; // (test[i].id,test[i].value);
+      for(let i = 0; i < elems.length; i++)
+         if(elems[i].type == 'checkbox')
+            data[elems[i].id] = elems[i].checked? 1:0; // (elems[i].id,elems[i].value);
          else
-            data[test[i].id] = test[i].value; // (test[i].id,test[i].value);
+            data[elems[i].id] = elems[i].value; // (elems[i].id,elems[i].value);
 
       data['places'] = options[data['types']];
 

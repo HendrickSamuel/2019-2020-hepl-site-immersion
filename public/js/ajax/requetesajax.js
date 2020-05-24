@@ -91,6 +91,11 @@ export var IMMERSION = {
         actionimmersion({ID: id},'SELECTPLACES',callBack,failCallBack);
     },
 
+    setVisibility: function(id, visibilite, callback, failCallBack)
+    {
+        actionimmersion({ID: id, Visibilite: visibilite}, 'VISIBILITYCHANGE', callback, failCallBack);
+    },
+
     move(idfrom, idto, callback, failCallBack)
     {
         actionimmersion({ID: idfrom, IDTo: idto}, 'MOVE', callback, failCallBack);

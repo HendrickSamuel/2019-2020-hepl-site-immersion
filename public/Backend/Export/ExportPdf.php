@@ -67,11 +67,12 @@ $i = 0;
 $content = ob_get_contents();
 ob_clean();
 $mpdf->WriteHTML($content);
+$mpdf->SetWatermarkText("Demo uniquement");
+$mpdf->showWatermarkText = true;
+
+$mpdf->SetProtection([], "", "bidon");
 
 
-$date_jour = date("Y_m_d_h_i_s", time());
-$mpdf->SetTitle("Attestation - HEPL - ".$date_jour);
-$mpdf->Output("attestation_immersionhepl".$date_jour.".pdf", "I");
-
-
-// Output a PDF file directly to the browser
+$date = date("Y_m_d_h_i_s", time());
+$mpdf->SetTitle("Attestations".$date);
+$mpdf->Output("Immersionhepl Attestations".$date.".pdf", "I");

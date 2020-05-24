@@ -116,13 +116,17 @@ document.addEventListener('DOMContentLoaded', function () {
     }
     
     function ModificationVisibilité() {
+        let par = this.closest("tr");
+        let id = par.id;
         if(this.checked)
         {
             console.log("check");
+            IMMERSION.setVisibility(id, 1, console.log, alert);
         }
         else
         {
             console.log("uncheck");
+            IMMERSION.setVisibility(id, 0, console.log, alert);
         }
     }
 

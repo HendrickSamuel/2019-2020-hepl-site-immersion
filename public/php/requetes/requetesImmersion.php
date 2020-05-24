@@ -10,6 +10,7 @@ $insertParam = array("inputvisible"=>"can-empty","inputcours"=>"cant-empty",
 $deleteParam = array("ID"=>"cant-empty");
 $getPlacesParam = array("ID"=>"cant-empty");
 $moveParam = array("ID"=>"cant-empty", "IDTo"=>"cant-empty");
+$vsibileParam = array("ID"=>"cant-empty", "Visibilite"=>"can-empty");
 
 $vars = $_POST["Data"];
 $action = $_POST["Action"];
@@ -51,6 +52,30 @@ if (isset($action) && !empty($action)) {
             } catch (PDOException $e) {
                 $result["result"] = false;
                 $result["message"] = $e->getMessage();
+            }
+            break;
+        case "VISIBILITYCHANGE":
+            $retour = verificateur($vars,$vsibileParam);
+            if ($retour['value'] == true) {
+                try {
+                    $sql = "UPDATE coursImmersion
+                            set visible = ?
+                            WHERE ID = ?;";
+                    $stm = $db->connection->prepare($sql);
+                    $res = $stm->execute(array($vars["Visibilite"], $vars["ID"]));
+                    if(!$res)
+                    {
+                        $result["message"] = $stm->errorInfo();
+                        $result["result"] = false;
+                    }
+                } catch (PDOException $e) {
+                    $result["result"] = false;
+                    $result["message"] = $e->getMessage();
+                }
+            }
+            else {
+                $result["result"] = false;
+                $result["message"] = $retour["message"];
             }
             break;
         case "INSERT":

@@ -1,7 +1,7 @@
 import * as toast from './../toaster/toaster';
 
 export class Eleve {
-    constructor(id, jours, deleteCallBack) {
+    constructor(id, jours, deleteCallBack, ConfirmCallBack, CancelCallBack) {
         this.id = id;
         this.horaire = jours;
 
@@ -12,9 +12,18 @@ export class Eleve {
         this.lettre = 'X';
         this.entete = this.corps.querySelector('.data-entete');
         this.tables = this.corps.querySelector('.data-horaires');
-        this.btndelete = this.corps.querySelector('.data-delete');
+        this.btnshowdelete = this.corps.querySelector('.data-delete');
+
+
+        this.deleteConfirmGroup = this.corps.querySelector('.data-confirm-delete');
+        $(this.deleteConfirmGroup).hide();
+
+        this.btncanceldelete = this.deleteConfirmGroup.querySelector('.data-canceldelete');
+        this.btndelete = this.deleteConfirmGroup.querySelector('.data-redelete');
 
         this.deleteCallBack = deleteCallBack;
+        this.confirmCallBack = ConfirmCallBack;
+        this.cancelCallBack = CancelCallBack;
 
         this.GetContentByID(); // remplire le contenu
         //this.Render(); -- fait quand les infos de base sont chargées
@@ -28,7 +37,22 @@ export class Eleve {
 
     AddEventListeners()
     {
-        this.btndelete.addEventListener('click', this.deleteCallBack)
+        this.btnshowdelete.addEventListener('click', this.confirmCallBack);
+        this.btndelete.addEventListener('click', this.deleteCallBack);
+        this.btncanceldelete.addEventListener('click', this.cancelCallBack);
+    }
+
+    ShowDelete()
+    {
+        console.log(this.btnshowdelete);
+        $(this.btnshowdelete).hide();
+        $(this.deleteConfirmGroup).show();
+    }
+
+    CancelDelete()
+    {
+        $(this.btnshowdelete).show();
+        $(this.deleteConfirmGroup).hide();
     }
 
     Render(){
@@ -127,7 +151,12 @@ export class Eleve {
         console.log(data);
         if(data.result == true)
         {
+            let par = this.corps.parentNode;
             this.corps.remove();
+            if(par.children.length == 1)
+            {
+                $(par).hide();
+            }
         }
         else
         {

@@ -45,7 +45,7 @@
                 </button>
             </div>
             <div class="modal-body">
-                etes vous sur de vouloir supprimmer ... ?
+                etes vous sur de vouloir supprimmer <div class="data-delete">...</div> ?
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-danger" data-dismiss="modal">Annuler</button>

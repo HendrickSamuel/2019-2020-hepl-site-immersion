@@ -114,8 +114,9 @@ document.addEventListener('DOMContentLoaded', function () {
     //affiche le modal supression
     function AfficherSupprimer() {
         let par = this.closest("tr");
+        let index = champs.findIndex((element) => element === 'Intitule');
         selectedID = par.id;
-        //todo: mettre le nom et prevenir du nombre de cours qui vont etres supprimes ?
+        document.querySelector('#deleteModal').querySelector('.data-delete').innerHTML=par.children[index].textContent;
         $('#deleteModal').modal('show');
     }
 
