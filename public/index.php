@@ -10,5 +10,4 @@
 <body>
     <?php require(__DIR__ . "/php/inc/nav.php"); ?>
 </body>
-
 </html>

@@ -6,6 +6,7 @@
     ?>
     <script type="module" src="/js/Backend/DashBoard.js"></script>
     <link rel="stylesheet" href="/css/dashboard.css">
+    <link rel="stylesheet" href="/css/Switch.css">
 
     <title>Inpres Immersion</title>
 </head>
@@ -19,10 +20,13 @@
                 <div class="card-body">
                     Autoriser les inscriptions
                     <br>
-                    <label class="switch">
-                        <input type="checkbox" id="enableForce">
-                        <span></span>
-                    </label>
+                    <div class="onoffswitch">
+                        <input type="checkbox" name="onoffswitch" id="enableForce" class="onoffswitch-checkbox">
+                        <label class="onoffswitch-label" for="enableForce">
+                            <span class="onoffswitch-inner"></span>
+                            <span class="onoffswitch-switch"></span>
+                        </label>
+                    </div>
                 </div>
             </div>
         </div>
@@ -42,8 +46,9 @@
                         <text id="ouverture"></text>
                     </p>
                 </div>
+
                 <small class="d-block text-right mt-3">
-                    <a href="#">All updates</a>
+                    <a href="#">Informations sur le dashboard</a>
                 </small>
             </div>
         </div>

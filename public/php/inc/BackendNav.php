@@ -43,6 +43,16 @@
                 </div>
             </li>
 
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    FeedBacks
+                </a>
+                <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                    <a class="dropdown-item" href="/Backend/FeedBackView.php">Réponses à choix</a>
+                    <a class="dropdown-item disabled" href="#">Réponses ouvertes</a>
+                </div>
+            </li>
+
             <li class="nav-item">
                 <a class="nav-link" href="/php/fichiers/UserLogout.php">Logout</a>
             </li>

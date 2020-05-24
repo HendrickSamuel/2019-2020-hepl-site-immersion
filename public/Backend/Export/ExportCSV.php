@@ -47,10 +47,10 @@ try {
     foreach ($all as $ligne) {
         $lignecsv = "";
         foreach ($ligne as $l) {
-            $data .= $l . $divider;
+            $lignecsv .= $l . $divider;
         }
 
-        $lignecsv = substr($data, 0, strlen($lignecsv) - 1); // pareil que au dessus
+        $lignecsv = substr($lignecsv, 0, strlen($lignecsv) - 1); // pareil que au dessus
         $lignecsv .= $endofline;
         echo($lignecsv);
     }

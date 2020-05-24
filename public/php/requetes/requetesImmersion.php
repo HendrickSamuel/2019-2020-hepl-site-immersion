@@ -118,7 +118,7 @@ if (isset($action) && !empty($action)) {
             $retour = verificateur($vars,$deleteParam);
             if ($retour['value'] == true) {
                 try {
-                    $sql = "DELETE FROM coursimmersion WHERE ID = ?"; // verifier sur nom et ID pour etre sur ?
+                    $sql = "DELETE FROM coursimmersion WHERE ID = ?";
                     $stm = $db->connection->prepare($sql);
                     $res = $stm->execute([$vars["ID"]]);
                     if(!$res)

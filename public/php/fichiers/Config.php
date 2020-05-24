@@ -10,6 +10,11 @@ switch ($action)
         $format = "dd/mm/YYYY";
         $now = date($format);
 
+        if(date($format,strtotime($val->datedebut)) <= $now && $now <= date($format,strtotime($val->datefin)))
+            $val->ouvertureNaturelle = true;
+        else
+            $val->ouvertureNaturelle = false;
+
         if((date($format,strtotime($val->datedebut)) <= $now && $now <= date($format,strtotime($val->datefin))) || $val->force == true)
             $val->periodeInscription = true;
         else

@@ -97,7 +97,9 @@ document.addEventListener('DOMContentLoaded', function () {
 
     function AfficherSupprimer() {
         let par = this.closest("tr");
+        let index = champs.findIndex((element) => element === 'Nom');
         selectedID = par.id;
+        document.querySelector('#deleteModal').querySelector('.data-delete').innerHTML=par.children[index].textContent;
         $('#deleteModal').modal('show');
     }
 

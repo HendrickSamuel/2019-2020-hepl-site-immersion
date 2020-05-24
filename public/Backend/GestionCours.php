@@ -45,7 +45,7 @@
                 </button>
             </div>
             <div class="modal-body">
-                etes vous sur de vouloir supprimmer <div class="data-delete">...</div> ?
+                êtes vous sur de vouloir supprimer <u><b class="data-delete" style="display: inline">...</b></u> ?
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-danger" data-dismiss="modal">Annuler</button>
@@ -67,7 +67,7 @@
             <div class="modal-body">
                 <form id="addForm" action="">
                     <label for="addinputnom">Nom du Cours: </label>
-                    <input id="addinputnom" type="text">
+                    <input class="form-control" id="addinputnom" type="text">
                 </form>
             </div>
             <div class="modal-footer">
@@ -90,7 +90,7 @@
             <div class="modal-body">
                 <form id="updateForm" action="">
                     <label for="updateinputnom">Nom du Cours: </label>
-                    <input id="updateinputnom" type="text">
+                    <input class="form-control" id="updateinputnom" type="text">
                 </form>
             </div>
             <div class="modal-footer">

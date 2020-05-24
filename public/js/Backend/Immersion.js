@@ -131,9 +131,11 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
     function AfficherSupprimer() {
+        console.log(champs);
         let par = this.closest("tr");
+        let index = champs.findIndex((element) => element === 'IDPrincipal');
         selectedID = par.id;
-        //todo: mettre le nom et prevenir du nombre de cours qui vont etres supprimes ?
+        document.querySelector('#deleteModal').querySelector('.data-delete').innerHTML=par.children[index].textContent;
         $('#deleteModal').modal('show');
     }
 
@@ -142,7 +144,6 @@ document.addEventListener('DOMContentLoaded', function () {
         {
             spinner.Show();
             IMMERSION.supprimer(selectedID,callbackdelete,toast.toastrerreur);
-            //COURS.supprimer(selectedID,'',callbackdelete,toast.toastrerreur); //todo: mettre l'intitule pour double verification ?
             $('#deleteModal').modal('hide');
         }
     });
@@ -150,6 +151,7 @@ document.addEventListener('DOMContentLoaded', function () {
     function callbackdelete(data)
     {
         spinner.Hide();
+
         if(data.result == true){
             let item = document.getElementById(selectedID);
             toast.toastrsucces(item.children[1].textContent + " a été supprimé");

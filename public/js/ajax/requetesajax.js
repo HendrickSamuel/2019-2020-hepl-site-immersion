@@ -105,7 +105,7 @@ export var IMMERSION = {
         actionimmersion(data ,"INSERT", CallBack, failCallBack);
     },
 
-    supprimer: function (ID, CallBack, failCallBack) {
+    supprimer: function (id, CallBack, failCallBack) {
         actionimmersion({ID: id},"DELETE", CallBack, failCallBack);
     }
 }
