@@ -1,0 +1,532 @@
+/* 
+	Fichier	:	Frontend.scss
+
+	Auteurs	:	Hendrick Samuel
+				Khamana B. Benedict 
+	
+	But 	:	Défini le style de la page de creation de l'horaire de l'étudiant et celui de la page de feedback	
+*/
+
+//#region Css général
+// Variables
+$police-principale: 'Lato',
+sans-serif;
+$taille-police-principale: 500;
+$police-secondaire: 'Roboto',
+sans-serif;
+$couleur-accent: #bf0724;
+$couleur-menu: #505b6a;
+$couleur-focus: #bec3cc;
+$couleur-fond: #dfe7f2;
+
+// Design Page 
+body {
+	background-color: $couleur-fond;
+	font-family: $police-principale;
+	font-weight: $taille-police-principale;
+}
+
+#menu {
+	background-color: $couleur-menu;
+}
+
+// Logo de la nav bar
+#logo {
+	background-repeat: no-repeat;
+	background-size: contain;
+	background-position: center;
+	margin-left: 5px;
+	margin-right: 21px;
+
+	img {
+		width: 70px;
+		height: 30px;
+	}
+}
+
+.title{
+    position: relative;
+}
+
+.title-underline{
+    position: absolute;
+    width: 110px;
+    height: 5px;
+    margin: 0 auto;
+    background-color: lighten($color: blue, $amount: 8.5);
+}
+
+.title-underline-center{
+    width: 200px;
+    height: 5px;
+	margin: 0 auto;
+	background-color: lighten($color: blue, $amount: 8.5);
+}
+
+//#endregion 
+/*---------------------------------------------------------------------*/
+//#region Css spécifique à la page creationHoraire.php
+
+// #region 2 types de sections sur la page(jour-plage-horaire)
+// section qui gére le choix d'un jour ou plusieurs jours d'immersion
+#jour-plage-horaire {
+	// min-height: 5vh;
+	background-color: $couleur-fond;
+    // width: 100%;
+    #liste-jours-immersion{
+        text-align: center;
+        .btn-jour{
+            width: 300px;
+			background-color: transparent;
+			text-transform: capitalize;
+            color: lighten($color: blue, $amount: 8.5);
+            border-color: lighten($color: blue, $amount: 8.5);
+            &:hover, &:focus{
+                background-color: darken($color: blue, $amount: 8.5);
+                color: white;
+            }
+            &:hover{
+                transform: scale(1.1);
+            }
+            &:active,&:focus{
+                transform: scale(1.2);
+			}
+        }
+    }
+}
+.btn-jour{
+	width: 300px;
+	background-color: transparent;
+	text-transform: capitalize;
+	color: lighten($color: blue, $amount: 8.5);
+	border-color: lighten($color: blue, $amount: 8.5);
+	&:hover, &:focus{
+		background-color: darken($color: blue, $amount: 8.5);
+		color: white;
+	}
+	&:hover{
+		transform: scale(1.1);
+	}
+	&:active{
+		transform: scale(1.2);
+	}
+}
+
+// Format d'un plage horaire 
+// coté gauche = cours choisi par l'utilisateur pour une plage horaire
+// coté droit = liste des cours disponibles pour une plage horaire
+.plages-horaire {
+	background-color: $couleur-fond;
+	min-height: 50vh;
+	padding-top: 10px;
+	padding-bottom: 10px;
+	width: 100%;
+	// visibility: hidden;
+}
+
+// #endregion
+
+
+// #region Carte d'un cours disponible + Carte cours choisi
+// Format V1 d'une carte pour un cours disponible et non du cours choisi
+.carte-cours {
+	position: relative;
+	border: 1.5px solid $couleur-menu;
+
+	border-radius: .7em;
+	width: 100%;
+	// min-width: 100px;
+	max-width: 300px;
+	min-height: 200px;
+	max-height: 250px;
+	margin-top: 25px;
+	margin-bottom: 5px;
+	margin-left: 20px;
+
+	//Badge qui affiche le nombre de la place disponible pour un cours 
+	.nb-place-dispo {
+		position: absolute;
+		width: 35px;
+		// top: -13px;
+		// left: -11px;
+		right: 20px;
+		bottom: 5px;
+		z-index: 10;
+
+		:nth-child(1) {
+			padding: 8px;
+			margin-top: 5px;
+			background-color: lighten($color: blue, $amount: 8.5);
+		}
+	}
+
+	.r-btn {
+		position: absolute;
+		z-index: 10;
+		top: 1.5px;
+		right: 1.5px;
+		button{
+			background-color: transparent;
+			outline: none;
+			border: none;
+			color: white;
+			padding: 0;
+			cursor: pointer;
+			opacity: 1;
+			&:hover{
+				opacity: 1;
+				transform: scale(1.1);
+				:nth-child(1){
+					color: darken($color: blue, $amount: 8.5);
+				}
+			}
+			&:focus{
+				opacity: 1;
+			}
+			&:active{
+				transform: scale(1.3);
+			}
+			:nth-child(1) {
+				width: 35px;
+				height: 35px;
+				color: lighten($color: blue, $amount: 8.5);
+				// --ionicon-stroke-width: 35px;
+			}
+		}
+	}
+
+	//Informations sur le cours dans la carte (titre, description, etc)
+	.info-cours {
+		position: static;
+
+		.titre {
+			text-align: left;
+			padding-top: 20.5px;
+			margin-left: 5px;
+			font-size: 22px;
+			font-weight: 500;
+		}
+
+		.description {
+			margin-left: 5px;
+			margin-right: 5px;
+			font-size: 13px;
+		}
+	}
+}
+
+.carte-cours-choisi {
+	position: relative;
+	// border: 2.5px solid lighten($color: $couleur-menu, $amount: 20);
+	border-radius: .7em;
+	width: 100%;
+	min-height: 200px;
+	max-height: 500px;
+	// min-width: 200px;
+	// max-width: 500px;
+
+	margin-top: 0px;
+	// margin-bottom: 5px;
+	margin-left: 0px;
+
+
+	.r-btn {
+		position: absolute;
+		z-index: 10;
+		top: 3px;
+		right: 5px;
+
+		:nth-child(1) {
+			width: 35px;
+			height: 35px;
+			color: lighten($color: blue, $amount: 8.5);
+			
+		}
+	}
+	.r-btn-close{
+		position: absolute;
+		z-index: 10;
+		bottom: 3px;
+		right: 4px;
+		button{
+			background-color: transparent;
+			outline: none;
+			border: none;
+			color: white;
+			padding: 0;
+			cursor: pointer;
+			opacity: 1;
+			&:hover{
+				opacity: 1;
+				transform: scale(1.1);
+				:nth-child(1){
+					color: lighten($color: $couleur-accent, $amount: 15);
+				}
+			}
+			&:focus{
+				opacity: 1;
+			}
+			&:active{
+				transform: scale(1.3);
+			}
+			:nth-child(1) {
+				width: 35px;
+				height: 35px;
+				color: lighten($color: $couleur-accent, $amount: 8.5);
+				// --ionicon-stroke-width: 35px;
+			}
+		}
+	}
+
+	//Informations sur le cours dans la carte (titre, description, etc)
+	.info-cours {
+		position: static;
+
+		.titre {
+			text-align: left;
+			padding-top: 15.5px;
+			margin-left: 5px;
+			font-size: 22px;
+		}
+
+		.description {
+			margin-left: 5px;
+			margin-right: 5px;
+			font-size: 13px;
+		}
+	}
+}
+
+.carte-cours-indisponible{
+	position: relative;
+	// border: 2.5px solid lighten($color: $couleur-menu, $amount: 20);
+	// border-style: dashed;
+	border-radius: .7em;
+	width: 100%;
+	min-height: 200px;
+	max-height: 500px;
+	
+	max-height: 250px;
+	margin-top: 25px;
+	margin-bottom: 5px;
+	margin-left: 20px;
+	.info-cours {
+		.description{
+			position: absolute;
+			font-size: 20px;
+			top: 50%;
+			left: 50%;
+			transform: translate(-50%, -50%);
+		}
+	}
+}
+
+.carte-cours-recap{
+	position: relative;
+	border: 4.5px solid $couleur-menu;
+
+	border-radius: .7em;
+	width: 100%;
+	// min-width: 100px;
+	max-width: 300px;
+	min-height: 200px;
+	max-height: 250px;
+	margin-top: 25px;
+	margin-bottom: 5px;
+	margin-left: 20px;
+
+	.r-btn {
+		position: absolute;
+		z-index: 10;
+		top: 3px;
+		right: 5px;
+
+		:nth-child(1) {
+			width: 35px;
+			height: 35px;
+			color: lighten($color: blue, $amount: 8.5);	
+		}
+	}
+	//Informations sur le cours dans la carte (titre, description, etc)
+	.info-cours {
+		position: static;
+
+		.titre {
+			text-align: left;
+			padding-top: 20.5px;
+			margin-left: 5px;
+			font-size: 22px;
+			font-weight: 500;
+		}
+
+		.description {
+			margin-left: 5px;
+			margin-right: 5px;
+			font-size: 13px;
+		}
+	}
+}
+
+.card{
+	background-color: $couleur-fond;
+	border: 4.5px solid $couleur-menu;
+	border-radius: .7em;
+	border-style: outset;
+	.input-group{
+		input, select{
+			color :$couleur-menu;
+			border-right: 3px solid $couleur-menu;
+			background-color: #e8f0fe;
+			&:focus, &:active{
+				background-color: darken($color: #e8f0fe, $amount: 3.5);
+				color :$couleur-menu;
+			}
+		}
+		&:focus{
+			transform: translate(1.1);
+		}
+	}
+
+}
+
+// #endregion
+
+// #region Slider Style
+.swiper-container {
+	width: 100%;
+	height: 250px;
+
+	.swiper-slide {
+		display: flex;
+		justify-content: center;
+		
+	}
+
+	.swiper-pagination-bullet {
+		opacity: .5;
+		border: white solid 1px;
+		background-color: lighten($color: blue, $amount: 8.5);
+		height: 12px;
+		width: 12px;
+		outline: none;
+		&:hover{
+			transform: scale(1.1);
+		}
+		&:active{
+			transform: scale(1.3);
+		}
+	}
+
+	.swiper-pagination-bullet-active {
+		background-color: lighten($color: blue, $amount: 8.5);
+		outline: none;
+		opacity: 1;
+		height: 17px;
+		width: 17px;
+		
+	}
+	.swiper-scrollbar-drag{
+		background-color: lighten($color: blue, $amount: 8.5);
+	}
+	.swiper-scrollbar {
+		background-color: lighten($color: blue, $amount: 35);
+	}
+	.swiper-button-next,.swiper-button-prev{
+		color: lighten($color: blue, $amount: 8.5);
+		outline: none;
+		&:hover{
+			transform: scale(1.2);
+			color: darken($color: blue, $amount: 8.5);
+		}
+		&:active{
+			transform: scale(1.5);
+			color: darken($color: blue, $amount: 8.5);
+		}
+	}
+}
+// }
+
+
+// #endregion
+.zone-drop{
+	display: inline-block;
+	position: relative;
+	border-radius: .75em;
+	width: 200px;
+	// min-width: 315px;
+	max-width: 355px;
+	min-height: 205px;
+	max-height: 505px;
+	margin-top: 25px;
+	margin-bottom: 5px;
+	margin-left: 5px;
+	border: solid 3px $couleur-menu;
+	border-radius: .7em;
+	background: $couleur-fond;
+	// transform: translateX(50%,-50%);
+}
+// #region Drag and Drop Style
+@media screen and (min-width: 200px){
+	.zone-drop{
+		display: inline-block;
+		border-radius: .75em;
+		width: 330px;
+		// min-width: 315px;
+		max-width: 355px;
+		min-height: 205px;
+		max-height: 505px;
+		margin-top: 25px;
+		margin-bottom: 5px;
+		margin-left: 5px;
+		border: solid 3px $couleur-menu;
+		border-radius: .7em;
+		background: $couleur-fond;
+	}
+}
+
+.dragging{
+    opacity: .5;
+}
+
+.draggingGhost {
+    background-color: orange;
+    pointer-events: none;
+	list-style-type: none;
+	opacity: 1;
+}
+
+.hold{
+	border: 2.5px solid darken($color: $couleur-menu, $amount: 20);
+	border-width: thick;
+	cursor: grabbing;
+	transform: scale(0.985);
+}
+
+.hovered{
+    // background: #f4f4f4;
+	border-style: dashed;
+	border-width: thick;
+	transform: scale(1.01);
+}
+
+.border-danger{
+	border-width: medium;
+	opacity: .95;
+	transform: scale(0.991);
+	border-color: lighten($color: red, $amount: 30);
+	cursor: no-drop;
+	
+}
+.border-success{
+	border-width: medium;
+	opacity: .95;
+	border-color: lighten($color: green, $amount: 30);
+	cursor: copy;
+}
+// #endregion
+
+//#endregion 
+/*---------------------------------------------------------------------*/
+//#region Css spécifique à la page feedBack.php
+//#endregion
+/*---------------------------------------------------------------------*/
