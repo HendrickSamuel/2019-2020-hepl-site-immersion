@@ -106,7 +106,7 @@ export class JourImmersion{
             // console.log(document.querySelector(`#${this.idHTML} > #${plage.idHTML}`));
             // plage.corps.style.visibility = 'none';;
         });
-        INIT_DRAGGABLE();
+        // INIT_DRAGGABLE();
     }
     RemovePlages(sectionPlagesHoraire){
         console.log('Dans RemovePlages');
@@ -137,18 +137,6 @@ export class JourImmersion{
     MinimumCoursPlusieursJournee(){
         let valide = false;
         if(this.plages[0].carteChoisie != null && this.plages[1].carteChoisie != null){
-            valide = true;
-        }
-        else if(this.plages[0].carteChoisie != null && this.plages[2].carteChoisie != null){
-            valide = true;
-        }
-        else if(this.plages[0].carteChoisie != null && this.plages[3].carteChoisie != null){
-            valide = true;
-        }
-        else if(this.plages[1].carteChoisie != null && this.plages[2].carteChoisie != null){
-            valide = true;
-        }
-        else if(this.plages[1].carteChoisie != null && this.plages[3].carteChoisie != null){
             valide = true;
         }
         else if(this.plages[2].carteChoisie != null && this.plages[3].carteChoisie != null){

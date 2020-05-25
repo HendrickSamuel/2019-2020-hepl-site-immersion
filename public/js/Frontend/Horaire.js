@@ -2,7 +2,7 @@
 
 */
 import {
-    COURS_DISPO
+    COURS_DISPO, ELEVE_IMMERSION
 } from '/js/ajax/requeteAjaxFrontend';
 
 import * as jours from './ClassJour';
@@ -16,9 +16,13 @@ document.addEventListener('DOMContentLoaded', () => {
     let btnConfirmer = null;
     let btnAnnuler = null;
     let btnInscrire = null;
-    COURS_DISPO.selectAll(ResultatRequeteOK, ResultatRequeteKO);
+    let formulaireValide = false;
+    const masqueNomPrenom = /^[A-Za-z]+[\s\-A-Za-z]$/;
+    const masqueEmail = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+    const masqueEcole = /^[A-Za-z][0-9A-Za-z\-\s]*[A-Za-z0-9]$/;
+    COURS_DISPO.selectAll(CoursDisponibleRequeteOK, CoursDisponibleRequeteKO);
 
-    function ResultatRequeteOK(data) {
+    function CoursDisponibleRequeteOK(data) {
         coursDispoParJour = (Object)(JSON.parse(JSON.stringify(data)));
         console.log("Cours dispo :")
         console.log(coursDispoParJour);
@@ -57,12 +61,12 @@ document.addEventListener('DOMContentLoaded', () => {
         btnConfirmer.addEventListener('click', EventConfirmation);
     }
 
-    function ResultatRequeteKO(data) {
-        alert(`Resultat KO : \n ${data}`);
+    function CoursDisponibleRequeteKO(data) {
+        alert(`Resultat CoursDisponible KO : \n ${data}`);
         console.log(data);
-        nbEssai++;
-        if(nbEssai < 3)
-            COURS_DISPO.selectAll(ResultatRequeteOK, ResultatRequeteKO);
+        // nbEssai++;
+        // if(nbEssai < 3)
+        //     COURS_DISPO.selectAll(CoursDisponibleRequeteOK, CoursDisponibleRequeteKO);
     }
 
     function InitHTMLAllCard(plageHoraire){
@@ -75,8 +79,8 @@ document.addEventListener('DOMContentLoaded', () => {
             plage.InitContenuHTML(jour.idHTML);
         });
     }
+
     function EventConfirmation() {
-        // alert('OK');
         if(VerificationChoixCours()){
             let sectionJour = document.querySelector('#jour-plage-horaire');
             let sectionPlages = document.querySelector('.plages-horaire');
@@ -93,18 +97,31 @@ document.addEventListener('DOMContentLoaded', () => {
             alert('Pas assez de cours');
     }
     function EventInscription(){
-        alert('OK btn inscription');
+        // alert('OK btn inscription');
         let formulaireInscription = document.querySelector("#form-inscription");
+        let inputNom = formulaireInscription.querySelector('#nom');
+        let inputPrenom = formulaireInscription.querySelector('#prenom');
+        let inputEcole = formulaireInscription.querySelector('#ecole');
+        let inputMail = formulaireInscription.querySelector('#email');
+        NomValide(inputNom);
+        PrenomValide(inputPrenom);
+        EcoleValide(inputEcole);
+        MailValide(inputMail);
         formulaireInscription.addEventListener('submit', (e)=>{
             e.preventDefault();
-            let champs = formulaireInscription.elements;
-            console.log(champs);
-            let data = {};
-            for(let i = 0; i < champs.length; i++){
-                data[champs[i].name] = champs[i].value;
-
+            if(formulaireValide){
+                let champs = formulaireInscription.elements;
+                // console.log(champs);
+                let data = {};
+                for(let i = 0; i < champs.length; i++){
+                    data[champs[i].name] = champs[i].value;
+                }
+                console.log(data);
+                //Essai Insertion de l'eleve + horaire
+                ELEVE_IMMERSION.insertEleve(data, InsertEleveRequeteOK, InsertEleveRequeteKO);
             }
-            console.log(data);
+            else
+                alert('FormulaireInvalide');
         });
 
     }
@@ -163,6 +180,80 @@ document.addEventListener('DOMContentLoaded', () => {
         btnAnnuler.addEventListener('click', EventAnnulation);
 
         zoneRecap.insertAdjacentElement('afterend', zoneEleve);
+        EventChampCorrect(zoneEleve.querySelector('#form-inscription'));
+    }
+    function EventChampCorrect(formulaireInscription){
+        let inputNom = formulaireInscription.querySelector('#nom');
+        let inputPrenom = formulaireInscription.querySelector('#prenom');
+        let inputEcole = formulaireInscription.querySelector('#ecole');
+        let inputMail = formulaireInscription.querySelector('#email');
+
+        //#region Change
+        inputNom.addEventListener('change', () => {NomValide(inputNom)});
+        inputPrenom.addEventListener('change', () => {PrenomValide(inputPrenom)});
+        inputEcole.addEventListener('change', () => {EcoleValide(inputEcole)});
+        inputMail.addEventListener('change', () => {MailValide(inputMail)});
+        //#endregion
+    }
+    function NomValide(inputNom){
+        let value = inputNom.value;
+        if(masqueNomPrenom.test(value) === true){
+            console.log(`Nom correct : ${value} Test = ${masqueNomPrenom.test(value)}`);
+            inputNom.classList.add('border-success');
+            inputNom.classList.remove('border-danger');
+            formulaireValide = true;
+        }
+        else{
+            console.log(`Nom incorrect : ${value} Test = ${masqueNomPrenom.test(value)}`);
+            inputNom.classList.add('border-danger');
+            inputNom.classList.remove('border-success');
+            formulaireValide = false;
+        }
+    }
+    function PrenomValide(inputPrenom){
+        let value = inputPrenom.value;
+        if(masqueNomPrenom.test(value) === true){
+            console.log(`PreNom correct : ${value} Test = ${masqueNomPrenom.test(value)}`);
+            inputPrenom.classList.add('border-success');
+            inputPrenom.classList.remove('border-danger');
+            formulaireValide = true;
+        }
+        else{
+            console.log(`PreNom incorrect : ${value} Test = ${masqueNomPrenom.test(value)}`);
+            inputPrenom.classList.add('border-danger');
+            inputPrenom.classList.remove('border-success');
+            formulaireValide = false;
+        }
+    }
+    function EcoleValide(inputEcole){
+        let value = inputEcole.value;
+        if(masqueEcole.test(value) === true){
+            console.log(`Ecole correct : ${value} Test = ${masqueEcole.test(value)}`);
+            inputEcole.classList.add('border-success');
+            inputEcole.classList.remove('border-danger');
+            formulaireValide = true;
+        }
+        else{
+            console.log(`Ecole incorrect : ${value} Test = ${masqueEcole.test(value)}`);
+            inputEcole.classList.add('border-danger');
+            inputEcole.classList.remove('border-success');
+            formulaireValide = false;
+        }
+    }
+    function MailValide(inputMail){
+        let value = inputMail.value;
+        if(masqueEmail.test(value) === true){
+            console.log(`Mail correct : ${value} Test = ${masqueEmail.test(value)}`);
+            inputMail.classList.add('border-success');
+            inputMail.classList.remove('border-danger');
+            formulaireValide = true;
+        }
+        else{
+            console.log(`Mail incorrect : ${value} Test = ${masqueEmail.test(value)}`);
+            inputMail.classList.add('border-danger');
+            inputMail.classList.remove('border-success');
+            formulaireValide = false;
+        }
     }
     function VerificationChoixCours(){
         let valide = false;
@@ -200,5 +291,21 @@ document.addEventListener('DOMContentLoaded', () => {
             valide = false;
         }
         return valide;
+    }
+
+    function InsertEleveRequeteOK(data){
+        let retour = (Object)(JSON.parse(JSON.stringify(data)));
+        console.log("retour InsertEleveRequeteOK :")
+        console.log(retour);
+    }
+    function InsertEleveRequeteKO(data){
+        alert(`Resultat InsertEleveRequeteKO : \n ${data}`);
+        console.log(data);
+    }
+
+    function InsertHoraireRequeteOK(){
+        
+    }
+    function InsertHoraireRequeteKO(){
     }
 });

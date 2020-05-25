@@ -12,7 +12,7 @@
         switch($action){
             case "SELECTALL" :
                 try{
-                    $sql = "SELECT DATE_FORMAT(Date, '%W %e %M %Y'),PlageHoraire,Intitule,Cours,PlacesDisponibles,PlacesTotal,Indus,Reseau,Gestion, DATE_FORMAT(Date, '%W %e %M %Y') FROM coursdisponibles;";
+                    $sql = "SELECT DATE_FORMAT(Date, '%W %e %M %Y'),PlageHoraire,Intitule,Cours,PlacesDisponibles,PlacesTotal,Indus,Reseau,Gestion, DATE_FORMAT(Date, '%W %e %M %Y') FROM coursdisponibles WHERE PlacesDisponibles > 0;";
                     $stm = $db->connection->query($sql);
                     $tmp = $stm->fetchAll(PDO::FETCH_GROUP| PDO::FETCH_ASSOC);
                     $vect = [];
