@@ -56,7 +56,6 @@ document.addEventListener('DOMContentLoaded', () => {
         jour1.Affiche();
         let sectionPlagesHoraire = document.body.querySelector('.plages-horaire');
         jour1.RenderPlages(sectionPlagesHoraire);
-        // INIT_DRAGGABLE();
         btnConfirmer = document.getElementById('btn-confirmation');
         btnConfirmer.addEventListener('click', EventConfirmation);
     }
@@ -96,34 +95,31 @@ document.addEventListener('DOMContentLoaded', () => {
         else
             alert('Pas assez de cours');
     }
-    function EventInscription(){
-        // alert('OK btn inscription');
-        let formulaireInscription = document.querySelector("#form-inscription");
+    function EventInscription(e, formulaireInscription){
+        e.preventDefault();
         let inputNom = formulaireInscription.querySelector('#nom');
         let inputPrenom = formulaireInscription.querySelector('#prenom');
         let inputEcole = formulaireInscription.querySelector('#ecole');
         let inputMail = formulaireInscription.querySelector('#email');
+        let i = 1;
         NomValide(inputNom);
         PrenomValide(inputPrenom);
         EcoleValide(inputEcole);
         MailValide(inputMail);
-        formulaireInscription.addEventListener('submit', (e)=>{
-            e.preventDefault();
-            if(formulaireValide){
-                let champs = formulaireInscription.elements;
-                // console.log(champs);
-                let data = {};
-                for(let i = 0; i < champs.length; i++){
-                    data[champs[i].name] = champs[i].value;
-                }
-                console.log(data);
-                //Essai Insertion de l'eleve + horaire
-                ELEVE_IMMERSION.insertEleve(data, InsertEleveRequeteOK, InsertEleveRequeteKO);
+        if(formulaireValide){
+            let champs = formulaireInscription.elements;
+            let data = {};
+            for(let i = 0; i < champs.length; i++){
+                data[champs[i].name] = champs[i].value;
             }
-            else
-                alert('FormulaireInvalide');
-        });
-
+            console.log(data);
+            //Essai Insertion de l'eleve + horaire
+            ELEVE_IMMERSION.insertEleve(data, InsertEleveRequeteOK, InsertEleveRequeteKO);
+            formulaireValide = false;
+            i++;
+        }
+        else
+            alert('FormulaireInvalide ' + i);
     }
     function EventAnnulation(){
         alert('OK btn annuler');
@@ -175,12 +171,13 @@ document.addEventListener('DOMContentLoaded', () => {
         let inscriptionTemplate = document.importNode(document.querySelector("#inscriptionTemplate").content, true);
         let zoneEleve = inscriptionTemplate.querySelector('#zone-info-eleve');
         btnInscrire = zoneEleve.querySelector('#btn-inscrire');
-        btnInscrire.addEventListener('click', EventInscription);
         btnAnnuler = zoneEleve.querySelector('#btn-annuler');
-        btnAnnuler.addEventListener('click', EventAnnulation);
+        btnAnnuler.addEventListener('click', () => {EventAnnulation()});
 
         zoneRecap.insertAdjacentElement('afterend', zoneEleve);
-        EventChampCorrect(zoneEleve.querySelector('#form-inscription'));
+        let formulaireInscription = zoneEleve.querySelector("#form-inscription");
+        EventChampCorrect(formulaireInscription);
+        formulaireInscription.addEventListener('submit', (e) => { EventInscription(e, formulaireInscription)});
     }
     function EventChampCorrect(formulaireInscription){
         let inputNom = formulaireInscription.querySelector('#nom');

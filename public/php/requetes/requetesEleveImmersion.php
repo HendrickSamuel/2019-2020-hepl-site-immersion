@@ -24,7 +24,7 @@
                     try {
                         $sql = "INSERT INTO eleves(Nom, Prenom, Etablissement, Email, Interet) VALUES (?, ?, ?, ?, ?)";
                         $stm = $db->connection->prepare($sql);
-                        $res = $stm->execute($varsEleveImmersion["nom"], $varsEleveImmersion["prenom"], $varsEleveImmersion["ecole"], $varsEleveImmersion["email"], $varsEleveImmersion["interet"]);
+                        $res = $stm->execute([$varsEleveImmersion["nom"], $varsEleveImmersion["prenom"], $varsEleveImmersion["ecole"], $varsEleveImmersion["email"], $varsEleveImmersion["interet"]]);
                         if(!$res){
                             $result["message"] = $stm->errorInfo();
                             $result["valid"] = false;
@@ -64,6 +64,7 @@
         foreach ($bonParametres as $nomData => $regex) {
             if(!preg_match($regex, $data[$nomData])){
                 $retour["message"] = `La valeur recue {$nomData} ne respecte pas le regex choisi {$regex}, insertion impossible`;
+                // $retour["message"] = "La valeur recue $nomData ne respecte pas le regex choisi $regex, insertion impossible";
                 break;
             }
         }
