@@ -21,6 +21,7 @@ document.addEventListener('DOMContentLoaded', () => {
     $(btnConfirmer).hide();
     let btnAnnuler = null;
     let btnInscrire = null;
+    let btnRediriger = null;
     let nomValide = false;
     let prenomValide = false;
     let ecoleValide = false;
@@ -86,6 +87,7 @@ document.addEventListener('DOMContentLoaded', () => {
         btnConfirmer = document.getElementById('btn-confirmation');
         btnConfirmer.addEventListener('click', EventConfirmation);
         spinner.Hide();
+        $(btnConfirmer).show();
     }
 
     function CoursDisponibleRequeteKO(data) {
@@ -213,6 +215,8 @@ document.addEventListener('DOMContentLoaded', () => {
         let inscriptionTemplate = document.importNode(document.querySelector("#inscriptionTemplate").content, true);
         let zoneEleve = inscriptionTemplate.querySelector('#zone-info-eleve');
         btnInscrire = zoneEleve.querySelector('#btn-inscrire');
+        btnRediriger = zoneEleve.querySelector('#btn-rediriger');
+        $(btnRediriger).hide();
         btnAnnuler = zoneEleve.querySelector('#btn-annuler');
         btnAnnuler.addEventListener('click', () => {EventAnnulation()});
 
@@ -340,9 +344,14 @@ document.addEventListener('DOMContentLoaded', () => {
     }
     /*-------------------------------------------------*/
     function InsertEleveRequeteOK(data){
-        let retour = (Object)(JSON.parse(JSON.stringify(data)));
-        console.log("retour InsertEleveRequeteOK :")
-        console.log(retour);
+        let inputMail = document.querySelector('#email');
+        let hash = md5(inputMail.value);
+        let btn = document.getElementById('btn-redirection');
+        btn.href='/Frontend/VisualiserHoraire.php?userKey='+hash;
+
+        $(btn).show();
+        $(btnInscrire).hide();
+        btn.click();
     }
     function InsertEleveRequeteKO(data){
         alert(`Resultat InsertEleveRequeteKO : \n ${data}`);
