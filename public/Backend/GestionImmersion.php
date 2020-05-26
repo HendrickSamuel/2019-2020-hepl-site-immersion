@@ -15,36 +15,35 @@
 </head>
 <body>
 <?php require(__DIR__ . "/../php/inc/BackendNav.php") ?>
-<div class="card col-md-12 centre">
+<div class="card col-md-10 col-sm-12 centre">
     <div class="card-body">
         <h5 class="card-title">Liste des cours Immersion</h5>
-        <table class="table table-hover table-bordered" id="CourseTable">
-            <thead class="thead-light">
-            <tr id="entete" class="centre-text">
-                <th data-champ="IDPrincipal">ID</th>
-                <th data-champ="Intitule">Cours</th>
-                <th data-champ="Nom">Professeur</th>
-                <th data-champ="Date">Date</th>
-                <th data-champ="PlageHoraire">Plage Horaire</th>
-                <th data-champ="HeureDebut">Heure Debut</th>
-                <th data-champ="HeureFin">Heure Fin</th>
-                <th data-champ="PlacesDisponibles">Places Disponibles</th>
-                <th data-champ="PlacesTotal">Places Totales</th>
-                <th data-champ="Local">Local</th>
-                <th data-champ="Groupe">Groupe</th>
-                <th data-champ="Gestion">Gestion</th>
-                <th data-champ="Reseau">Reseau</th>
-                <th data-champ="Indus">Indus</th>
-                <th data-champ="bloc">bloc</th>
-                <th data-champ="type">type</th>
-                <th data-champ="none">visible</th>
-                <th data-champ="none" colspan="2">Action</th>
-            </tr>
-            </thead>
-            <tbody id="tablebody">
+        <div class="table-responsive">
+            <table class="table table-hover table-bordered" id="CourseTable">
+                <thead class="thead-light">
+                <tr id="entete" class="centre-text">
+                    <th data-champ="IDPrincipal">ID</th>
+                    <th data-champ="Intitule">Cours</th>
+                    <th data-champ="Nom">Professeur</th>
+                    <th data-champ="Date">Date</th>
+                    <th data-champ="PlageHoraire">Plage Horaire</th>
+                    <th data-champ="HeureDebut">Heure Debut</th>
+                    <th data-champ="HeureFin">Heure Fin</th>
+                    <th data-champ="PlacesDisponibles">Places Disponibles</th>
+                    <th data-champ="PlacesTotal">Places Totales</th>
+                    <th data-champ="Local">Local</th>
+                    <th data-champ="Groupe">Groupe</th>
+                    <th data-champ="bloc">bloc</th>
+                    <th data-champ="type">type</th>
+                    <th data-champ="none">visible</th>
+                    <th data-champ="none" colspan="2">Action</th>
+                </tr>
+                </thead>
+                <tbody id="tablebody">
 
-            </tbody>
-        </table>
+                </tbody>
+            </table>
+        </div>
         <a class="btn btn-success centre m-2" id="addButton" href="playground.php">Ajouter</a>
     </div>
 </div>
@@ -80,10 +79,12 @@
             </div>
             <div class="modal-body">
                 <form id="redirectForm" action="">
-                    <label for="addinputnom">CoursDisponibles: </label>
-                    <select name="CoursRedirection" id="inputCours">
+                    <div class="form-group">
+                        <label for="addinputnom">CoursDisponibles: </label>
+                        <select class="form-control" name="CoursRedirection" id="inputCours">
 
-                    </select>
+                        </select>
+                    </div>
                 </form>
             </div>
             <div class="modal-footer">

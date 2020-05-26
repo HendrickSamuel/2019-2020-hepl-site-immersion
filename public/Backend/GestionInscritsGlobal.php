@@ -16,11 +16,21 @@
 
     <div class="pagecontent">
         <div class="card col-md-11 centre">
-            <div class="card-body liste">
+            <div class="card-body">
                 <h5 class="card-title">Liste des inscrits</h5>
+                <div class="form-row">
+                    <div class="input-group mt-3">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text">
+                                <h4>Filtre: </h4>
+                                <i class="fas fa-envelope"></i></span>
+                        </div>
+                        <input type="text" class="form-control form-control-lg" placeholder="Encodez La 1ere lettre du nom de famille" id="InputNom">
+                    </div>
+                </div>
+                <div class="liste">
 
-
-
+                </div>
             </div>
         </div>
     </div>
@@ -44,18 +54,19 @@
 <template id="templateEleve">
     <div class="card" style="width: 100%;">
         <div class="card-body">
-            <h5 class="card-title data-entete">Albert Einstein</h5>
+            <h3 class="card-title data-entete">Albert Einstein</h3>
             <div class="card-content data-horaires">
 
             </div>
             <div class="card-footer">
-                <button class="card-link btn btn-danger data-delete" >Supprimer</button>
+                <a target="_blank" class="btn btn-outline-primary data-attestationEtudiant" href="">Attestation de l'etudiant</a>
+                <a target="_blank" class="btn btn-outline-primary data-ProgrammeEtudiant" href="">Programme de l'etudiant (PDF)</a>
 
                 <div class="data-confirm-delete" style="display: inline">
                     <button class="card-link btn btn-success data-canceldelete" >Annuler supression</button>
                     <button class="card-link btn btn-danger data-redelete" >Valider supression</button>
                 </div>
-                <a target="_blank" class="btn btn-outline-primary data-attestationEtudiant" href="">Attestation de l'etudiant</a>
+                <button class="card-link btn btn-danger data-delete" >Supprimer</button>
             </div>
         </div>
     </div>

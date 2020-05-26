@@ -13,7 +13,9 @@ require(__DIR__ . "/../php/inc/head.php");
 
     <div class="container-fluid" style="width: 80%;">
         <div class="row" id="Receptacle">
-
+            <div id="NoDoughnut" class="col-12 col-md-6 col-sm-12 p-lg-5 p-md-2 p-sm-0 mt-1 rounded border border-dark">
+                <h2>Aucun avis n'a été émis sur les journées portes ouvertes</h2>
+            </div>
         </div>
     </div>
 

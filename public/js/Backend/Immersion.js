@@ -189,7 +189,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 for (let dat of data.returnval) {
                     let option = document.createElement('option');
                     option.value = dat.IDPrincipal;
-                    option.innerHTML = dat.Nom + " " + dat.Intitule;
+                    option.innerHTML = dat.Nom + " | " + dat.Intitule;
                     input.appendChild(option);
                 }
             }

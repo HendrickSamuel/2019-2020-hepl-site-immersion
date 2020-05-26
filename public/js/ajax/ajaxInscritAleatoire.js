@@ -1,14 +1,11 @@
-export function actionconfig(config, action,CallBack, failCallBack)
+export function setHoraire(data, CallBack, failCallBack)
 {
-
-    $.ajax("/php/fichiers/Config.php", {
+    $.ajax("/php/requetes/requetesHoraireForce", {
         type: "POST",
         data: {
-            Config: config,
-            Action: action
+            Data: data,
         },
         dataType: "json",
-
         success: function (data) {
             if(CallBack != null)
                 CallBack(data);

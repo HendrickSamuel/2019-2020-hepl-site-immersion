@@ -9,8 +9,53 @@ document.addEventListener('DOMContentLoaded', function () {
 
     let eleves = {};
     let tableau = {};
+    let divs = [];
 
     initAlphabet();
+
+    document.getElementById('InputNom').addEventListener('input', function (e) {
+        let texte = e.target.value;
+        let reg = /^[a-zA-Z]{1}$/;
+        if(texte.length === 0)
+        {
+            ShowAllNotEmpty();
+        }
+        else
+        {
+            if(reg.test(texte) === true){
+                e.target.classList.add('border-success');
+                e.target.classList.remove('border-danger');
+                ShowLetter(texte.toUpperCase());
+            }
+            else{
+                e.target.classList.add('border-danger');
+                e.target.classList.remove('border-success');
+                ShowAllNotEmpty();
+            }
+        }
+
+    })
+
+    function ShowLetter(lettre)
+    {
+        for(let i in divs)
+        {
+            if(divs[i].id === 'lettre'+lettre)
+                $(divs[i]).show();
+            else
+                $(divs[i]).hide();
+
+        }
+    }
+
+    function ShowAllNotEmpty()
+    {
+        for(let i in divs)
+        {
+            if(divs[i].children.length > 1)
+                $(divs[i]).show();
+        }
+    }
 
     function callback(data) {
         if(data.result == true)
@@ -74,7 +119,9 @@ document.addEventListener('DOMContentLoaded', function () {
             let lettre = (i+10).toString(36)+"";
             lettre = lettre.toUpperCase();
             p.innerHTML = lettre
+            p.classList.add('display-4', 'underline');
             div.id = 'lettre'+lettre;
+            divs.push(div);
             p.style.display = "inline";
             document.querySelector('.liste').appendChild(div);
         }

@@ -91,6 +91,10 @@ export class Eleve {
             let lien = this.corps.querySelector(".data-attestationEtudiant");
             lien.href = '/Backend/Export/ExportPdf.php?etudiant=' + this.id;
 
+            lien = this.corps.querySelector('.data-ProgrammeEtudiant');
+            lien.href = '/Backend/Export/ExportHoraire.php?etudiant=' + this.id;
+
+
             this.Render();
         }
         else
@@ -110,6 +114,7 @@ export class Eleve {
 
         let lien = jour.querySelector(".data-attestationjour");
         lien.href = '/Backend/Export/ExportPdf.php?date=' + date + '&etudiant=' + this.id;
+
 
         jour.querySelector(".data-date").innerHTML = date;
         let table = jour.querySelector(".data-tbody");

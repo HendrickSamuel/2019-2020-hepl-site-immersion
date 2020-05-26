@@ -1,17 +1,15 @@
 <?php
     session_start();
-
     require(__DIR__ . "/../php/inc/head.php");
 
     if(isset($_POST["InputNom"], $_POST["InputMDP"]))
     {
-        $valeurs = json_decode(file_get_contents("./../../fichiers/Users.json"), true);
+        $valeurs = json_decode(file_get_contents(__DIR__."/../../fichiers/Users.json"), true);
 
         if (array_key_exists($_POST["InputNom"], $valeurs)){
             if($valeurs[$_POST["InputNom"]] == md5($_POST['InputMDP']))
             {
                 $_SESSION["key"] = md5($_POST["InputNom"]);
-                //todo: vider post
             }
             else
             {
@@ -24,7 +22,7 @@
     }
 }
 
-if( isset ($_SESSION["key"]) && !empty($_SESSION["key"]))
+if( isset($_SESSION["key"]) && !empty($_SESSION["key"]))
 {
     header("Location: ./DashBoard.php");
     die();

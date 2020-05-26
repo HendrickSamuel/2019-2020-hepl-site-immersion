@@ -14,7 +14,7 @@
     <?php require(__DIR__ . "/../php/inc/BackendNav.php") ?>
     <div class="page">
         <div class="sidebar ">
-            <h4 class="centre-text">Quick clicks</h4>
+            <h4 class="centre-text">Actions</h4>
 
             <div class="card">
                 <div class="card-body">
@@ -29,9 +29,41 @@
                     </div>
                 </div>
             </div>
+
+            <div class="card">
+                <div class="card-body">
+                    <div class="form-row">
+                        <div class="input-group mt-3">
+                            <div class="input-group-prepend">
+                            <span class="input-group-text"><i class="fas fa-hourglass-start"></i></span>
+                            </div>
+                            <input type="text" class="form-control form-control-lg" placeholder="Date de début" id="DateDebut" name="datedebut">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-body">
+                    <div class="form-row">
+                        <div class="input-group mt-3">
+                            <div class="input-group-prepend">
+                            <span class="input-group-text"><i class="fas fa-hourglass-end"></i></span>
+                            </div>
+                            <input type="text" class="form-control form-control-lg" placeholder="Date de fin" id="DateFin" name="datefin">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-body">
+                    <button class="btn btn-lg" id="btnValid">Valider Changements</button>
+                </div>
+            </div>
         </div>
 
-        <div class="pagecontent">
+        <div class="pagecontent" style="padding: 5%">
             <div class="my-3 p-3 bg-white rounded box-shadow">
                 <h6 class="border-bottom border-gray pb-2 mb-0">Informations</h6>
                 <div class="media text-muted pt-3">

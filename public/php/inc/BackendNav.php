@@ -37,6 +37,7 @@
                     Inscriptions
                 </a>
                 <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                    <a class="dropdown-item" href="/Backend/InscriptionEleve.php">Inscrire un éléve aujourd'hui</a>
                     <a class="dropdown-item" href="/Backend/GestionInscritsGlobal.php">Liste des inscrits</a>
                     <a class="dropdown-item" href="/Backend/Export/ExportCSV.php">Telechargement du CSV</a>
                     <a class="dropdown-item" href="/Backend/GestionPDF.php">Attestations</a>

@@ -3,21 +3,27 @@ import {Spinner} from "../spinner";
 
 $(document).ready(function () {
     let spinner = new Spinner();
-
+    $("#NoDoughnut").hide();
     spinner.Show();
     getFeedBack(f,alert);
 
-    function f(data) {
-        console.log(data);
-        for(let [key, question] of Object.entries(data))
-        {
-            let liste = [];
-            //question.avis.forEach(x => liste.push(parseInt(x)));
-            for(let i = 1; i <= 5; i++)
-                liste.push(parseInt(question.avis[i]));
 
-            console.log(liste);
-            AfficherPie(question.Question, liste);
+    function f(data) {
+        if(data !== null)
+        {
+            for(let [key, question] of Object.entries(data))
+            {
+                let liste = [];
+                for(let i = 1; i <= 5; i++)
+                    liste.push(parseInt(question.avis[i]));
+
+                console.log(liste);
+                AfficherPie(question.Question, liste);
+            }
+        }
+        else
+        {
+            $("#NoDoughnut").show();
         }
         spinner.Hide();
     }
