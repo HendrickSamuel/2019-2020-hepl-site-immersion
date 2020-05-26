@@ -2,22 +2,22 @@
 require_once("./../includes.php");
 header("Content-Type:application/json");
 
-$data = $_POST["data"];
+$data = $_POST["Data"];
 
 $result["valid"] = true;
 
-switch ($data["action"])
+switch ($_POST["action"])
 {
-    case 'GETIDFROMEMAIL':
+    case "GETIDFROMEMAIL":
         $db = new DataBase();
         $sql = "SELECT ID FROM Eleves WHERE UPPER(Email) = UPPER(?);";
         $stm = $db->connection->prepare($sql);
-        $stm->execute(array($data["email"]));
+        $stm->execute(array($data));
         $id = $stm->fetch(PDO::FETCH_ASSOC);
         if($id === false)
         {
             $result["valid"] = false;
-            $result["message"] = `{$data['email']} n'est pas enregistrée.`;
+            $result["message"] = `{$data} n'est pas enregistrée.`;
         }
         else{
             $result["idEtudiant"] = $id['ID'];
@@ -25,7 +25,7 @@ switch ($data["action"])
         echo json_encode($result);
         break;
 
-    case 'INSERT':
+    case "INSERT":
         $db = new DataBase();
         $db->connection->beginTransaction();
 
@@ -35,9 +35,9 @@ switch ($data["action"])
 
         $insert = true;
         $result['message'] = '';
-        foreach($data['reponses'] as $key => $value)
+        foreach($data as $key => $value)
         {
-            $res = $stm->execute([$value['question'], $data['idEtudiant'], $value['ressenti']]);
+            $res = $stm->execute([$value['question'], $_POST['idEtudiant'], $value['ressenti']]);
             if (!$res)
             {
                 $insert = false;
