@@ -8,6 +8,7 @@ import {
     COURS_DISPO, ELEVE_IMMERSION
 } from '/js/ajax/requeteAjaxFrontend';
 
+
 import * as jours from './ClassJour';
 import * as plages from './ClassPlage';
 import * as cartes from './ClassCarteCours';
@@ -18,6 +19,7 @@ document.addEventListener('DOMContentLoaded', () => {
     let joursImmersion = [];
     let nbEssai = 0;
     let btnConfirmer = document.getElementById('btn-confirmation');
+    let btnTuto = document.getElementById('btn-tuto');
     $(btnConfirmer).hide();
     let btnAnnuler = null;
     let btnInscrire = null;
@@ -34,10 +36,38 @@ document.addEventListener('DOMContentLoaded', () => {
 
     $('#jour-plage-horaire').hide();
     
-    // 
     spinner.Show();
     actionconfig('', 'GET', ImmersionOuverteRequeteOK, ImmersionOuverteRequeteKO);
 
+    //#region Modale slider
+    let sliderTuto = new Swiper(`#tuto .swiper-container`, {
+        init: false,
+        loop: false,
+        autoHeight: true,
+        grabCursor: false,
+        slidesPerView: 1,
+        autoHeight: true,
+        speed: 500,
+        spaceBetween: 15,
+        allowTouchMove: true,
+        autoplay: {
+            delay: 5000,
+            disableOnInteraction: false,
+        },
+        pagination: {
+            el: `#tuto .swiper-pagination`,
+            clickable: true,
+            dynamicBullets: true,
+        },
+        navigation: {
+            nextEl: `#tuto .swiper-button-next`,
+            prevEl: `#tuto .swiper-button-prev`,
+        },
+        scrollbar: {
+			el: '#tuto .swiper-scrollbar',
+		},
+    });
+    //#endregion
 
 
     function ImmersionOuverteRequeteOK(data) {
@@ -52,8 +82,7 @@ document.addEventListener('DOMContentLoaded', () => {
             spinner.Hide();
             toast.toastrerreur("Désolé, les inscriptions ne sont pas encore ouvertes");
             // creer div inscription fermee 
-        }
-        
+        } 
     }
     function ImmersionOuverteRequeteKO(data) {
         spinner.Hide();
@@ -88,6 +117,9 @@ document.addEventListener('DOMContentLoaded', () => {
         btnConfirmer.addEventListener('click', EventConfirmation);
         spinner.Hide();
         $(btnConfirmer).show();
+
+        btnConfirmer.addEventListener('click', EventConfirmation);
+        btnTuto.addEventListener('click', EventTuto);
     }
 
     function CoursDisponibleRequeteKO(data) {
@@ -105,6 +137,12 @@ document.addEventListener('DOMContentLoaded', () => {
             plage.InitContenuHTML(jour.idHTML);
         });
     }
+    function EventTuto(){
+        $('#modaleTuto').modal('show');
+        sliderTuto.init();
+        sliderTuto.slideTo(0, 0, null);
+        
+    }
 
     function EventConfirmation() {
         if(VerificationChoixCours()){
@@ -112,9 +150,6 @@ document.addEventListener('DOMContentLoaded', () => {
             let sectionPlages = document.querySelector('.plages-horaire');
             let sectionConfirmation = document.querySelector('#zone-confirmation');
 
-            // sectionJour.style.display = 'none';
-            // sectionPlages.style.display = 'none';
-            // sectionConfirmation.style.display = 'none';
             $(sectionJour).hide();
             $(sectionPlages).hide();
             $(sectionConfirmation).hide();
@@ -141,6 +176,7 @@ document.addEventListener('DOMContentLoaded', () => {
             }
             console.log(dataEleve);
             //Essai Insertion de l'eleve + horaire
+            spinner.Show();
             ELEVE_IMMERSION.insertEleveHoraire(dataEleve, CreationHoraireAInserer(joursImmersion), InsertEleveRequeteOK, InsertEleveRequeteKO);
         }
         else
@@ -348,12 +384,14 @@ document.addEventListener('DOMContentLoaded', () => {
         let hash = md5(inputMail.value);
         let btn = document.getElementById('btn-redirection');
         btn.href='/Frontend/VisualiserHoraire.php?userKey='+hash;
-
+        spinner.Hide();
         $(btn).show();
         $(btnInscrire).hide();
         btn.click();
+        
     }
     function InsertEleveRequeteKO(data){
+        spinner.Hide();
         alert(`Resultat InsertEleveRequeteKO : \n ${data}`);
         console.log(data);
     }
@@ -378,14 +416,4 @@ document.addEventListener('DOMContentLoaded', () => {
         console.log(data);
         return data;
     }
-    /*-------------------------------------------------*/
-    // function InsertHoraireRequeteOK(data){
-    //     alert(`Resultat InsertHoraireRequeteOK : \n ${data}`);
-    //     console.log(data);
-    // }
-    // function InsertHoraireRequeteKO(data){
-    //     alert(`Resultat InsertHoraireRequeteKO : \n ${data}`);
-    //     console.log(data);
-    // }
-    
 });

@@ -1,8 +1,5 @@
 import { CarteCours } from "./ClassCarteCours";
 import { PlageHoraire } from "./ClassPlage";
-import {
-    INIT_DRAGGABLE
-} from './carteDraggable';
 /* 
 	Fichier	:	ClassJour.js
 
