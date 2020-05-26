@@ -9,10 +9,13 @@
     <div class="collapse navbar-collapse" id="navbarLinks">
         <ul class="navbar-nav">
             <li class="nav-item">
-                <a href="#" class="nav-link hvr-underline-from-center"></a>
+                <a href="/Frontend/creationHoraire.php" class="nav-link hvr-underline-from-center">Inscription</a>
             </li>
             <li class="nav-item pr-3">
-                <a href="#" class="nav-link hvr-underline-from-center"></a>
+                <a href="#" class="nav-link disabled  hvr-underline-from-center">FeedBack(non accessible)</a>
+            </li>
+            <li class="nav-item pr-3">
+                <a href="/Frontend/visualiserHoraire.php" class="nav-link hvr-underline-from-center">Visualiser mon horaire</a>
             </li>
         </ul>
     </div>

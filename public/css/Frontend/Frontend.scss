@@ -532,20 +532,23 @@ body {
 
 
 // Aspect radioBoutons des questions
-$color-insatisfait : red;
-$color-meh : rgb(255, 115, 0);
-$color-neutre : rgb(179, 255, 0);
-$color-satisfait : rgb(85, 255, 0);
-$color-heureux : rgb(0, 255, 21);
+$color-insatisfait :#fe1d25;
+$color-meh : #ff8b24;
+$color-neutre : #e6e20f;
+$color-satisfait : #7fe611;
+$color-heureux : #01d300;
 #form-question{
+	.card{
+		border: 1px solid;
+	}
 	.r-btn-question{
 		input[type="radio"]{
 			appearance: none;
 		}
 		.r-btn-insatisfait,.r-btn-meh, .r-btn-neutre, .r-btn-satisfait, .r-btn-heureux{
-			opacity: 0.7;
+			opacity: 0.8;
 			&:hover{
-				opacity: 0.8;
+				opacity: 0.85;
 				transform: scale(1.1);
 			}
 		}

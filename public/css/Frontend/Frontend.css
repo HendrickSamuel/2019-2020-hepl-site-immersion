@@ -510,6 +510,10 @@ body {
 }
 
 /*---------------------------------------------------------------------*/
+#form-question .card {
+  border: 1px solid;
+}
+
 #form-question .r-btn-question input[type="radio"] {
   -webkit-appearance: none;
      -moz-appearance: none;
@@ -517,33 +521,33 @@ body {
 }
 
 #form-question .r-btn-question .r-btn-insatisfait, #form-question .r-btn-question .r-btn-meh, #form-question .r-btn-question .r-btn-neutre, #form-question .r-btn-question .r-btn-satisfait, #form-question .r-btn-question .r-btn-heureux {
-  opacity: 0.7;
+  opacity: 0.8;
 }
 
 #form-question .r-btn-question .r-btn-insatisfait:hover, #form-question .r-btn-question .r-btn-meh:hover, #form-question .r-btn-question .r-btn-neutre:hover, #form-question .r-btn-question .r-btn-satisfait:hover, #form-question .r-btn-question .r-btn-heureux:hover {
-  opacity: 0.8;
+  opacity: 0.85;
   -webkit-transform: scale(1.1);
           transform: scale(1.1);
 }
 
 #form-question .r-btn-question .r-btn-insatisfait {
-  color: red;
+  color: #fe1d25;
 }
 
 #form-question .r-btn-question .r-btn-meh {
-  color: #ff7300;
+  color: #ff8b24;
 }
 
 #form-question .r-btn-question .r-btn-neutre {
-  color: #b3ff00;
+  color: #e6e20f;
 }
 
 #form-question .r-btn-question .r-btn-satisfait {
-  color: #55ff00;
+  color: #7fe611;
 }
 
 #form-question .r-btn-question .r-btn-heureux {
-  color: #00ff15;
+  color: #01d300;
 }
 
 #form-question .r-btn-question input[type="radio"]:checked + .r-btn-insatisfait,

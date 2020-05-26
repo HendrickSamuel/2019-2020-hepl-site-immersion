@@ -27,38 +27,39 @@ export class Question{
         this.ressentiInputMeh = this.corps.querySelector('#reponse-1-2');
         this.ressentiInputMeh.setAttribute('id', `${this.idHTML}-reponse-2`);
         this.ressentiInputMeh.setAttribute('name', `${this.idHTML}-reponse`);
-        label = this.corps.querySelector('.r-btn-insatisfait');
+        label = this.corps.querySelector('.r-btn-meh');
         label.setAttribute('for', `${this.idHTML}-reponse-2`);
 
         this.ressentiInputNeutre = this.corps.querySelector('#reponse-1-3');
         this.ressentiInputNeutre.setAttribute('id', `${this.idHTML}-reponse-3`);
         this.ressentiInputNeutre.setAttribute('name', `${this.idHTML}-reponse`);
-        label = this.corps.querySelector('.r-btn-insatisfait');
+        label = this.corps.querySelector('.r-btn-neutre');
         label.setAttribute('for', `${this.idHTML}-reponse-3`);
 
         this.ressentiInputSatisfait = this.corps.querySelector('#reponse-1-4');
         this.ressentiInputSatisfait.setAttribute('id', `${this.idHTML}-reponse-4`);
         this.ressentiInputSatisfait.setAttribute('name', `${this.idHTML}-reponse`);
-        label = this.corps.querySelector('.r-btn-insatisfait');
+        label = this.corps.querySelector('.r-btn-satisfait');
         label.setAttribute('for', `${this.idHTML}-reponse-4`);
 
         this.ressentiInputHeureux = this.corps.querySelector('#reponse-1-5');
         this.ressentiInputHeureux.setAttribute('id', `${this.idHTML}-reponse-5`);
         this.ressentiInputHeureux.setAttribute('name', `${this.idHTML}-reponse`);
-        label = this.corps.querySelector('.r-btn-insatisfait');
+        label = this.corps.querySelector('.r-btn-heureux');
         label.setAttribute('for', `${this.idHTML}-reponse-5`);
 
-        InitEventCheck(ressentiInputInsatisfait);
-        InitEventCheck(ressentiInputMeh);
-        InitEventCheck(ressentiInputNeutre);
-        InitEventCheck(ressentiInputSatisfait);
-        InitEventCheck(ressentiInputHeureux);
+        this.InitEventCheck(this.ressentiInputInsatisfait);
+        this.InitEventCheck(this.ressentiInputMeh);
+        this.InitEventCheck(this.ressentiInputNeutre);
+        this.InitEventCheck(this.ressentiInputSatisfait);
+        this.InitEventCheck(this.ressentiInputHeureux);
     }
     InitEventCheck(radioBtn){
         radioBtn.addEventListener('change', () =>{
-            if(radioBtn.getAttribute('checked') == true){
+            // if(radioBtn.getAttribute('checked') == true){
                 this.ressentiReponseValeur = radioBtn.getAttribute('value');
-            }
+                console.log(`Question ${this.idHTML}, ressenti = ${this.ressentiReponseValeur}`);
+            // }
         });
     }
     GetHTML(){

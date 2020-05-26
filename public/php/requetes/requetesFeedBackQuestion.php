@@ -8,8 +8,6 @@
     $action = $_POST['action'];
     $result["action"] = $action;
 
-    $eleveMail = $_POST['mail'];
-
     if (isset($action) && !empty($action)){
         $db = new DataBase();
         switch($action){
@@ -26,7 +24,6 @@
                 }
                 break;
         }
-
     }
     else{
         $result["valid"] = false;

@@ -21,11 +21,14 @@ export var ELEVE_IMMERSION = {
 }
 
 export var QUESTIONS = {
-    selectAll: (emailEleveInscrit, callBack, failCallBack) =>{
-        actionFeedbackQuestion("SELECTALL", emailEleveInscrit, callBack, failCallBack);
+    selectIdEleve: (emailEleveInscrit, callBack, failCallBack) =>{
+        actionEleveInscrit("GETIDFROMEMAIL", emailEleveInscrit, callBack, failCallBack);
+    },
+    selectAll: (callBack, failCallBack) =>{
+        actionFeedbackQuestion("SELECTALL", callBack, failCallBack);
     },
     insertReponse:(idEleve, reponses, callBack, failCallBack) =>{
-        actionFeedbackReponse("INSERT_REPONSE", idEleve, reponses, callBack, failCallBack)
+        actionFeedbackReponse("INSERT", idEleve, reponses, callBack, failCallBack)
     },
 }
 
@@ -38,9 +41,9 @@ function actionCoursDispo(action, callBack, failCallBack){
         dataType: "JSON",
         async: true
     })
-    .done((response) => {
+    .done((reponse) => {
         if(callBack != null)
-            callBack(response.data);
+            callBack(reponse.data);
     })
     .fail((error) => {
         failCallBack(error);
@@ -60,9 +63,9 @@ function actionEleveImmersion(action, data, callBack, failCallBack){
         dataType: "JSON",
         async: true
     })
-    .done((response) => {
+    .done((reponse) => {
         if(callBack != null)
-            callBack(response);
+            callBack(reponse);
     })
     .fail((error) => {
         failCallBack(error);
@@ -83,9 +86,9 @@ function actionEleveHoraire(action, dataEleve, dataCours, callBack, failCallBack
         dataType: "JSON",
         async: true,
     })
-    .done((response) => {
+    .done((reponse) => {
         if(callBack != null)
-            callBack(response);
+            callBack(reponse);
     })
     .fail((error) => {
         if(failCallBack != null)
@@ -96,20 +99,18 @@ function actionEleveHoraire(action, dataEleve, dataCours, callBack, failCallBack
     })   
 };
 
-
-function actionFeedbackQuestion(action, emailEleveInscrit, callBack, failCallBack){
+function actionFeedbackQuestion(action, callBack, failCallBack){
     $.ajax("/php/requetes/requetesFeedBackQuestion.php", {
         method: "POST",
         data:{
-            action: action,
-            mail: emailEleveInscrit
+            action: action
         },
         dataType: "JSON",
         async: true,
     })
-    .done((response) => {
+    .done((reponse) => {
         if(callBack != null)
-            callBack(response);
+            callBack(reponse);
     })
     .fail((error) => {
         if(failCallBack != null)
@@ -119,20 +120,20 @@ function actionFeedbackQuestion(action, emailEleveInscrit, callBack, failCallBac
         console.log(`Requête ajax |Feedback Question| effectuée : ${action}`);
     })   
 };
-function actionFeedbackReponse(action, idEleve, reponses, callBack, failCallBack){
-    $.ajax("/php/requetes/requetesFeedBackReponse.php", {
+function actionFeedbackReponse(action, idEtudiant, reponses, callBack, failCallBack){
+    $.ajax("/php/requetes/requetesFeedBackAjout.php", {
         method: "POST",
         data:{
             action: action,
-            idEleve: idEleve,
-            responses: data
+            idEtudiant: idEtudiant,
+            Data: reponses
         },
         dataType: "JSON",
         async: true,
     })
-    .done((response) => {
+    .done((reponse) => {
         if(callBack != null)
-            callBack(response);
+            callBack(reponse);
     })
     .fail((error) => {
         if(failCallBack != null)
@@ -142,3 +143,26 @@ function actionFeedbackReponse(action, idEleve, reponses, callBack, failCallBack
         console.log(`Requête ajax |Feedback Reponse| effectuée : ${action}`);
     })   
 };
+
+function actionEleveInscrit(action, email, callBack, failCallBack) {
+    $.ajax("/php/requetes/requetesFeedBackAjout.php", {
+        method: "POST",
+        data:{
+            action: action,
+            Data: email
+        },
+        dataType: "JSON",
+        async: true,
+    })
+    .done((reponse) => {
+        if(callBack != null)
+            callBack(reponse);
+    })
+    .fail((error) => {
+        if(failCallBack != null)
+            failCallBack(error);
+    })
+    .always(() => {
+        console.log(`Requête ajax |EleveInscrit| effectuée : ${action}`);
+    })      
+}
