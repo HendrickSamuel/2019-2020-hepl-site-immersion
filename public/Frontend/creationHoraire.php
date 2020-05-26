@@ -27,6 +27,7 @@
     <script src="/js/lib/bootstrap.min.js"></script>
     <script src="/js/lib/all.min.js"></script>
     <script src="/js/lib/toastr.min.js"></script>
+    <script src="/js/lib/md5.min.js"></script>
     <script type="module" src="/js/Frontend/Horaire.js"></script>
 
     <title>Journée Immersion HEPL</title>
@@ -388,6 +389,7 @@
                                     <div class="form-row">
                                         <div class="col-12 col-md-6 col-lg-6 mx-lg-auto">
                                             <button id="btn-inscrire" type="submit" name="btn-inscrire" class="btn-lg btn-jour btn btn-outline mx-auto text-uppercase mt-4 mb-2">s'inscrire</button>
+                                            <a id="btn-redirection"class="btn-lg btn-jour btn btn-outline mx-auto text-uppercase mt-4 mb-2" href="">Voir horaire</a>
                                         </div>
                                         <div class="col-12 col-md-6 col-lg-6 mx-lg-auto">
                                             <button id="btn-annuler" name="btn-annuler" type="button" class="btn-lg btn btn-jour btn-outline mx-auto text-uppercase mt-4 mb-2">annuler</button>
