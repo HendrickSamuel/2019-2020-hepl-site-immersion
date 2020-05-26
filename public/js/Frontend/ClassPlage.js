@@ -27,10 +27,20 @@ export class PlageHoraire {
         console.log(this);
     }
     InitContenuHTML(idJourHTML){
-        if(this.obligatoire)
-            this.corps.querySelector('.title > h2').textContent = `Plage ${this.id} (obligatoire)`;
-        else
-            this.corps.querySelector('.title > h2').textContent = `Plage ${this.id} (non obligatoire)`;
+        switch (this.id) {
+            case 1:
+                this.corps.querySelector('.title > h2').textContent = `Plage ${this.id} : 8h20 / 8h50 – 10h20`;
+                break;
+            case 2:
+                this.corps.querySelector('.title > h2').textContent = `Plage ${this.id} : 10h30 – 12h30 / 13h`;
+                break;
+            case 3:
+                this.corps.querySelector('.title > h2').textContent = `Plage ${this.id} : 13h / 13h30 – 15h / 15h30`;
+                break;
+            case 4:
+                this.corps.querySelector('.title > h2').textContent = `Plage ${this.id} : 15h / 15h30 – 16h / 17h30`;
+                break;
+        }
         this.idHTML = `${idJourHTML}-${this.idHTML}`;
         let sliderHTML = this.corps.querySelector('#slider');
         let zoneDropHTML = this.corps.querySelector('#drop');
@@ -61,7 +71,7 @@ export class PlageHoraire {
                 loop: false,
                 autoHeight: true,
                 grabCursor: false,
-                slidesPerView: 2,
+                slidesPerView: 1,
                 autoHeight: false,
                 centeredSlides: true,
                 speed: 300,
@@ -208,10 +218,7 @@ export class PlageHoraire {
                 if(zoneDrop.children.length > 0){
                     let carteChoisieAncienne = zoneDrop.querySelector('.carte-cours-choisi');
                     let nomCours = carteChoisieAncienne.querySelector('.titre > p').textContent;
-                    if(nomCours == e.nomCours){
-                        // toaster erreur
-                    }
-                    else{
+                    if(nomCours != e.nomCours){
                         let carteChoisieNouvelle = new CarteCoursChoisi(
                             e.detail.idCours, e.detail.nomCours, e.detail.gestion, e.detail.indus, e.detail.reseau);
                         carteChoisieNouvelle.Affiche();

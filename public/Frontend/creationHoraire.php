@@ -47,6 +47,11 @@
                     <!-- Boutons choix des jours -->
                 </div>
             </div>
+            <div class="row">
+                <div class="col-12">
+                    <button id="btn-tuto" name="btn-annuler" type="button" class="btn-lg btn btn-jour btn-outline mx-auto text-uppercase mt-4 mb-2">tutoriel</button>
+                </div>
+            </div>
         </div>
     </section>
     <section id="" class="py-5 plages-horaire ">
@@ -61,6 +66,91 @@
             </div>
         </div>
     </section>
+    <div id="tuto" class="container-fluid py-4">
+    <div class="row text-center">
+        <div class="title col-12 py-4">
+            <h4>Tutoriel</h4>
+            <div class="title-underline-center"></div>
+        </div>
+        <div class="col-12" >
+            <div id="slider text-center">
+                <div class="swiper-container">
+                    <div class="swiper-wrapper">
+                        <div class="swiper-slide">
+                            <div class="col-12 pt-5">
+                                <p class="pt-5">Bienvenue, voici les étapes a suivre pour vous inscrire :</p>
+                            </div>
+                        </div>
+                        <div class="swiper-slide">
+                            <div class="col-12 pt-5">
+                                <p class="pt-5">Pour vous inscrire à une journée, il vous faut au minimum choisir un cours pour les 3 premières plages horaire.</p>
+                            </div>
+                        </div>
+                        <div class="swiper-slide">
+                            <div class="col-12 pt-5">
+                                <p class="pt-5">Pour vous inscrire à plusieurs journées, un minimum d'une demi-journée de cours par jour est nécessaire.</p>
+                            </div>
+                        </div>
+                        <div class="swiper-slide">
+                            <div class="col-12 pt-5">
+                                <p class="pt-5">Vous pouvez choisir un cours en cliquant sur le bouton <i style="color: blue" class="fas fa-2x fa-plus-circle"></i></p>
+                            </div>
+                        </div>
+                        <div class="swiper-slide">
+                            <div class="col-12 pt-5">
+                                image du click
+                            </div>
+                        </div>
+                        <div class="swiper-slide">
+                            <div class="col-12 pt-5">
+                                <p class="pt-5">Ou bien, vous pouvez glisser-déposer le cours choisi dans la zone de la plage horaire correspondante :</p>
+                            </div>
+                        </div>
+                        <div class="swiper-slide">
+                            <div class="col-12 pt-5">
+                                image du drag&drop
+                            </div>
+                        </div>
+                        <div class="swiper-slide">
+                            <div class="col-12 pt-5">
+                                <p class="pt-5">Pour confirmer vos choix, il vous suffit de cliquer sur le bouton en fin de page, puis ensuite de compléter le formulaire</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="swiper-pagination"></div>
+                    <div class="swiper-button-prev"></div>
+                    <div class="swiper-button-next"></div>
+                </div>
+            </div>
+        </div>   
+    </div>
+</div>
+<script src="https://unpkg.com/swiper/js/swiper.min.js"></script>
+<script>
+    var sliderTuto = new Swiper(`#tuto .swiper-container`, {
+            loop: false,
+            autoHeight: true,
+            grabCursor: false,
+            slidesPerView: 1,
+            autoHeight: true,
+            speed: 500,
+            spaceBetween: 0,
+            allowTouchMove: true,
+            autoplay: {
+                delay: 5000,
+                disableOnInteraction: false,
+            },
+            pagination: {
+                el: `#tuto .swiper-pagination`,
+                clickable: true,
+                dynamicBullets: true,
+            },
+            navigation: {
+                nextEl: `#tuto .swiper-button-next`,
+                prevEl: `#tuto .swiper-button-prev`,
+            },
+        });
+</script>
 </body>
 
 <template id="carteDisponibleTemplate">

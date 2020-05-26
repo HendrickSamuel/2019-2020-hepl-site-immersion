@@ -4,7 +4,7 @@
 	Auteurs	:	Hendrick Samuel
 				Khamana B. Benedict 
 	
-	But 	:	Défini le style de la page de creation de l'horaire de l'étudiant et celui de la page de feedback	
+	But 	:	Défini le style des pages frontend
 */
 
 //#region Css général
@@ -576,6 +576,11 @@ $color-heureux : #01d300;
 			transform: scale(1.25);
 		}
 	}
+}
+
+#tuto{
+	font-size: 18px;
+	font-weight: 600;
 }
 //#endregion
 /*---------------------------------------------------------------------*/
