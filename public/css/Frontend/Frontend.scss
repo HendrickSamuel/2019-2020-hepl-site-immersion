@@ -543,7 +543,7 @@ $color-heureux : #01d300;
 	}
 	.r-btn-question{
 		input[type="radio"]{
-			appearance: none;
+			display: none;
 		}
 		.r-btn-insatisfait,.r-btn-meh, .r-btn-neutre, .r-btn-satisfait, .r-btn-heureux{
 			opacity: 0.8;

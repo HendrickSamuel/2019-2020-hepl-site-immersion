@@ -12,6 +12,10 @@
     <link href="/css/all.min.css" type="text/css" rel="stylesheet"> <!--load all styles -->
     <!-- Swipper -->
     <link rel="stylesheet" type="text/css" href="/css/Frontend/swiper.min.css"/> 
+    
+    <link rel="stylesheet" href="/css/toastr.min.css">
+    <link rel="stylesheet" href="/css/TopSpinner.css">
+
     <!-- CSS perso -->
     <link rel="stylesheet" type="text/css" href="/css/Frontend/Frontend.css">
 
@@ -22,6 +26,7 @@
     <script src="/js/lib/jquery.min.js"></script>
     <script src="/js/lib/bootstrap.min.js"></script>
     <script src="/js/lib/all.min.js"></script>
+    <script src="/js/lib/toastr.min.js"></script>
     <script type="module" src="/js/Frontend/Horaire.js"></script>
 
     <title>Journée Immersion HEPL</title>
@@ -60,7 +65,7 @@
 
 <template id="carteDisponibleTemplate">
     <div class="swiper-slide">
-        <div id="" class="carte-cours">
+        <div id="" class="carte-cours" draggable="true">
             <div class="r-btn">
                 <button type="button"> 
                     <i class="fas fa-plus-circle"></i>

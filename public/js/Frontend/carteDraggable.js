@@ -18,6 +18,7 @@ export let INIT_DRAGGABLE = function() {
         carte.addEventListener('dragstart', e => {
             console.log('Drag start for carte-cours');
             carteEnDeplacement = e.target;
+            console.log(e);
             setTimeout(() => (carte.classList.add('dragging', 'hold')), 50);
         }, false);
 
@@ -106,6 +107,7 @@ export let INIT_DRAGGABLE = function() {
         dropZone.addEventListener('dragover', e => {
             // let col = dropZone.querySelector('.col-12');
             // console.log(col);
+            console.log(e);
             let carteCoursChoisi = dropZone.querySelector('.carte-cours-choisi');
             console.log(`carteCoursChoisi : ${carteCoursChoisi}`);
             if (carteCoursChoisi != null) {

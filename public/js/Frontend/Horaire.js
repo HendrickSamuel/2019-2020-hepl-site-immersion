@@ -1,6 +1,9 @@
 /*
 
 */
+import {actionconfig} from "../ajax/requetesconfig";
+import * as toast from '../toaster/toaster';
+import {Spinner} from '../spinner.js';
 import {
     COURS_DISPO, ELEVE_IMMERSION
 } from '/js/ajax/requeteAjaxFrontend';
@@ -10,10 +13,12 @@ import * as plages from './ClassPlage';
 import * as cartes from './ClassCarteCours';
 
 document.addEventListener('DOMContentLoaded', () => {
+    let spinner = new Spinner();
     let coursDispoParJour = {};
     let joursImmersion = [];
     let nbEssai = 0;
-    let btnConfirmer = null;
+    let btnConfirmer = document.getElementById('btn-confirmation');
+    $(btnConfirmer).hide();
     let btnAnnuler = null;
     let btnInscrire = null;
     let nomValide = false;
@@ -21,11 +26,38 @@ document.addEventListener('DOMContentLoaded', () => {
     let ecoleValide = false;
     let emailValide = false;
     let nbJourChoisi = 0;
+    let journeeOuverte = false;
     const masqueNomPrenom = /^[A-Za-z]+[\s\-A-Za-z]$/;
     const masqueEmail = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
     const masqueEcole = /^[A-Za-z][0-9A-Za-z\-\s]*[A-Za-z0-9]$/;
-    COURS_DISPO.selectAll(CoursDisponibleRequeteOK, CoursDisponibleRequeteKO);
 
+    $('#jour-plage-horaire').hide();
+    
+    // 
+    spinner.Show();
+    actionconfig('', 'GET', ImmersionOuverteRequeteOK, ImmersionOuverteRequeteKO);
+
+
+
+    function ImmersionOuverteRequeteOK(data) {
+        // alert("Dans ImmersionOuverteRequeteOK ");
+        let retour = (Object)(JSON.parse(JSON.stringify(data)));
+        console.log(retour);
+        if(retour['periodeInscription'] == true){
+            $('#jour-plage-horaire').show();
+            spinner.ChangeStyle(3);
+            COURS_DISPO.selectAll(CoursDisponibleRequeteOK, CoursDisponibleRequeteKO);
+        }else{
+            spinner.Hide();
+            toast.toastrerreur("Désolé, les inscriptions ne sont pas encore ouvertes");
+            // creer div inscription fermee 
+        }
+        
+    }
+    function ImmersionOuverteRequeteKO(data) {
+        spinner.Hide();
+        toast.toastrerreur(data);
+    }
     function CoursDisponibleRequeteOK(data) {
         coursDispoParJour = (Object)(JSON.parse(JSON.stringify(data)));
         console.log("Cours dispo :")
@@ -53,14 +85,12 @@ document.addEventListener('DOMContentLoaded', () => {
         jour1.RenderPlages(sectionPlagesHoraire);
         btnConfirmer = document.getElementById('btn-confirmation');
         btnConfirmer.addEventListener('click', EventConfirmation);
+        spinner.Hide();
     }
 
     function CoursDisponibleRequeteKO(data) {
-        alert(`Resultat CoursDisponible KO : \n ${data}`);
-        console.log(data);
-        // nbEssai++;
-        // if(nbEssai < 3)
-        //     COURS_DISPO.selectAll(CoursDisponibleRequeteOK, CoursDisponibleRequeteKO);
+        spinner.Hide();
+        toast.toastrerreur("Erreur : cours pour la journée d'immersion indisponibles");
     }
 
     function InitHTMLAllCard(plageHoraire){

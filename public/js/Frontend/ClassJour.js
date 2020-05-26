@@ -102,12 +102,10 @@ export class JourImmersion{
     RenderPlages(sectionPlagesHoraire){
         this.InitIdSectionPlageHoraire();
         this.plages.forEach(plage => {
-            // plage.corps.style.opacity = '0';
-            sectionPlagesHoraire.appendChild(plage.corps); /*jour-1-plage-1*/
+            sectionPlagesHoraire.appendChild(plage.corps); 
             plage.InitSlider();
-            // $(`#${this.idHTML} > #${plage.idHTML}`).fadeIn("slow");
-            // console.log(document.querySelector(`#${this.idHTML} > #${plage.idHTML}`));
-            // plage.corps.style.visibility = 'none';;
+            plage.InitDraggable();
+            plage.InitZoneDrop();
         });
         // INIT_DRAGGABLE();
     }

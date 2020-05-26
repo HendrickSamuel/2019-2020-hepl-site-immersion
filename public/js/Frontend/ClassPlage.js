@@ -7,8 +7,9 @@
 */
 
 import * as swiper from '../lib/swiper.min.js';
-import { CarteCours } from "./ClassCarteCours";
+// import { CarteCours } from "./ClassCarteCours";
 import { CarteCoursChoisi } from "./ClassCarteCours";
+import * as toast from '../toaster/toaster';
 export class PlageHoraire {
     constructor(id, obligatoire){
         this.id = id;
@@ -20,6 +21,7 @@ export class PlageHoraire {
         this.obligatoire = obligatoire;
         this.slider = undefined;
         this.zoneDrop = undefined;
+        this.carteEnDeplacement = undefined;
     }
     Affiche(){
         console.log(this);
@@ -103,40 +105,149 @@ export class PlageHoraire {
             });
         }
     }
+    InitDraggable(){
+        this.cartesDispo.forEach(carteDispo => {
+            let carteCours = carteDispo.corps.querySelector('.carte-cours');
+            // carteCours.setAttribute();
+            carteCours.addEventListener('dragstart', e => {
+                console.log('Drag start for carteCours');
+                this.carteEnDeplacement = e.target;
+                console.log(e);
+                setTimeout(() => (carteCours.classList.add('dragging', 'hold')), 50);
+            }, false);
+
+            carteCours.addEventListener('dragend', () => {
+                carteCours.classList.remove('dragging', 'hold');
+                console.log('Drag end for carteCours');
+                this.carteEnDeplacement = null;// truc marant
+            });
+        });
+    }
+    InitZoneDrop(){
+        this.zoneDrop = this.corps.querySelector('.zone-drop');
+        this.zoneDrop.addEventListener('dragenter', () => {
+            console.log(`A drag is entered !`);
+        });
+        this.zoneDrop.addEventListener('dragover', e => {
+            console.log(e);
+            let idCarteDeplacement = this.carteEnDeplacement.getAttribute('id');
+            console.log("Carte en deplacement = " + idCarteDeplacement);
+            console.log(this.carteEnDeplacement);
+            if(idCarteDeplacement != null){
+                if (this.carteChoisie != null) {
+                    console.log("Deja   cours choisi pour la plage");
+                    if(idCarteDeplacement.includes(this.idHTML)){
+                        let titreCarteCoursChoisi = this.carteChoisie.corps.querySelector('.titre > p');
+                        let titreCarteCoursEnDeplacement = this.carteEnDeplacement.querySelector('.titre > p');
+                        if (titreCarteCoursChoisi.textContent === titreCarteCoursEnDeplacement.textContent){
+                            this.zoneDrop.classList.add('border-danger');
+                            console.log(`Place prise, le cours a deja ete choisi !`);
+                        }
+                        else{
+                            e.preventDefault();
+                            this.zoneDrop.classList.add('border-success');
+                            console.log(`Place PAS prise bonne zone !`);
+                        }
+                    }
+                }else{
+                    console.log("Pas cours choisi pour la plage");
+                    if(idCarteDeplacement.includes(this.idHTML)){
+                        e.preventDefault();
+                        this.zoneDrop.classList.add('border-success');
+                        console.log(`Place PAS prise bonne zone !`);
+                    }
+                }
+            }else{
+                this.zoneDrop.classList.add('border-danger');
+                console.log(`Cet objet n'est pas une carte cours !`);
+            }
+            console.log(`I have been hoverred !`);
+            this.zoneDrop.classList.add('hovered');
+        });
+        this.zoneDrop.addEventListener('dragleave', () => {
+            if (this.zoneDrop.classList.contains('border-danger'))
+                this.zoneDrop.classList.remove('border-danger');
+            if (this.zoneDrop.classList.contains('border-success'))
+                this.zoneDrop.classList.remove('border-success');
+            this.zoneDrop.classList.remove('hovered');
+        });
+        this.zoneDrop.addEventListener('drop', (e) => {
+            e.preventDefault();
+            console.log(`A drag is dropped !`);
+            if(this.carteChoisie != null){
+                this.carteChoisie.btnRemove.click();
+            }
+            let nomCours = this.carteEnDeplacement.querySelector('.titre > p').textContent;
+            const eventAjout = new CustomEvent('carteChoisieAjoutee', {
+                detail:{
+                    idCours : -1,
+                    idHTMLCarte : null,
+                    nomCours: nomCours,
+                    gestion: null,
+                    indus: null,
+                    reseau: null
+                }
+            });
+            this.corps.dispatchEvent(eventAjout);
+
+            this.carteEnDeplacement.classList.remove('dragging', 'hold');
+
+            this.zoneDrop.classList.remove('hovered');
+            if(this.zoneDrop.classList.contains('border-success'))
+                this.zoneDrop.classList.remove('border-success');
+        });
+
+    }
     NotifyCarteChoisie(){
         this.corps.addEventListener('carteChoisieAjoutee', (e) =>{
-            // alert(`Ajout de la carte : ${e.detail.nomCours} ${e.detail.idCarte} dans la plage horaire ${this.idHTML}`);
             let zoneDrop = this.corps.querySelector('.zone-drop');
-            console.log(zoneDrop);
-            console.log(zoneDrop.children.length);
-            if(zoneDrop.children.length > 0){
-                let carteChoisieAncienne = zoneDrop.querySelector('.carte-cours-choisi');
-                let nomCours = carteChoisieAncienne.querySelector('.titre > p').textContent;
-                if(nomCours == e.nomCours){
-                    // toaster erreur
+            console.log("e ID = " + e.detail.id);
+            if(e.detail.idCours != -1){
+                console.log(zoneDrop);
+                console.log(zoneDrop.children.length);
+                if(zoneDrop.children.length > 0){
+                    let carteChoisieAncienne = zoneDrop.querySelector('.carte-cours-choisi');
+                    let nomCours = carteChoisieAncienne.querySelector('.titre > p').textContent;
+                    if(nomCours == e.nomCours){
+                        // toaster erreur
+                    }
+                    else{
+                        let carteChoisieNouvelle = new CarteCoursChoisi(
+                            e.detail.idCours, e.detail.nomCours, e.detail.gestion, e.detail.indus, e.detail.reseau);
+                        carteChoisieNouvelle.Affiche();
+                        carteChoisieNouvelle.InitContenuHTML();
+                        carteChoisieNouvelle.InitIdHTML(this.idHTML, this.corps);
+                        carteChoisieNouvelle.Affiche();
+                        this.carteChoisie = carteChoisieNouvelle;
+                        zoneDrop.replaceChild(carteChoisieNouvelle.GetHTML(), carteChoisieAncienne);
+                        this.Affiche();
+                    }
                 }
                 else{
-                    let carteChoisieNouvelle = new CarteCoursChoisi(
-                        e.detail.idCours, e.detail.nomCours, e.detail.gestion, e.detail.indus, e.detail.reseau);
+                    // La Zone de drop est vide
+                    let carteChoisieNouvelle = new CarteCoursChoisi(e.detail.idCours, e.detail.nomCours, e.detail.gestion, e.detail.indus, e.detail.reseau);
                     carteChoisieNouvelle.Affiche();
                     carteChoisieNouvelle.InitContenuHTML();
                     carteChoisieNouvelle.InitIdHTML(this.idHTML, this.corps);
                     carteChoisieNouvelle.Affiche();
                     this.carteChoisie = carteChoisieNouvelle;
-                    zoneDrop.replaceChild(carteChoisieNouvelle.GetHTML(), carteChoisieAncienne);
+                    zoneDrop.appendChild(carteChoisieNouvelle.GetHTML());
                     this.Affiche();
                 }
-            }
-            else{
-                // La Zone de drop est vide
-                let carteChoisieNouvelle = new CarteCoursChoisi(e.detail.idCours, e.detail.nomCours, e.detail.gestion, e.detail.indus, e.detail.reseau);
-                carteChoisieNouvelle.Affiche();
-                carteChoisieNouvelle.InitContenuHTML();
-                carteChoisieNouvelle.InitIdHTML(this.idHTML, this.corps);
-                carteChoisieNouvelle.Affiche();
-                this.carteChoisie = carteChoisieNouvelle;
-                zoneDrop.appendChild(carteChoisieNouvelle.GetHTML());
-                this.Affiche();
+            }else{
+                for (let i = 0; i < this.cartesDispo.length; i++) {
+                    if(this.cartesDispo[i].nomCours == e.detail.nomCours){
+                        let carteChoisieNouvelle = new CarteCoursChoisi(this.cartesDispo[i].idCours, 
+                            this.cartesDispo[i].nomCours, this.cartesDispo[i].gestion, this.cartesDispo[i].indus,this.cartesDispo[i].reseau);
+                            carteChoisieNouvelle.InitContenuHTML();
+                            carteChoisieNouvelle.InitIdHTML(this.idHTML, this.corps);
+                        carteChoisieNouvelle.Affiche();
+                        this.carteChoisie = carteChoisieNouvelle;
+                        zoneDrop.appendChild(carteChoisieNouvelle.GetHTML());
+                        break;
+                    }
+                    
+                }
             }
         });
         this.corps.addEventListener('carteChoisieEnlevee', (e) =>{
