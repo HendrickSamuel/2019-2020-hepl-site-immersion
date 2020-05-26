@@ -33,10 +33,13 @@
                             //Id de l'eleve pour ensuite faire l'insert de son horaire
                             $result["id"] = $db->connection->lastInsertId();
                         }
+<<<<<<< HEAD
 
 
 
 
+=======
+>>>>>>> BranchBeneV2
                     } 
                     catch (PDOException $e) {
                         $result["valid"] = false;
@@ -68,7 +71,10 @@
         foreach ($bonParametres as $nomData => $regex) {
             if(!preg_match($regex, $data[$nomData])){
                 $retour["message"] = `La valeur recue {$nomData} ne respecte pas le regex choisi {$regex}, insertion impossible`;
+<<<<<<< HEAD
                 // $retour["message"] = "La valeur recue $nomData ne respecte pas le regex choisi $regex, insertion impossible";
+=======
+>>>>>>> BranchBeneV2
                 break;
             }
         }

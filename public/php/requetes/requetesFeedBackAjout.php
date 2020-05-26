@@ -2,6 +2,7 @@
 require_once("./../includes.php");
 header("Content-Type:application/json");
 
+<<<<<<< HEAD
 $data = $_POST["data"];
 
 $result["valid"] = true;
@@ -13,11 +14,28 @@ switch ($data["action"])
         $sql = "SELECT ID FROM Eleves WHERE UPPER(Email) = UPPER(?);";
         $stm = $db->connection->prepare($sql);
         $stm->execute(array($data["email"]));
+=======
+$data = $_POST["Data"];
+
+$result["valid"] = true;
+
+switch ($_POST["action"])
+{
+    case "GETIDFROMEMAIL":
+        $db = new DataBase();
+        $sql = "SELECT ID FROM Eleves WHERE UPPER(Email) = UPPER(?);";
+        $stm = $db->connection->prepare($sql);
+        $stm->execute(array($data));
+>>>>>>> BranchBeneV2
         $id = $stm->fetch(PDO::FETCH_ASSOC);
         if($id === false)
         {
             $result["valid"] = false;
+<<<<<<< HEAD
             $result["message"] = `{$data['email']} n'est pas enregistrée.`;
+=======
+            $result["message"] = `{$data} n'est pas enregistrée.`;
+>>>>>>> BranchBeneV2
         }
         else{
             $result["idEtudiant"] = $id['ID'];
@@ -25,7 +43,11 @@ switch ($data["action"])
         echo json_encode($result);
         break;
 
+<<<<<<< HEAD
     case 'INSERT':
+=======
+    case "INSERT":
+>>>>>>> BranchBeneV2
         $db = new DataBase();
         $db->connection->beginTransaction();
 
@@ -35,9 +57,15 @@ switch ($data["action"])
 
         $insert = true;
         $result['message'] = '';
+<<<<<<< HEAD
         foreach($data['reponses'] as $key => $value)
         {
             $res = $stm->execute([$value['question'], $data['idEtudiant'], $value['ressenti']]);
+=======
+        foreach($data as $key => $value)
+        {
+            $res = $stm->execute([$value['question'], $_POST['idEtudiant'], $value['ressenti']]);
+>>>>>>> BranchBeneV2
             if (!$res)
             {
                 $insert = false;
