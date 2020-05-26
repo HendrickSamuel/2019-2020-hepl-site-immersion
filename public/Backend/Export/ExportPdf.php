@@ -56,7 +56,7 @@ $i = 0;
                 <div style="text-align: right; float: right; margin-top: -100px">
                     <img src="./QRCode.php?data=http://<?php echo($_SERVER["HTTP_HOST"] . "/Frontend/feedback.php?userKey=".$val["hash"]); ?>"/>
                     <br>
-                    <small>Donnez votre avis sur la journées !</small>
+                    <small>Donnez votre avis sur votre journée !</small>
                 </div>
             </div>
             <hr>
