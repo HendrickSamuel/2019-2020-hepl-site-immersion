@@ -15,6 +15,7 @@ export class JourImmersion{
         this.id = id;
         this.idHTML = `jour-${id}`;
         this.date = date;
+        this.dateFormatBD = undefined;
         this.plages = [];
         this.btnChoix = undefined;
         console.log('date recue :')
@@ -44,13 +45,14 @@ export class JourImmersion{
             console.log("Dans Jour Init : choix plage ");
             console.log('Plage recue');
             console.log(plagesHoraire[plage]);
-            console.log(`Taille de la plage = ${plagesHoraire[plage].length}`);
+            console.log(`Taille de la plage = ${plagesHoraire[plage].length}`); 
             for (let j = 0; j < plagesHoraire[i].length; j++){
                 console.log("Dans Jour Init : ajout carte");
                 console.log(plagesHoraire[plage][j]);
                 switch (i){
                     case 1:
                         this.plages[0].cartesDispo.push(new CarteCours(plagesHoraire[plage][j]));
+                        this.dateFormatBD = plagesHoraire[plage][j].DateFormatBD;
                         break;
                     case 2:
                         this.plages[1].cartesDispo.push(new CarteCours(plagesHoraire[plage][j]));
@@ -64,6 +66,7 @@ export class JourImmersion{
                     default:
                         console.log("Houla On a depasse 4 plages ?!");
                         break;
+                    
                 }
             }
             i++;

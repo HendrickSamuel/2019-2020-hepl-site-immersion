@@ -19,6 +19,8 @@ $couleur-menu: #505b6a;
 $couleur-focus: #bec3cc;
 $couleur-fond: #dfe7f2;
 
+
+
 // Design Page 
 body {
 	background-color: $couleur-fond;
@@ -210,7 +212,7 @@ body {
 		.description {
 			margin-left: 5px;
 			margin-right: 5px;
-			font-size: 13px;
+			font-size: 15px;
 		}
 	}
 }
@@ -292,7 +294,7 @@ body {
 		.description {
 			margin-left: 5px;
 			margin-right: 5px;
-			font-size: 13px;
+			font-size: 15px;
 		}
 	}
 }
@@ -358,11 +360,10 @@ body {
 			font-size: 22px;
 			font-weight: 500;
 		}
-
 		.description {
 			margin-left: 5px;
 			margin-right: 5px;
-			font-size: 13px;
+			font-size: 15px;
 		}
 	}
 }
@@ -466,7 +467,7 @@ body {
 	// transform: translateX(50%,-50%);
 }
 // #region Drag and Drop Style
-@media screen and (min-width: 200px){
+// @media screen and (min-width: 200px){
 	.zone-drop{
 		display: inline-block;
 		border-radius: .75em;
@@ -482,7 +483,7 @@ body {
 		border-radius: .7em;
 		background: $couleur-fond;
 	}
-}
+// }
 
 .dragging{
     opacity: .5;
@@ -527,6 +528,51 @@ body {
 
 //#endregion 
 /*---------------------------------------------------------------------*/
-//#region Css spécifique à la page feedBack.php
+//#region Css spécifique à la page feedback.php
+
+
+// Aspect radioBoutons des questions
+$color-insatisfait : red;
+$color-meh : rgb(255, 115, 0);
+$color-neutre : rgb(179, 255, 0);
+$color-satisfait : rgb(85, 255, 0);
+$color-heureux : rgb(0, 255, 21);
+#form-question{
+	.r-btn-question{
+		input[type="radio"]{
+			appearance: none;
+		}
+		.r-btn-insatisfait,.r-btn-meh, .r-btn-neutre, .r-btn-satisfait, .r-btn-heureux{
+			opacity: 0.7;
+			&:hover{
+				opacity: 0.8;
+				transform: scale(1.1);
+			}
+		}
+		.r-btn-insatisfait{
+			color: $color-insatisfait;
+		}
+		.r-btn-meh{
+			color: $color-meh;
+		}
+		.r-btn-neutre{
+			color: $color-neutre;
+		}
+		.r-btn-satisfait{
+			color: $color-satisfait;
+		}
+		.r-btn-heureux{
+			color: $color-heureux;
+		}
+		input[type="radio"]:checked + .r-btn-insatisfait ,
+		input[type="radio"]:checked + .r-btn-meh ,
+		input[type="radio"]:checked + .r-btn-neutre ,
+		input[type="radio"]:checked + .r-btn-satisfait ,
+		input[type="radio"]:checked + .r-btn-heureux{
+			opacity: 1;
+			transform: scale(1.25);
+		}
+	}
+}
 //#endregion
 /*---------------------------------------------------------------------*/

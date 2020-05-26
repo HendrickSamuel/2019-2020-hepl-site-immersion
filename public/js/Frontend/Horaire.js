@@ -6,8 +6,8 @@ import {
 } from '/js/ajax/requeteAjaxFrontend';
 
 import * as jours from './ClassJour';
-// import * as plages from './ClassPlage';
-// import * as cartes from './ClassCarteCours';
+import * as plages from './ClassPlage';
+import * as cartes from './ClassCarteCours';
 
 document.addEventListener('DOMContentLoaded', () => {
     let coursDispoParJour = {};
@@ -16,7 +16,11 @@ document.addEventListener('DOMContentLoaded', () => {
     let btnConfirmer = null;
     let btnAnnuler = null;
     let btnInscrire = null;
-    let formulaireValide = false;
+    let nomValide = false;
+    let prenomValide = false;
+    let ecoleValide = false;
+    let emailValide = false;
+    let nbJourChoisi = 0;
     const masqueNomPrenom = /^[A-Za-z]+[\s\-A-Za-z]$/;
     const masqueEmail = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
     const masqueEcole = /^[A-Za-z][0-9A-Za-z\-\s]*[A-Za-z0-9]$/;
@@ -32,10 +36,6 @@ document.addEventListener('DOMContentLoaded', () => {
             joursImmersion.push(new jours.JourImmersion(numeroJour, date, coursDispoParJour[date]));
             numeroJour++;
         }
-        // console.log("lesJours apres  :");
-        // joursImmersion.forEach(jour => {
-        //     jour.Affiche();
-        // });
         // Init des cartes
         joursImmersion.forEach(jour => {
             jour.plages.forEach(plage => {
@@ -46,11 +46,6 @@ document.addEventListener('DOMContentLoaded', () => {
         joursImmersion.forEach(jour => {
             InitHTMLAllPlages(jour);
         });
-
-        // console.log("lesJours apres init HTML des cartes :");
-        // joursImmersion.forEach(jour => {
-        //     jour.Affiche();
-        // });
 
         let jour1 = joursImmersion[0];
         jour1.Affiche();
@@ -85,11 +80,12 @@ document.addEventListener('DOMContentLoaded', () => {
             let sectionPlages = document.querySelector('.plages-horaire');
             let sectionConfirmation = document.querySelector('#zone-confirmation');
 
-            // Pas propre changera apres
-            sectionJour.style.visibility = 'hidden';
-            sectionPlages.style.visibility = 'hidden';
-            sectionConfirmation.style.visibility = 'hidden';
-            sectionJour.style.visibility = 'hidden';
+            // sectionJour.style.display = 'none';
+            // sectionPlages.style.display = 'none';
+            // sectionConfirmation.style.display = 'none';
+            $(sectionJour).hide();
+            $(sectionPlages).hide();
+            $(sectionConfirmation).hide();
             CreationRecap();
         }
         else
@@ -101,43 +97,53 @@ document.addEventListener('DOMContentLoaded', () => {
         let inputPrenom = formulaireInscription.querySelector('#prenom');
         let inputEcole = formulaireInscription.querySelector('#ecole');
         let inputMail = formulaireInscription.querySelector('#email');
-        let i = 1;
         NomValide(inputNom);
         PrenomValide(inputPrenom);
         EcoleValide(inputEcole);
         MailValide(inputMail);
-        if(formulaireValide){
+        if(FormulaireValide()){
             let champs = formulaireInscription.elements;
-            let data = {};
+            let dataEleve = {};
             for(let i = 0; i < champs.length; i++){
-                data[champs[i].name] = champs[i].value;
+                dataEleve[champs[i].name] = champs[i].value;
             }
-            console.log(data);
+            console.log(dataEleve);
             //Essai Insertion de l'eleve + horaire
-            ELEVE_IMMERSION.insertEleve(data, InsertEleveRequeteOK, InsertEleveRequeteKO);
-            formulaireValide = false;
-            i++;
+            ELEVE_IMMERSION.insertEleveHoraire(dataEleve, CreationHoraireAInserer(joursImmersion), InsertEleveRequeteOK, InsertEleveRequeteKO);
         }
         else
             alert('FormulaireInvalide ' + i);
     }
     function EventAnnulation(){
-        alert('OK btn annuler');
+        let sectionJour = document.querySelector('#jour-plage-horaire');
+        let sectionPlages = document.querySelector('.plages-horaire');
+        let sectionConfirmation = document.querySelector('#zone-confirmation');
+        let sectionRecap = document.querySelector('#zone-recap');
+        let footerInfoEleve = document.querySelector('#zone-info-eleve');
+
+        sectionRecap.remove();
+        footerInfoEleve.remove();
+
+        $(sectionJour).show();
+        $(sectionPlages).show();
+        $(sectionConfirmation).show();
+
+        document.documentElement.scrollTop = 0;
     }
     function CreationRecap(){
         let recapTemplate = document.importNode(document.querySelector("#recapTemplate").content, true);
         let zoneRecap = recapTemplate.querySelector('#zone-recap');
         let zoneJournee = zoneRecap.querySelector('#zone-journee');
         document.documentElement.scrollTop = 0;
-        document.querySelector('nav').insertAdjacentElement('afterend', zoneRecap);
+        document.body.insertAdjacentElement('beforeend', zoneRecap);
         // Creation des journees
         CreationRecapJournee(zoneJournee);
         // Creation du formulaire
-        CreationRecapForm(zoneRecap)
+        CreationRecapForm(zoneRecap);
     }
     function CreationRecapJournee(zoneJournee){
         joursImmersion.forEach(jour => {
-            jour.btnChoix.disabled = true;
+            // jour.btnChoix.disabled = true;
             let recapJourneeTemplate = document.importNode(document.querySelector("#recapJourneeTemplate").content, true);
             let uneJournee = recapJourneeTemplate.querySelector('.journee');
             console.log(uneJournee);
@@ -155,12 +161,18 @@ document.addEventListener('DOMContentLoaded', () => {
                     let unCours = carteRecapTemplate.querySelector('.carte-cours-recap');
                     if(plage.carteChoisie != null){
                         unCours.querySelector('.titre > p').textContent = `${plage.carteChoisie.nomCours}`;
+                        if(plage.carteChoisie.gestion == 0)
+                            unCours.querySelector('.gestion').remove();
+                        if(plage.carteChoisie.indus == 0)
+                            unCours.querySelector('.indus').remove();
+                        if(plage.carteChoisie.reseau == 0)
+                            unCours.querySelector('.reseau').remove();
                     }
                     else{
                         unCours.querySelector('.titre > p').textContent = `Aucun cours choisi`;
                         unCours.style.borderStyle = "dashed";
+                        unCours.querySelector('.description').remove();
                     }
-                    unCours.querySelector('.description > p').textContent = ``;
                     coursChoisi.appendChild(unCours);
                 listePlages.appendChild(unePlage);
             });
@@ -198,13 +210,13 @@ document.addEventListener('DOMContentLoaded', () => {
             console.log(`Nom correct : ${value} Test = ${masqueNomPrenom.test(value)}`);
             inputNom.classList.add('border-success');
             inputNom.classList.remove('border-danger');
-            formulaireValide = true;
+            nomValide = true;
         }
         else{
             console.log(`Nom incorrect : ${value} Test = ${masqueNomPrenom.test(value)}`);
             inputNom.classList.add('border-danger');
             inputNom.classList.remove('border-success');
-            formulaireValide = false;
+            nomValide = false;
         }
     }
     function PrenomValide(inputPrenom){
@@ -213,13 +225,13 @@ document.addEventListener('DOMContentLoaded', () => {
             console.log(`PreNom correct : ${value} Test = ${masqueNomPrenom.test(value)}`);
             inputPrenom.classList.add('border-success');
             inputPrenom.classList.remove('border-danger');
-            formulaireValide = true;
+            prenomValide = true;
         }
         else{
             console.log(`PreNom incorrect : ${value} Test = ${masqueNomPrenom.test(value)}`);
             inputPrenom.classList.add('border-danger');
             inputPrenom.classList.remove('border-success');
-            formulaireValide = false;
+            prenomValide = false;
         }
     }
     function EcoleValide(inputEcole){
@@ -228,13 +240,13 @@ document.addEventListener('DOMContentLoaded', () => {
             console.log(`Ecole correct : ${value} Test = ${masqueEcole.test(value)}`);
             inputEcole.classList.add('border-success');
             inputEcole.classList.remove('border-danger');
-            formulaireValide = true;
+            ecoleValide = true;
         }
         else{
             console.log(`Ecole incorrect : ${value} Test = ${masqueEcole.test(value)}`);
             inputEcole.classList.add('border-danger');
             inputEcole.classList.remove('border-success');
-            formulaireValide = false;
+            ecoleValide = false;
         }
     }
     function MailValide(inputMail){
@@ -243,25 +255,31 @@ document.addEventListener('DOMContentLoaded', () => {
             console.log(`Mail correct : ${value} Test = ${masqueEmail.test(value)}`);
             inputMail.classList.add('border-success');
             inputMail.classList.remove('border-danger');
-            formulaireValide = true;
+            emailValide = true;
         }
         else{
             console.log(`Mail incorrect : ${value} Test = ${masqueEmail.test(value)}`);
             inputMail.classList.add('border-danger');
             inputMail.classList.remove('border-success');
-            formulaireValide = false;
+            emailValide = false;
         }
+    }
+    function FormulaireValide() {
+        if(nomValide && prenomValide && ecoleValide && emailValide)
+            return true;
+        else
+            return false;
     }
     function VerificationChoixCours(){
         let valide = false;
         //Nombre de journee où un cours a ete choisi
-        let nbJourChoisi = 0;
+        let nbJour = 0;
         joursImmersion.forEach(jour =>{
             if(jour.ChoisiCours())
-                nbJourChoisi++;
+                nbJour++;
         });
         // Verification si seulement une seule journee(3 premieres plages horaires obligatoire)
-        if(nbJourChoisi == 1){
+        if(nbJour == 1){
             for (let i = 0; i < joursImmersion.length; i++) {
                 if(joursImmersion[i].MinimumCoursUneJournee()){
                     valide = true;
@@ -270,7 +288,7 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         }
         // Verification si plusieurs journee(Minimum une demi-journee par jour => 2 plages par jour)
-        else if(nbJourChoisi > 1){
+        else if(nbJour > 1){
             for (let i = 0; i < joursImmersion.length; i++) {
                 if(joursImmersion[i].ChoisiCours()){
                     if(joursImmersion[i].MinimumCoursPlusieursJournee()){
@@ -287,9 +305,10 @@ document.addEventListener('DOMContentLoaded', () => {
         else{
             valide = false;
         }
+        nbJourChoisi = nbJour;
         return valide;
     }
-
+    /*-------------------------------------------------*/
     function InsertEleveRequeteOK(data){
         let retour = (Object)(JSON.parse(JSON.stringify(data)));
         console.log("retour InsertEleveRequeteOK :")
@@ -299,10 +318,35 @@ document.addEventListener('DOMContentLoaded', () => {
         alert(`Resultat InsertEleveRequeteKO : \n ${data}`);
         console.log(data);
     }
-
-    function InsertHoraireRequeteOK(){
-        
+    function CreationHoraireAInserer(joursImmersion){
+        let data = new Array();
+        for(let i = 0; i < joursImmersion.length; i++){
+            if(joursImmersion[i].ChoisiCours()){
+                // avoir la date
+                let date = joursImmersion[i].dateFormatBD;
+                for(let j = 0; j < joursImmersion[i].plages.length; j++){
+                    if(joursImmersion[i].plages[j].carteChoisie != null){
+                        let obj = {};
+                        obj.nomCours = joursImmersion[i].plages[j].carteChoisie.nomCours;
+                        obj.idCours = parseInt(joursImmersion[i].plages[j].carteChoisie.id);
+                        obj.plage = j+1;
+                        obj.date = date;
+                        data.push(obj);
+                    }
+                }
+            }
+        }
+        console.log(data);
+        return data;
     }
-    function InsertHoraireRequeteKO(){
-    }
+    /*-------------------------------------------------*/
+    // function InsertHoraireRequeteOK(data){
+    //     alert(`Resultat InsertHoraireRequeteOK : \n ${data}`);
+    //     console.log(data);
+    // }
+    // function InsertHoraireRequeteKO(data){
+    //     alert(`Resultat InsertHoraireRequeteKO : \n ${data}`);
+    //     console.log(data);
+    // }
+    
 });

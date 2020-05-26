@@ -77,7 +77,10 @@
                 </div>
                 <div class="row">
                     <div class=" col-12 px-4 description">
-                        <p>Je suis le cours de C++</p>
+                        <p>Le cours est donné en :</p>
+                        <span class="badge badge-pill badge-primary gestion">Gestion</span>
+                        <span class="badge badge-pill badge-success indus">Indus</span>
+                        <span class="badge badge-pill badge-danger reseau">Réseau</span>
                     </div>
                 </div>
             </div>
@@ -103,7 +106,10 @@
             </div>
             <div class="row">
                 <div class=" col-12 px-4 description">
-                    <p>Je suis le cours de C++</p>
+                    <p>Le cours est donné en :</p>
+                    <span class="badge badge-pill badge-primary gestion">Gestion</span>
+                    <span class="badge badge-pill badge-success indus">Indus</span>
+                    <span class="badge badge-pill badge-danger reseau">Réseau</span>
                 </div>
             </div>
         </div>
@@ -217,8 +223,11 @@
                 </div>
             </div>
             <div class="row">
-                <div class=" col-12 px-4 description">
-                    <p>Je suis le cours de C++</p>
+                <div class="col-12 px-4 description">
+                    <p>Le cours est donné en :</p>
+                    <span class="badge badge-pill badge-primary gestion">Gestion</span>
+                    <span class="badge badge-pill badge-success indus">Indus</span>
+                    <span class="badge badge-pill badge-danger reseau">Réseau</span>
                 </div>
             </div>
         </div>

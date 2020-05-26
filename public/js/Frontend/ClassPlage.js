@@ -116,7 +116,8 @@ export class PlageHoraire {
                     // toaster erreur
                 }
                 else{
-                    let carteChoisieNouvelle = new CarteCoursChoisi(e.detail.idCours, e.detail.nomCours);
+                    let carteChoisieNouvelle = new CarteCoursChoisi(
+                        e.detail.idCours, e.detail.nomCours, e.detail.gestion, e.detail.indus, e.detail.reseau);
                     carteChoisieNouvelle.Affiche();
                     carteChoisieNouvelle.InitContenuHTML();
                     carteChoisieNouvelle.InitIdHTML(this.idHTML, this.corps);
@@ -128,7 +129,7 @@ export class PlageHoraire {
             }
             else{
                 // La Zone de drop est vide
-                let carteChoisieNouvelle = new CarteCoursChoisi(e.detail.idCours, e.detail.nomCours);
+                let carteChoisieNouvelle = new CarteCoursChoisi(e.detail.idCours, e.detail.nomCours, e.detail.gestion, e.detail.indus, e.detail.reseau);
                 carteChoisieNouvelle.Affiche();
                 carteChoisieNouvelle.InitContenuHTML();
                 carteChoisieNouvelle.InitIdHTML(this.idHTML, this.corps);

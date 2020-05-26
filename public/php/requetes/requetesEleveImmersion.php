@@ -64,7 +64,6 @@
         foreach ($bonParametres as $nomData => $regex) {
             if(!preg_match($regex, $data[$nomData])){
                 $retour["message"] = `La valeur recue {$nomData} ne respecte pas le regex choisi {$regex}, insertion impossible`;
-                // $retour["message"] = "La valeur recue $nomData ne respecte pas le regex choisi $regex, insertion impossible";
                 break;
             }
         }

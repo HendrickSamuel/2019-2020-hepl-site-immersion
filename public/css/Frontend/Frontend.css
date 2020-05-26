@@ -196,7 +196,7 @@ body {
 .carte-cours .info-cours .description {
   margin-left: 5px;
   margin-right: 5px;
-  font-size: 13px;
+  font-size: 15px;
 }
 
 .carte-cours-choisi {
@@ -278,7 +278,7 @@ body {
 .carte-cours-choisi .info-cours .description {
   margin-left: 5px;
   margin-right: 5px;
-  font-size: 13px;
+  font-size: 15px;
 }
 
 .carte-cours-indisponible {
@@ -343,7 +343,7 @@ body {
 .carte-cours-recap .info-cours .description {
   margin-left: 5px;
   margin-right: 5px;
-  font-size: 13px;
+  font-size: 15px;
 }
 
 .card {
@@ -451,21 +451,19 @@ body {
   background: #dfe7f2;
 }
 
-@media screen and (min-width: 200px) {
-  .zone-drop {
-    display: inline-block;
-    border-radius: .75em;
-    width: 330px;
-    max-width: 355px;
-    min-height: 205px;
-    max-height: 505px;
-    margin-top: 25px;
-    margin-bottom: 5px;
-    margin-left: 5px;
-    border: solid 3px #505b6a;
-    border-radius: .7em;
-    background: #dfe7f2;
-  }
+.zone-drop {
+  display: inline-block;
+  border-radius: .75em;
+  width: 330px;
+  max-width: 355px;
+  min-height: 205px;
+  max-height: 505px;
+  margin-top: 25px;
+  margin-bottom: 5px;
+  margin-left: 5px;
+  border: solid 3px #505b6a;
+  border-radius: .7em;
+  background: #dfe7f2;
 }
 
 .dragging {
@@ -512,5 +510,51 @@ body {
 }
 
 /*---------------------------------------------------------------------*/
+#form-question .r-btn-question input[type="radio"] {
+  -webkit-appearance: none;
+     -moz-appearance: none;
+          appearance: none;
+}
+
+#form-question .r-btn-question .r-btn-insatisfait, #form-question .r-btn-question .r-btn-meh, #form-question .r-btn-question .r-btn-neutre, #form-question .r-btn-question .r-btn-satisfait, #form-question .r-btn-question .r-btn-heureux {
+  opacity: 0.7;
+}
+
+#form-question .r-btn-question .r-btn-insatisfait:hover, #form-question .r-btn-question .r-btn-meh:hover, #form-question .r-btn-question .r-btn-neutre:hover, #form-question .r-btn-question .r-btn-satisfait:hover, #form-question .r-btn-question .r-btn-heureux:hover {
+  opacity: 0.8;
+  -webkit-transform: scale(1.1);
+          transform: scale(1.1);
+}
+
+#form-question .r-btn-question .r-btn-insatisfait {
+  color: red;
+}
+
+#form-question .r-btn-question .r-btn-meh {
+  color: #ff7300;
+}
+
+#form-question .r-btn-question .r-btn-neutre {
+  color: #b3ff00;
+}
+
+#form-question .r-btn-question .r-btn-satisfait {
+  color: #55ff00;
+}
+
+#form-question .r-btn-question .r-btn-heureux {
+  color: #00ff15;
+}
+
+#form-question .r-btn-question input[type="radio"]:checked + .r-btn-insatisfait,
+#form-question .r-btn-question input[type="radio"]:checked + .r-btn-meh,
+#form-question .r-btn-question input[type="radio"]:checked + .r-btn-neutre,
+#form-question .r-btn-question input[type="radio"]:checked + .r-btn-satisfait,
+#form-question .r-btn-question input[type="radio"]:checked + .r-btn-heureux {
+  opacity: 1;
+  -webkit-transform: scale(1.25);
+          transform: scale(1.25);
+}
+
 /*---------------------------------------------------------------------*/
 /*# sourceMappingURL=Frontend.css.map */

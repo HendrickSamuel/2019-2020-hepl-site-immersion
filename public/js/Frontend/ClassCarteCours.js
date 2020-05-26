@@ -27,7 +27,7 @@ export class CarteCours {
 		this.gestion =  data.Gestion;
 		this.indus = data.Indus;
 		this.reseau = data.Reseau;
-		this.date = data.Date;
+		this.date = data.DateCours;
 		
 		this.template = document.importNode(document.querySelector("#carteDisponibleTemplate").content, true);
 		this.corps = this.template.querySelector('.swiper-slide');
@@ -43,7 +43,13 @@ export class CarteCours {
 		this.btnAjout = carteCours.querySelector('.r-btn > button');
 		carteCours.querySelector('span').textContent = `${this.placeDispo}/${this.placeTotal}`;
 		carteCours.querySelector('.titre > p').textContent = `${this.nomCours}`;
-		carteCours.querySelector('.description > p').textContent = `Je suis le cours de ${this.nomCours}`;
+		// carteCours.querySelector('.description > p').textContent = `Je suis le cours de ${this.nomCours}`;
+		if(this.gestion == 0)
+			carteCours.querySelector('.gestion').remove();
+		if(this.indus == 0)
+			carteCours.querySelector('.indus').remove();
+		if(this.reseau == 0)
+			carteCours.querySelector('.reseau').remove();
 		this.EventAjoutCarte();
 	}
 	InitIdHTML(idPlageHTML, corpsPlage){
@@ -64,22 +70,25 @@ export class CarteCours {
 			detail:{
 				idCours : this.id,
 				idHTMLCarte : this.idHTML,
-				nomCours: this.nomCours
+				nomCours: this.nomCours,
+				gestion: this.gestion,
+				indus: this.indus,
+				reseau: this.reseau
 			}
 		});
 		this.corpsPlage.dispatchEvent(eventAjout);
 	}
 }
 export class CarteCoursChoisi{
-	constructor(idCoursDispo, nomCours){
+	constructor(idCoursDispo, nomCours, gestion, indus, reseau){
 		this.id = idCoursDispo;
 		this.nomCours = nomCours;
 		this.idHTML = undefined;
 		this.plage = undefined;
 		this.idPlageHTML = undefined;
-		this.placeTotal = undefined;
-		this.placeDispo = undefined;
-		this.date = undefined;
+		this.gestion =  gestion;
+		this.indus = indus;
+		this.reseau = reseau;
 		this.template = document.importNode(document.querySelector("#carteChoisieTemplate").content, true);
 		this.corps = this.template.querySelector('.carte-cours-choisi');
 		this.btnRemove = undefined;
@@ -91,7 +100,13 @@ export class CarteCoursChoisi{
 		this.btnRemove = this.corps.querySelector('.r-btn-close > button');
 		this.EventRemoveCarte();
 		this.corps.querySelector('.titre > p').textContent = `${this.nomCours}`;
-		this.corps.querySelector('.description > p').textContent = `Je suis le cours de ${this.nomCours}`;
+		// this.corps.querySelector('.description > p').textContent = `Je suis le cours de ${this.nomCours}`;
+		if(this.gestion == 0)
+			this.corps.querySelector('.gestion').remove();
+		if(this.indus == 0)
+			this.corps.querySelector('.indus').remove();
+		if(this.reseau == 0)
+			this.corps.querySelector('.reseau').remove();
 	}
 	GetHTML(){
 		return this.corps;
