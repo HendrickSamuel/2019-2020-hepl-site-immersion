@@ -22,8 +22,7 @@
                     <div class="input-group mt-3">
                         <div class="input-group-prepend">
                             <span class="input-group-text">
-                                <h4>Filtre: </h4>
-                                <i class="fas fa-envelope"></i></span>
+                                <i class="fas fa-filter"></i></span>
                         </div>
                         <input type="text" class="form-control form-control-lg" placeholder="Encodez La 1ere lettre du nom de famille" id="InputNom">
                     </div>

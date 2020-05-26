@@ -2,6 +2,10 @@
 <html lang="en">
 <head>
     <?php require(__DIR__ . "/../php/inc/head.php"); ?>
+
+    <!-- CSS perso -->
+    <link rel="stylesheet" type="text/css" href="/css/Frontend/Frontend.css">
+
     <meta charset="UTF-8">
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
@@ -69,7 +73,7 @@
                                 <div class="col-12 col-xl-6 mx-xl-auto">
                                     <div class="input-group mt-3">
                                         <div class="input-group-prepend">
-                                            <span class="input-group-text"><i class="fas fa-desktop"></i></span>
+                                            <span class="input-group-text"><i class="fas fa-clock"></i></span>
                                         </div>
                                         <select class="form-control form-control-lg" id="liste-plages" name="plages">
                                             <option value="3">3 premieres plages de la journée</option>
