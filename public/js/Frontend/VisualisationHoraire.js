@@ -5,6 +5,7 @@
 import {
     QUESTIONS
 } from '/js/ajax/requeteAjaxFrontend';
+import * as toast from '/js/toaster/toaster'
 
 document.addEventListener('DOMContentLoaded', () => {
     let formulaireEmail = document.querySelector('#form-email');
@@ -16,16 +17,26 @@ document.addEventListener('DOMContentLoaded', () => {
     let btnHoraire = document.querySelector('#btn-horaire');
     btnHoraire.classList.add('disabled');
 
+    let inputPrecedent = document.getElementById('InputGetEmail');
+    if(inputPrecedent != null)
+        PreCharge(inputPrecedent.value);
+
+    function PreCharge(email)
+    {
+        toast.toastrwarning('Votre email a été détecté, votre visualisation va etre chargée !');
+        QUESTIONS.selectIdEleve(email, DemandeIdEleveRequeteOK, DemandeIdEleveRequeteKO);
+    }
+
     inputMail.addEventListener('change', () => {MailValide(inputMail)});
     formulaireEmail.addEventListener('submit', (e) => { 
         e.preventDefault();
         if(emailValide){
-            QUESTIONS.selectIdEleve(inputMail.value, DemandeIdEleveRequeteOK, DemandeIdEleveRequeteKO);
+            let hash = md5(inputMail.value);
+            QUESTIONS.selectIdEleve(hash, DemandeIdEleveRequeteOK, DemandeIdEleveRequeteKO);
         }
     });
 
     function DemandeIdEleveRequeteOK(data) {
-        alert("Dans DemandeIdEleveRequeteOK");
         console.log(data);
         let reponse = (Object)(JSON.parse(JSON.stringify(data)));
         if(reponse['valid'] == true){
@@ -34,7 +45,6 @@ document.addEventListener('DOMContentLoaded', () => {
         }        
     }
     function DemandeIdEleveRequeteKO(data) {
-        alert("Dans DemandeIdEleveRequeteKO");
         let reponse = (Object)(JSON.parse(JSON.stringify(data)));
         console.log(reponse);
     }
@@ -53,6 +63,7 @@ document.addEventListener('DOMContentLoaded', () => {
             emailValide = false;
         }
     }
+
     function AfficherHoraire(btnHoraire) {
         btnHoraire.classList.remove('disabled');
         btnHoraire.target = "_blank";

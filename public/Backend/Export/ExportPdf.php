@@ -25,7 +25,7 @@ try {
             $condition = "";
     }
 
-    $sql = "SELECT Nom, Prenom, DATE_FORMAT(Date, '%W %d %b %Y', 'fr_FR') as 'Date'
+    $sql = "SELECT Nom, Prenom, MD5(Email) as hash, DATE_FORMAT(Date, '%W %d %b %Y', 'fr_FR') as 'Date'
                         FROM inscritscours
                         INNER JOIN eleves ON (Etudiant = eleves.ID)
                         INNER JOIN coursimmersion ON (Horaire = coursimmersion.ID)
@@ -53,13 +53,18 @@ $i = 0;
                 <p>était bien présent(e) ce <?php echo($val["Date"]); ?>.</p>
                 <br>
                 <small>Signature de la direction: </small>
+                <div style="text-align: right; float: right; margin-top: -100px">
+                    <img src="./QRCode.php?data=http://<?php echo($_SERVER["HTTP_HOST"] . "/Frontend/feedback.php?userKey=".$val["hash"]); ?>"/>
+                    <br>
+                    <small>Donnez votre avis sur la journées !</small>
+                </div>
             </div>
             <hr>
         <?php
             $i++;
             if($i == 4)
             {
-                //echo ("<pagebreak>");
+                echo ("<pagebreak>");
                 $i = 0;
             }
         }
@@ -67,8 +72,6 @@ $i = 0;
 $content = ob_get_contents();
 ob_clean();
 $mpdf->WriteHTML($content);
-$mpdf->SetWatermarkText("Demo uniquement");
-$mpdf->showWatermarkText = true;
 
 $mpdf->SetProtection([], "", "bidon");
 

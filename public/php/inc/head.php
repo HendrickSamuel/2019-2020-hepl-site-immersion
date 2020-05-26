@@ -17,6 +17,7 @@
     <script src="/js/lib/popper.js"></script>
     <script src="/js/lib/bootstrap.min.js"></script>
     <script src="/js/lib/toastr.min.js"></script>
+    <script src="/js/lib/md5.min.js"></script>
 
 
     <?php include_once(__DIR__.'/NoScript.php') ?>

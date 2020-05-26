@@ -10,7 +10,7 @@ switch ($_POST["action"])
 {
     case "GETIDFROMEMAIL":
         $db = new DataBase();
-        $sql = "SELECT ID FROM Eleves WHERE UPPER(Email) = UPPER(?);";
+        $sql = "SELECT ID FROM Eleves WHERE MD5(Email) = ?;";
         $stm = $db->connection->prepare($sql);
         $stm->execute(array($data));
         $id = $stm->fetch(PDO::FETCH_ASSOC);

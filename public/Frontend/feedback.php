@@ -10,7 +10,10 @@
 
     <!-- FontAwesome -->
     <link href="/css/all.min.css" type="text/css" rel="stylesheet"> <!--load all styles -->
-    
+
+    <!-- Toaster -->
+    <link rel="stylesheet" type="text/css" href="/css/toastr.min.css">
+
     <!-- CSS perso -->
     <link rel="stylesheet" type="text/css" href="/css/Frontend/Frontend.css">
     
@@ -21,6 +24,8 @@
     <script src="/js/lib/jquery.min.js"></script>
     <script src="/js/lib/bootstrap.min.js"></script>
     <script src="/js/lib/all.min.js"></script>
+    <script src="/js/lib/md5.min.js"></script>
+    <script src="/js/lib/toastr.min.js"></script>
     <script type="module" src="/js/Frontend/Feedback.js"></script>
 
     <title>Feedback Journée Immersion HEPL</title>
@@ -84,6 +89,15 @@
         </div>    
     </section>
 </body>
+
+<?php
+if(isset($_GET['userKey']) && !empty($_GET['userKey']))
+{
+    ?>
+    <input type="hidden" id="InputGetEmail" value="<?php echo $_GET['userKey']; ?>">
+    <?php
+}
+?>
 
 <template id="questionTemplate">
     <div id="" class="col-12 question  card my-3">

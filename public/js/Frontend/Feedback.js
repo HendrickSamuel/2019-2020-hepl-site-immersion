@@ -5,7 +5,7 @@
 import {
     QUESTIONS
 } from '/js/ajax/requeteAjaxFrontend';
-
+import * as toast from '/js/toaster/toaster'
 import * as questions from './ClassQuestion';
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -22,16 +22,25 @@ document.addEventListener('DOMContentLoaded', () => {
     
     let zoneEleve = document.querySelector('#zone-info-eleve');
 
+    let inputPrecedent = document.getElementById('InputGetEmail');
+    if(inputPrecedent != null)
+        PreCharge(inputPrecedent.value);
+
+    function PreCharge(email)
+    {
+        toast.toastrwarning('Nous avons détecté votre compte, vous allez pouvoir completer le formulaire !');
+        QUESTIONS.selectIdEleve(email, DemandeIdEleveRequeteOK, DemandeIdEleveRequeteKO);
+    }
 
     inputMail.addEventListener('change', () => {MailValide(inputMail)});
     formulaireEmail.addEventListener('submit', (e) => { 
         e.preventDefault();
         if(emailValide){
-            QUESTIONS.selectIdEleve(inputMail.value, DemandeIdEleveRequeteOK, DemandeIdEleveRequeteKO);
+            let hash = md5(inputMail.value);
+            QUESTIONS.selectIdEleve(hash, DemandeIdEleveRequeteOK, DemandeIdEleveRequeteKO);
         }
     });
     function DemandeIdEleveRequeteOK(data) {
-        alert("Dans DemandeIdEleveRequeteOK");
         console.log(data);
         let reponse = (Object)(JSON.parse(JSON.stringify(data)));
         if(reponse['valid'] == true){
@@ -42,7 +51,6 @@ document.addEventListener('DOMContentLoaded', () => {
         }        
     }
     function DemandeIdEleveRequeteKO(data) {
-        alert("Dans DemandeIdEleveRequeteKO");
         let reponse = (Object)(JSON.parse(JSON.stringify(data)));
         console.log(reponse);
     }
@@ -76,15 +84,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
     }
     function DemandeQuestionRequeteKO(data) {
-        alert("Dans DemandeQuestionRequeteKO ")
         console.log(data);
     }
     function InsertReponseRequeteOK(data){
-        alert("Dans InsertReponseRequeteOK");
         console.log(data);
     }
     function InsertReponseRequeteKO(data){
-        alert("Dans InsertReponseRequeteKO");
         console.log(data);
     }
     function CreationReponseAInserer(questionsFeedback){
