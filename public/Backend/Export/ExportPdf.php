@@ -31,7 +31,7 @@ try {
                         INNER JOIN coursimmersion ON (Horaire = coursimmersion.ID)
                         ".$condition."
                         GROUP BY Etudiant, Date
-                        ORDER BY Date DESC, Nom, Prenom;";
+                        ORDER BY Date, Nom, Prenom;";
 
         $stm = $db->connection->prepare($sql);
         $stm->execute(array(':etudiant' => $etudiantparam, ':date' => $dateparam));
@@ -46,7 +46,7 @@ $i = 0;
         foreach ($res as $val)
         {
         ?>
-            <div style="text-align: justify">
+            <div style="text-align: justify; margin-top: 25px">
                 <img src="/img/Logo_HEPL.png" alt="ImageDeLaHEPL" style="width: 20%">
                 <p>Par le présente, je sousigné ______________________, déclare que</p>
                 <h3><?php echo ($val["Nom"] . " " . $val["Prenom"]);?></h3>
@@ -62,7 +62,7 @@ $i = 0;
             <hr>
         <?php
             $i++;
-            if($i == 4)
+            if($i == 3)
             {
                 echo ("<pagebreak>");
                 $i = 0;
