@@ -50,7 +50,6 @@ if (isset($action) && !empty($action)) {
                 $result["result"] = false;
                 $result["message"] = "missing name for insert";
             }
-
             break;
 
         case "DELETE":
@@ -81,8 +80,8 @@ if (isset($action) && !empty($action)) {
             }
             break;
 
-        case "UPDATE":
-            if (isset($ID, $nom) && !empty($ID) && !empty($nom)) {
+        case "GETIDFROMEMAIL":
+            if (isset($Email) && !empty($Email)) {
                 try {
                     $sql = "SELECT * FROM profs WHERE ID = ?";
                     $stm = $db->connection->prepare($sql);
@@ -101,6 +100,7 @@ if (isset($action) && !empty($action)) {
                 $result["message"] = "missing id and name for update";
             }
             break;
+
         default:
             $result["result"] = false;
             $result["message"] = "wrong action";

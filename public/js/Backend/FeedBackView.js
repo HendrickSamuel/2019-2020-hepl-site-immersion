@@ -56,15 +56,15 @@ $(document).ready(function () {
             datasets: [{
                 data: chiffres,
                 backgroundColor: [
-                    'rgba(255,0,0,0.7)',
-                    'rgba(255,154,0,0.7)',
-                    'rgba(255,255,255,0.7)',
-                    'rgba(167,255,3,0.7)',
-                    'rgba(55,255,0,0.7)'
+                    '#fe1d25',
+                    '#ff8b24',
+                    '#fef921',
+                    '#7fe611',
+                    '#01d300'
                 ],
                 borderColor:
                     'rgba(0,0,0,0.7)',
-                borderWidth: 0.5
+                borderWidth: 1.5
             }],
 
             labels: [

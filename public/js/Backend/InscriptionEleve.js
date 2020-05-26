@@ -36,7 +36,6 @@ $(document).ready(function () {
             document.querySelector("#ReceptacleResultat").appendChild(a);
             a.innerText = "Afficher l'horaire";
             a.click();
-            // aller chercher les infos des cours (Nom, local, profs, heures etc);
         }
         else
         {
