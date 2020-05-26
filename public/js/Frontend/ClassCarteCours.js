@@ -32,7 +32,7 @@ export class CarteCours {
 		this.template = document.importNode(document.querySelector("#carteDisponibleTemplate").content, true);
 		this.corps = this.template.querySelector('.swiper-slide');
 		this.corpsPlage = undefined;
-		this.btnAjout = undefined;
+		this.btnAjout = undefined; 
 	}
 	Affiche(){
 		console.log(this);
