@@ -4,7 +4,7 @@
 
 	Auteurs	:	Hendrick Samuel
 				Khamana B. Benedict 
-	
+
 	But 	:	Défini le style des différentes pages	
 */
 /* Page d'acceuil : index.html */
@@ -27,10 +27,8 @@ body {
   background-color: #bf0724;
   color: #dfe7f2;
 }
-
 .btn-perso:hover {
-  -webkit-filter: brightness(120%);
-          filter: brightness(120%);
+  filter: brightness(120%);
 }
 
 nav {
@@ -38,4 +36,5 @@ nav {
   color: black;
   font-size: 1.2em;
 }
+
 /*# sourceMappingURL=style.css.map */

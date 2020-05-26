@@ -2,7 +2,6 @@ form label {
   padding: 12px 12px 12px 0;
   display: inline-block;
 }
-
 form input {
   background-color: #4CAF50;
   color: white;
@@ -16,21 +15,18 @@ form input {
 .content table {
   width: 100%;
 }
-
 .content table thead {
   border-bottom: 2px solid black;
 }
-
 .content table thead tr th {
   padding-left: 10px;
 }
-
 .content table tbody tr {
   border-bottom: 1px solid black;
 }
-
 .content table tbody tr td {
   font-size: 0.8em;
   padding-left: 10px;
 }
+
 /*# sourceMappingURL=Backend.css.map */

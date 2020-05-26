@@ -1,46 +1,35 @@
 body .page {
-  display: -ms-grid;
   display: grid;
-  -ms-grid-columns: 15% 85%;
-      grid-template-columns: 15% 85%;
+  grid-template-columns: 15% 85%;
 }
-
 body .page .sidebar {
   display: inline;
-  -ms-grid-column: 1;
   grid-column: 1;
   border-right: #1d2124 2px solid;
   height: 100%;
 }
-
 body .page .sidebar .card {
   margin: 5px;
   border-radius: 10px;
 }
-
 body .page .pagecontent {
-  -ms-grid-column: 2;
   grid-column: 2;
 }
-
 body .page .pagecontent table {
   width: 100%;
 }
-
 body .page .pagecontent table thead {
   border-bottom: 2px solid black;
 }
-
 body .page .pagecontent table thead tr th {
   padding-left: 10px;
 }
-
 body .page .pagecontent table tbody tr {
   border-bottom: 1px solid black;
 }
-
 body .page .pagecontent table tbody tr td {
   font-size: 0.8em;
   padding-left: 10px;
 }
+
 /*# sourceMappingURL=dashboard.css.map */
